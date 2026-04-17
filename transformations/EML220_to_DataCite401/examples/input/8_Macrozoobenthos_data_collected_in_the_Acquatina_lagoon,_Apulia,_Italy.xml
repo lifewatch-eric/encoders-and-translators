@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packageId="24146375-0059-4c28-8bf3-3f43bdf5be20" system="https://data.lifewatchitaly.eu" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" scope="system">
+  <dataset>
+    <alternateIdentifier>https://data.lifewatchitaly.eu/handle/123456789/129664</alternateIdentifier>
+    <alternateIdentifier>https://doi.org/10.48372/d4f9084a-81d3-4b18-a29d-845048addde8</alternateIdentifier>
+    <title>Macrozoobenthos data collected in the Acquatina lagoon, Apulia, Italy</title>
+    <creator>
+      <individualName>
+        <givenName>Alberto</givenName>
+        <surName>Basset</surName>
+      </individualName>
+      <organizationName>University of Salento</organizationName>
+      <positionName>Full professor</positionName>
+      <electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0002-3603-9316</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Ilaria</givenName>
+        <surName>Rosati</surName>
+      </individualName>
+      <organizationName>National Research Council (CNR), Institute of Research on Terrestrial Ecosystems (IRET)</organizationName>
+      <positionName>Technologist</positionName>
+      <electronicMailAddress>ilaria.rosati@cnr.it</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0003-3422-7230</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Stefano</givenName>
+        <surName>Maci</surName>
+      </individualName>
+      <organizationName>University of Salento</organizationName>
+      <positionName>PhD</positionName>
+      <electronicMailAddress>stefano.maci@unisalento.it</electronicMailAddress>
+    </creator>
+    <metadataProvider>
+      <individualName>
+        <givenName>Ilaria</givenName>
+        <surName>Rosati</surName>
+      </individualName>
+      <organizationName>National Research Council (CNR), Institute of Research on Terrestrial Ecosystems (IRET)</organizationName>
+      <positionName>Technologist</positionName>
+      <electronicMailAddress>ilaria.rosati@cnr.it</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0003-3422-7230</userId>
+    </metadataProvider>
+    <pubDate>2020-12-12</pubDate>
+    <language>English</language>
+    <abstract>The dataset contains abundance and body size data of benthic macroinvertebrate community of the Acquatina lagoon (Apulia, Italy). Data refer to 50 taxa and 14735 individuals.</abstract>
+    <keywordSet>
+      <keyword>Biodiversity</keyword>
+      <keywordThesaurus>Biodiversity Thesaurus</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Italy</keyword>
+      <keywordThesaurus>EuroVoc Core Concepts</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Brackish coastal lagoons</keyword>
+      <keywordThesaurus>EUNIS habitats</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Acquatina</keyword>
+      <keywordThesaurus>none</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Invertebrates</keyword>
+      <keywordThesaurus>eLTER Controlled Lists</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Size</keyword>
+      <keywordThesaurus>Traits Thesaurus</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>Free for use, including sharing and adaptation, by all individuals provided that the owners are acknowledged in any use or publication.</intellectualRights>
+    <licensed>
+      <licenseName>cc-by</licenseName>
+      <url>http://creativecommons.org/licenses/by/4.0/</url>
+    </licensed>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Acquatina is a brackish coastal lagoon located in the south Apulia (Italy).</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>18.233028</westBoundingCoordinate>
+          <eastBoundingCoordinate>18.247778</eastBoundingCoordinate>
+          <northBoundingCoordinate>40.448167</northBoundingCoordinate>
+          <southBoundingCoordinate>40.436833</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2007-07-23</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2008-06-12</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <annotation>
+      <propertyURI label="keyword">http://www.w3.org/ns/dcat#keyword</propertyURI>
+      <valueURI label="Biodiversity">http://data.loterre.fr/ark:/67375/BLH-FHNG3BCR-H</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="keyword">http://www.w3.org/ns/dcat#keyword</propertyURI>
+      <valueURI label="Size">https://kos.lifewatch.eu/thesauri/traits/c_bb852c2c</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="keyword">http://www.w3.org/ns/dcat#keyword</propertyURI>
+      <valueURI label="Invertebrates">http://vocabs.lter-europe.net/elter_cl/10699</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="keyword">http://www.w3.org/ns/dcat#keyword</propertyURI>
+      <valueURI label="Brackish coastal lagoons">http://eunis.eea.europa.eu/eunishabitats/X03</valueURI>
+    </annotation>
+    <annotation>
+      <propertyURI label="keyword">http://www.w3.org/ns/dcat#keyword</propertyURI>
+      <valueURI label="Italy">http://eurovoc.europa.eu/1519</valueURI>
+    </annotation>
+    <contact>
+      <individualName>
+        <givenName>Alberto</givenName>
+        <surName>Basset</surName>
+      </individualName>
+      <organizationName>University of Salento</organizationName>
+      <positionName>Full professor</positionName>
+      <electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0002-3603-9316</userId>
+    </contact>
+    <contact>
+      <individualName>
+        <givenName>Ilaria</givenName>
+        <surName>Rosati</surName>
+      </individualName>
+      <organizationName>National Research Council (CNR), Institute of Research on Terrestrial Ecosystems (IRET)</organizationName>
+      <positionName>Technologist</positionName>
+      <electronicMailAddress>ilaria.rosati@cnr.it</electronicMailAddress>
+      <userId directory="https://orcid.org/">0000-0003-3422-7230</userId>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>The study was performed using leaf packs of Phragmites australis and was carried out at sampling sites. The fieldwork was carried out over four seasons from summer 2007 to spring 2008. Phragmites australis leaves were cut into 10-cm-long fragments and oven-dried to constant weight (60 °C for 72 h), and then lots of 3.0 ± 0.1 g dry weight were placed in 5 mm mesh bags. 5 leaf packs were submersed at each sampling station and collected after 30 days.</description>
+      </methodStep>
+      <methodStep>
+        <description>The leaf packs were retrieved from the study sites and placed in a plastic bag, sealed and returned to the laboratory in an insulated cool box. The leaf material was carefully washed in flowing water and sieved in an 800 micrometer mesh size sieve in order to remove both organic and inorganic sediments and benthic macroinvertebrates. All animals were identified to the genus level, and, whenever possible, to species level, counted, and their body mass determined.</description>
+      </methodStep>
+      <sampling>
+        <studyExtent>
+          <description>The study was performed using leaf packs of Phragmites australis and was carried out at 4 sampling sites. 5 leaf packs were submersed at each sampling site and collected after 30 days.</description>
+        </studyExtent>
+        <samplingDescription>The sampling design was as follows: 4 seasons, 4 stations and 5 leaf packs for station.</samplingDescription>
+      </sampling>
+    </methods>
+    <dataTable>
+      <entityName>Macrozoobenthos_Acquatina_2007_2008.csv</entityName>
+      <entityDescription>The file contains abundance and body size data of benthic macroinvertebrate community of the Acquatina lagoon (Apulia, Italy). Data refer to 50 taxa and 14735 individuals.</entityDescription>
+      <physical>
+        <objectName>Macrozoobenthos_Acquatina_2007_2008.csv</objectName>
+        <size unit="byte">2397909</size>
+        <authentication>MD5:57b431f5befb718a39177e0eda3cd2cd</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>;</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>catalogNumber</attributeName>
+          <attributeLabel>Catalog Number</attributeLabel>
+          <attributeDefinition>An identifier (preferably unique) for the record within the data set or collection.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Catalog Number">http://rs.tdwg.org/dwc/terms/catalogNumber</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>eventID</attributeName>
+          <attributeLabel>Event ID</attributeLabel>
+          <attributeDefinition>An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>A</code>
+                    <definition>The code represents the leaf pack 1.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>B</code>
+                    <definition>The code represents the leaf pack 2.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>C</code>
+                    <definition>The code represents the leaf pack 3.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>D</code>
+                    <definition>The code represents the leaf pack 4.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>E</code>
+                    <definition>The code represents the leaf pack 5.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="hasCode">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasCode</propertyURI>
+            <valueURI label="Event ID">http://rs.tdwg.org/dwc/terms/eventID</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>parentEventID</attributeName>
+          <attributeLabel>Parent Event ID</attributeLabel>
+          <attributeDefinition>An identifier for the broader Event that groups this and potentially other Events.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>The code represents the station number.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>The code represents the station number.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>The code represents the station number.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>The code represents the station number.</definition>
+                    <source>-</source>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="hasCode">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasCode</propertyURI>
+            <valueURI label="Parent Event ID">http://rs.tdwg.org/dwc/terms/parentEventID</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>eventDate</attributeName>
+          <attributeLabel>Event Date</attributeLabel>
+          <attributeDefinition>The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>DD/MM/YYYY</formatString>
+            </dateTime>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Event Date">http://rs.tdwg.org/dwc/terms/eventDate</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>locality</attributeName>
+          <attributeLabel>Locality</attributeLabel>
+          <attributeDefinition>The specific description of the place. This term may contain information modified from the original to correct perceived errors or standardize the description.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Locality">http://rs.tdwg.org/dwc/terms/locality</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>decimalLatitude</attributeName>
+          <attributeLabel>Decimal Latitude</attributeLabel>
+          <attributeDefinition>The geographic latitude of the geographic center of a Location (in decimal degrees, using the spatial reference system WGS84). Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Decimal Latitude">http://rs.tdwg.org/dwc/terms/decimalLatitude</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>decimalLongitude</attributeName>
+          <attributeLabel>Decima Longitude</attributeLabel>
+          <attributeDefinition>The geographic longitude of the geographic center of a Location (in decimal degrees, using the spatial reference system WGS84). Positive values are east of the Prime Meridian, and negative values are west of it. Legal values lie between -180 and 180, inclusive.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Decimal Longitude">http://rs.tdwg.org/dwc/terms/decimalLongitude</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>phylum</attributeName>
+          <attributeLabel>Phylum</attributeLabel>
+          <attributeDefinition>The full scientific name of the phylum or division in which the taxon is classified.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Phylum">http://rs.tdwg.org/dwc/terms/phylum</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>class</attributeName>
+          <attributeLabel>Class</attributeLabel>
+          <attributeDefinition>The full scientific name of the class in which the taxon is classified.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Class">http://rs.tdwg.org/dwc/terms/class</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>order</attributeName>
+          <attributeLabel>Order</attributeLabel>
+          <attributeDefinition>The full scientific name of the order in which the taxon is classified.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Order">http://rs.tdwg.org/dwc/terms/order</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>family</attributeName>
+          <attributeLabel>Family</attributeLabel>
+          <attributeDefinition>The full scientific name of the family in which the taxon is classified.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Family">http://rs.tdwg.org/dwc/terms/family</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>providedScientificName</attributeName>
+          <attributeLabel>Provided Scientific Name</attributeLabel>
+          <attributeDefinition>The scientificname, with authorship and date information if known, as it originally appeared before of the taxonomic check.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Scientific Name">http://rs.tdwg.org/dwc/terms/scientificName</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>scientificName</attributeName>
+          <attributeLabel>Scientific Name</attributeLabel>
+          <attributeDefinition>The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Any Text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="has context">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#hasContext</propertyURI>
+            <valueURI label="Accepted Name Usage">http://rs.tdwg.org/dwc/terms/acceptedNameUsage</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>ashFreeDryWeight</attributeName>
+          <attributeLabel>Ash Free Dry Weight</attributeLabel>
+          <attributeDefinition>The ash free dry weight is the dry weight (inorganic + organic contents) minus the weight of the ash (inorganic contents only) obtained after combustion at high temperature.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligram</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Ash Free Dry Weight">https://kos.lifewatch.eu/thesauri/traits/c_4eb7719f</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>ashWeight</attributeName>
+          <attributeLabel>Ash Weight</attributeLabel>
+          <attributeDefinition>The weight of inorganic material obtained after muffle furnace combustion at 450-500 °C for 6/12 hours or longer for larger quantities. Ash weight is determined by subtracting the tare weight. Ash weight is often expressed as a percentage of dry weight or wet weight.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Ash Weight">https://kos.lifewatch.eu/thesauri/traits/c_c50e466a</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>dryWeight</attributeName>
+          <attributeLabel>Dry Weight</attributeLabel>
+          <attributeDefinition>The weight obtained after prolonged oven-drying to remove the water content.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligram</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Dry Weight">https://kos.lifewatch.eu/thesauri/traits/c_4d66d52a</valueURI>
+          </annotation>
+        </attribute>
+        <attribute>
+          <attributeName>bodyLength</attributeName>
+          <attributeLabel>Body Length</attributeLabel>
+          <attributeDefinition>The distance along the major axis of the body of an organism.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>millimeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <annotation>
+            <propertyURI label="contains measurements of type">http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType</propertyURI>
+            <valueURI label="Body Length">https://kos.lifewatch.eu/thesauri/traits/c_d266fb02</valueURI>
+          </annotation>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>14735</numberOfRecords>
+    </dataTable>
+  </dataset>
+</eml:eml>

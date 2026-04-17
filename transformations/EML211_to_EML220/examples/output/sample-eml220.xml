@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd http://www.xml-cml.org/schema/stmml-1.2 http://www.xml-cml.org/schema/stmml-1.2/stmml.xsd" packageId="lifewatch.sample.dataset.1" system="http://gbif.org" scope="system" xml:lang="en">
+  <dataset>
+    <alternateIdentifier/>
+    <distribution>
+      <online>
+        <onlineDescription>Dataset landing page</onlineDescription>
+        <url>https://data.lifewatch.eu/datasets/sample</url>
+      </online>
+    </distribution>
+    <title>Sample Biodiversity Dataset — LifeWatch ERIC</title>
+    <creator>
+      <individualName>
+        <givenName>Maria</givenName>
+        <surName>Rossi</surName>
+      </individualName>
+      <organizationName>LifeWatch ERIC</organizationName>
+      <electronicMailAddress>m.rossi@lifewatch.eu</electronicMailAddress>
+    </creator>
+    <pubDate>2019-01-01</pubDate>
+    <language>en</language>
+    <abstract>
+      <para>
+        This is a representative sample dataset demonstrating the EML 2.1.1
+        to EML 2.2.0 transformation. It contains fictional species occurrence
+        records collected across Mediterranean coastal habitats.
+      </para>
+    </abstract>
+    <keywordSet>
+      <keyword>biodiversity</keyword>
+      <keyword>Mediterranean</keyword>
+      <keyword>marine ecology</keyword>
+      <keywordThesaurus>GBIF Dataset Type Vocabulary</keywordThesaurus>
+    </keywordSet>
+    <contact>
+      <individualName>
+        <givenName>Luca</givenName>
+        <surName>Ferrari</surName>
+      </individualName>
+      <organizationName>LifeWatch ERIC Service Centre</organizationName>
+      <electronicMailAddress>l.ferrari@lifewatch.eu</electronicMailAddress>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <para>Field surveys were conducted between April and October 2018. Sampling followed standardised MSFD protocols.</para>
+        </description>
+      </methodStep>
+      <sampling>
+        <studyExtent>
+          <description>
+            <para>Adriatic Sea coastal zone, 0–50 m depth.</para>
+          </description>
+        </studyExtent>
+        <samplingDescription>
+          <para>Quadrat sampling at 10 m intervals along transects.</para>
+        </samplingDescription>
+      </sampling>
+    </methods>
+    <project>
+      <title>LifeWatch Mediterranean Monitoring Programme</title>
+      <personnel>
+        <individualName>
+          <givenName>Sofia</givenName>
+          <surName>Greco</surName>
+        </individualName>
+        <role>principalInvestigator</role>
+      </personnel>
+    </project>
+    <dataTable>
+      <entityName>occurrences.csv</entityName>
+      <entityDescription>Species occurrence records</entityDescription>
+      <physical>
+        <objectName>occurrences.csv</objectName>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <fieldDelimiter>,</fieldDelimiter>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>https://data.lifewatch.eu/datasets/sample/occurrences.csv</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>occurrenceID</attributeName>
+          <attributeDefinition>Unique identifier for each occurrence record</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>UUID</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>scientificName</attributeName>
+          <attributeDefinition>Full scientific name of the observed taxon</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Binomial nomenclature</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+      </attributeList>
+    </dataTable>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <gbif>
+        <physical>
+          <objectName>Dataset landing page</objectName>
+          <distribution>
+            <online>
+              <url>https://data.lifewatch.eu/datasets/sample</url>
+            </online>
+          </distribution>
+        </physical>
+      </gbif>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

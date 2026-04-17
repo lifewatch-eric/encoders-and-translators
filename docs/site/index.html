@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LifeWatch XSLT Transformations — Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:        #0d1117;
+    --surface:   #161b22;
+    --border:    #21262d;
+    --accent:    #3fb950;
+    --accent2:   #58a6ff;
+    --accent3:   #d2a8ff;
+    --warn:      #e3b341;
+    --text:      #e6edf3;
+    --muted:     #8b949e;
+    --tag-bg:    #1f2937;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,17,23,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 58px;
+  }
+  .nav-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem; font-weight: 600;
+    color: var(--text);
+    display: flex; align-items: center; gap: 0.6rem;
+    text-decoration: none;
+  }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.82rem; text-decoration: none;
+    font-family: 'DM Mono', monospace; letter-spacing: 0.03em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 6rem 2.5rem 4rem;
+    max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.18em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 28px; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent2); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 620px;
+    line-height: 1.75; margin-bottom: 2.5rem;
+  }
+  .badge-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--tag-bg); border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem; border-radius: 4px;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted);
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .badge-green .badge-dot  { background: var(--accent); }
+  .badge-blue .badge-dot   { background: var(--accent2); }
+  .badge-purple .badge-dot { background: var(--accent3); }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ── SECTION ── */
+  section { max-width: 900px; margin: 0 auto; padding: 4rem 2.5rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.2em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.8rem;
+  }
+  h2 {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 1.9rem; margin-bottom: 1.2rem;
+  }
+  p { color: var(--muted); margin-bottom: 1rem; }
+
+  /* ── TREE ── */
+  .tree-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.8rem 2rem;
+    margin-top: 1.5rem;
+    overflow-x: auto;
+  }
+  .tree-card pre {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem; line-height: 1.95;
+    color: var(--muted);
+  }
+  .tree-card .t-dir    { color: var(--accent2); }
+  .tree-card .t-file   { color: var(--text); }
+  .tree-card .t-stable { color: var(--accent); }
+  .tree-card .t-plan   { color: var(--warn); }
+  .tree-card .t-dim    { color: #4a5568; }
+  .tree-card .t-comment{ color: #3a5a3a; font-style: italic; }
+
+  /* ── TRANSFORMATION CARDS ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.4rem 1.5rem;
+    transition: border-color .2s, transform .2s;
+    position: relative; overflow: hidden;
+  }
+  .card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+  .card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+  }
+  .card.stable::before { background: var(--accent); }
+  .card.planned::before { background: var(--warn); }
+  .card-name {
+    font-family: 'DM Mono', monospace; font-size: 0.8rem;
+    color: var(--text); margin-bottom: 0.5rem; font-weight: 500;
+  }
+  .card-arrow {
+    font-size: 1.5rem; margin-bottom: 0.6rem; line-height: 1;
+  }
+  .card-from { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.2rem; }
+  .card-to   { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.9rem; }
+  .card-from span, .card-to span {
+    font-family: 'DM Mono', monospace;
+    background: var(--tag-bg); padding: 0.1rem 0.4rem;
+    border-radius: 3px; font-size: 0.68rem;
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.68rem; font-family: 'DM Mono', monospace;
+    padding: 0.2rem 0.55rem; border-radius: 4px;
+    border: 1px solid;
+  }
+  .status.stable  { color: var(--accent); border-color: #1a4a1f; background: #0d2211; }
+  .status.planned { color: var(--warn);   border-color: #4a3a0a; background: #221d07; }
+  .card-desc { margin-top: 0.8rem; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── PIPELINE ── */
+  .pipeline {
+    display: flex; align-items: center; gap: 0;
+    margin: 2rem 0; overflow-x: auto;
+  }
+  .pipe-node {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.8rem 1.2rem; min-width: 130px;
+    text-align: center; flex-shrink: 0;
+  }
+  .pipe-node .pn-label {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--muted); margin-bottom: 0.3rem;
+  }
+  .pipe-node .pn-name {
+    font-size: 0.82rem; color: var(--text); font-weight: 500;
+  }
+  .pipe-arrow {
+    flex-shrink: 0; padding: 0 0.3rem;
+    color: var(--muted); font-size: 1.1rem;
+  }
+  .pipe-xsl {
+    flex-shrink: 0; text-align: center; padding: 0 0.5rem;
+  }
+  .pipe-xsl .pn-label {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    color: var(--accent); background: #0d2211;
+    border: 1px solid #1a4a1f;
+    padding: 0.15rem 0.5rem; border-radius: 3px;
+  }
+
+  /* ── QUICK START ── */
+  .code-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-top: 1rem;
+  }
+  .code-header {
+    background: var(--tag-bg); padding: 0.55rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+  .code-header span {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted);
+  }
+  .code-dots { display: flex; gap: 5px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+  pre.code {
+    padding: 1.3rem 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem; line-height: 1.8;
+    color: var(--muted); overflow-x: auto;
+  }
+  pre.code .kw  { color: var(--accent2); }
+  pre.code .str { color: var(--accent); }
+  pre.code .cm  { color: #4a5568; font-style: italic; }
+  pre.code .fl  { color: var(--accent3); }
+
+  /* ── GOVERNANCE TABLE ── */
+  .gtable { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+  .gtable th, .gtable td {
+    padding: 0.75rem 1rem;
+    text-align: left; font-size: 0.83rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .gtable th {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--surface);
+  }
+  .gtable td { color: var(--muted); }
+  .gtable td code {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    background: var(--tag-bg); padding: 0.1rem 0.4rem; border-radius: 3px;
+    color: var(--text);
+  }
+  .tag-private {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.68rem; font-family: 'DM Mono', monospace;
+    padding: 0.15rem 0.5rem; border-radius: 3px;
+    color: #f85149; background: #3d0f0f; border: 1px solid #7a1e1e;
+  }
+  .tag-public {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.68rem; font-family: 'DM Mono', monospace;
+    padding: 0.15rem 0.5rem; border-radius: 3px;
+    color: var(--accent); background: #0d2211; border: 1px solid #1a4a1f;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #4a5568;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent2); }
+
+  /* ── DETAIL LINK ── */
+  .detail-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    color: var(--accent2); text-decoration: none;
+    margin-top: 0.8rem;
+    transition: gap .15s;
+  }
+  .detail-link:hover { gap: 0.7rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <span class="nav-dot"></span>
+    LifeWatch XSLT
+  </a>
+  <ul class="nav-links">
+    <li><a href="#structure">Structure</a></li>
+    <li><a href="#transformations">Transformations</a></li>
+    <li><a href="#quickstart">Quick Start</a></li>
+    <li><a href="#governance">Governance</a></li>
+    <li><a href="eml211-to-eml220.html">EML211→220 Docs</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">LifeWatch ERIC · Metadata Infrastructure</div>
+  <h1>XSLT <em>Transformation</em><br/>Repository</h1>
+  <p class="hero-sub">
+    A centralised, versioned collection of XSLT 1.0 stylesheets for transforming
+    biodiversity metadata between standards — EML, DataCite, ISO 19139 and beyond.
+  </p>
+  <div class="badge-row">
+    <span class="badge badge-green"><span class="badge-dot"></span>XSLT 1.0</span>
+    <span class="badge badge-blue"><span class="badge-dot"></span>MIT License</span>
+    <span class="badge badge-purple"><span class="badge-dot"></span>Saxon-HE · lxml</span>
+  </div>
+</div>
+<hr class="divider"/>
+
+<!-- ── REPO STRUCTURE ── -->
+<section id="structure">
+  <div class="section-label">01 — Repository layout</div>
+  <h2>Project Structure</h2>
+  <p>Every transformation is fully self-contained in its own folder. The <code>shared/</code> library holds reusable templates imported by multiple stylesheets.</p>
+  <div class="tree-card">
+<pre>
+<span class="t-dir">lifewatch-xslt-transformations/</span>
+│
+├── <span class="t-dir">transformations/</span>                    <span class="t-comment"># one sub-folder per conversion</span>
+│   ├── <span class="t-dir">EML211_to_EML220/</span>               <span class="t-stable">← ✅ Stable</span>
+│   │   ├── <span class="t-dir">xslt/</span>
+│   │   │   └── <span class="t-file">main.xsl</span>               <span class="t-comment"># transformation stylesheet</span>
+│   │   ├── <span class="t-dir">examples/</span>
+│   │   │   ├── <span class="t-dir">input/</span>                 <span class="t-comment"># EML 2.1.1 sample files</span>
+│   │   │   └── <span class="t-dir">output/</span>                <span class="t-comment"># expected EML 2.2.0 results</span>
+│   │   ├── <span class="t-dir">docs/</span>
+│   │   │   └── <span class="t-file">mapping-notes.md</span>       <span class="t-comment"># field-level mapping doc</span>
+│   │   ├── <span class="t-file">test_transformation.py</span>         <span class="t-comment"># automated test suite</span>
+│   │   └── <span class="t-file">README.md</span>
+│   │
+│   ├── <span class="t-dir">EML220_to_DataCite401/</span>          <span class="t-plan">← 🚧 Planned</span>
+│   │   └── <span class="t-dim">xslt/ · examples/ · docs/ · README.md</span>
+│   │
+│   └── <span class="t-dir">ISO19139_to_EML220/</span>             <span class="t-plan">← 🚧 Planned</span>
+│       └── <span class="t-dim">xslt/ · examples/ · docs/ · README.md</span>
+│
+├── <span class="t-dir">shared/</span>                             <span class="t-comment"># shared named templates</span>
+│   ├── <span class="t-file">macros.xsl</span>                     <span class="t-comment"># replace-string, normalize-date …</span>
+│   └── <span class="t-file">namespaces.xml</span>                 <span class="t-comment"># canonical URI reference</span>
+│
+├── <span class="t-dir">docs/</span>                               <span class="t-comment"># repository-level guides</span>
+│   ├── <span class="t-file">architecture.md</span>
+│   ├── <span class="t-file">contributing.md</span>
+│   └── <span class="t-file">adding-a-transformation.md</span>
+│
+├── <span class="t-dir">ci/</span>
+│   └── <span class="t-file">validate.sh</span>                    <span class="t-comment"># Saxon-based CI runner</span>
+│
+├── <span class="t-file">LICENSE</span>                             <span class="t-comment"># MIT</span>
+└── <span class="t-file">README.md</span>
+</pre>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- ── TRANSFORMATIONS ── -->
+<section id="transformations">
+  <div class="section-label">02 — Supported conversions</div>
+  <h2>Transformations</h2>
+  <p>Each transformation lives in an isolated folder and ships with example input/output pairs and a test suite.</p>
+
+  <div class="cards">
+
+    <div class="card stable">
+      <div class="card-arrow">⬆</div>
+      <div class="card-name">EML211_to_EML220</div>
+      <div class="card-from">From <span>EML 2.1.1</span></div>
+      <div class="card-to">To &nbsp;&nbsp;<span>EML 2.2.0</span></div>
+      <span class="status stable">✅ Stable</span>
+      <div class="card-desc">Upgrades namespace URIs, normalises pubDate, injects alternateIdentifier, harvests distribution URLs and reshapes project/methods structure.</div>
+      <a class="detail-link" href="eml211-to-eml220.html">Full documentation →</a>
+    </div>
+
+    <div class="card planned">
+      <div class="card-arrow">⬆</div>
+      <div class="card-name">EML220_to_DataCite401</div>
+      <div class="card-from">From <span>EML 2.2.0</span></div>
+      <div class="card-to">To &nbsp;&nbsp;<span>DataCite 4.0.1</span></div>
+      <span class="status planned">🚧 Planned</span>
+      <div class="card-desc">Maps EML dataset metadata to the DataCite Metadata Schema for DOI registration with DataCite-compliant resource records.</div>
+    </div>
+
+    <div class="card planned">
+      <div class="card-arrow">⬆</div>
+      <div class="card-name">ISO19139_to_EML220</div>
+      <div class="card-from">From <span>ISO 19139</span></div>
+      <div class="card-to">To &nbsp;&nbsp;<span>EML 2.2.0</span></div>
+      <span class="status planned">🚧 Planned</span>
+      <div class="card-desc">Converts ISO 19139 geographic metadata (gmd/gco namespaces) into EML 2.2.0, mapping responsible party roles and bounding-box coverage.</div>
+    </div>
+
+  </div>
+
+  <p style="margin-top:2rem;">Transformations can be <strong style="color:var(--text);">chained</strong> to reach a target format in multiple hops:</p>
+  <div class="pipeline">
+    <div class="pipe-node">
+      <div class="pn-label">Source</div>
+      <div class="pn-name">EML 2.1.1</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-xsl"><span class="pn-label">EML211_to_EML220</span></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node">
+      <div class="pn-label">Intermediate</div>
+      <div class="pn-name">EML 2.2.0</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-xsl"><span class="pn-label">EML220_to_DataCite401</span></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node">
+      <div class="pn-label">Target</div>
+      <div class="pn-name">DataCite 4.0.1</div>
+    </div>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- ── QUICK START ── -->
+<section id="quickstart">
+  <div class="section-label">03 — Get started</div>
+  <h2>Quick Start</h2>
+  <p>Any XSLT 1.0 processor works. Saxon-HE and Python lxml are the recommended options.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+      <span>Saxon-HE (Java)</span>
+    </div>
+<pre class="code">
+<span class="cm"># Run a transformation</span>
+java -jar saxon-he.jar \
+  <span class="fl">-s</span>:transformations/EML211_to_EML220/examples/input/sample-eml211.xml \
+  <span class="fl">-xsl</span>:transformations/EML211_to_EML220/xslt/main.xsl \
+  <span class="fl">-o</span>:output.xml
+
+<span class="cm"># Override packageId</span>
+java -jar saxon-he.jar \
+  <span class="fl">-s</span>:your-file.xml <span class="fl">-xsl</span>:transformations/EML211_to_EML220/xslt/main.xsl \
+  <span class="fl">-o</span>:output.xml <span class="kw">package-id</span>=<span class="str">my.new.package.id</span>
+</pre>
+  </div>
+
+  <div class="code-block" style="margin-top:1rem;">
+    <div class="code-header">
+      <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+      <span>Python lxml (no Java required)</span>
+    </div>
+<pre class="code">
+<span class="cm"># Test against bundled sample</span>
+<span class="kw">python3</span> transformations/EML211_to_EML220/test_transformation.py
+
+<span class="cm"># Test against your own EML 2.1.1 file</span>
+<span class="kw">python3</span> transformations/EML211_to_EML220/test_transformation.py \
+  <span class="fl">--input</span> /path/to/your-eml211-file.xml \
+  <span class="fl">--output</span> /path/to/result.xml
+</pre>
+  </div>
+
+  <div class="code-block" style="margin-top:1rem;">
+    <div class="code-header">
+      <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+      <span>CI — validate all transformations</span>
+    </div>
+<pre class="code">
+bash ci/validate.sh                     <span class="cm"># run all</span>
+bash ci/validate.sh EML211_to_EML220    <span class="cm"># run one</span>
+</pre>
+  </div>
+</section>
+<hr class="divider"/>
+
+<!-- ── GOVERNANCE ── -->
+<section id="governance">
+  <div class="section-label">04 — Access &amp; governance</div>
+  <h2>Visibility Model</h2>
+  <p>The repository is private by default. Individual stable transformations can be extracted into standalone public repositories using <code>git subtree split</code>.</p>
+  <table class="gtable">
+    <thead>
+      <tr><th>Scope</th><th>Default visibility</th><th>Extraction command</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>This repository (all transformations)</td>
+        <td><span class="tag-private">🔒 Private</span></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><code>EML211_to_EML220</code> (stable)</td>
+        <td><span class="tag-public">🌐 Extractable</span></td>
+        <td><code>git subtree split --prefix=transformations/EML211_to_EML220</code></td>
+      </tr>
+      <tr>
+        <td><code>EML220_to_DataCite401</code> (planned)</td>
+        <td><span class="tag-private">🔒 Private</span></td>
+        <td>Available after stabilisation</td>
+      </tr>
+      <tr>
+        <td><code>ISO19139_to_EML220</code> (planned)</td>
+        <td><span class="tag-private">🔒 Private</span></td>
+        <td>Available after stabilisation</td>
+      </tr>
+      <tr>
+        <td><code>shared/</code></td>
+        <td><span class="tag-private">🔒 Internal</span></td>
+        <td>Stays in monorepo always</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>© 2026 LifeWatch ERIC &nbsp;·&nbsp; MIT License &nbsp;·&nbsp;
+    <a href="https://eml.ecoinformatics.org/">EML Specification</a> &nbsp;·&nbsp;
+    <a href="https://schema.datacite.org/">DataCite Schema</a>
+  </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  EML211_to_EML220 — Transformation Flow Diagram
+  ================================================
+  Open in any browser or SVG viewer.
+  Describes the complete execution path of xslt/main.xsl.
+-->
+<svg viewBox="0 0 820 1020" xmlns="http://www.w3.org/2000/svg"
+     style="background:#0d1117;font-family:monospace">
+  <defs>
+    <style>
+      text { font-family: 'DM Mono', 'Courier New', monospace; }
+    </style>
+    <marker id="arr"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/></marker>
+    <marker id="arrg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/></marker>
+    <marker id="arro" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e3b341"/></marker>
+  </defs>
+
+  <!-- title -->
+  <text x="410" y="28" text-anchor="middle" font-size="13" fill="#e6edf3" font-weight="bold">EML 2.1.1 → EML 2.2.0 — Transformation Flow</text>
+  <text x="410" y="44" text-anchor="middle" font-size="9" fill="#8b949e">xslt/main.xsl · XSLT 1.0 · LifeWatch ERIC</text>
+
+  <!-- INPUT -->
+  <rect x="280" y="58" width="260" height="48" rx="8" fill="#0d2211" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="410" y="78" text-anchor="middle" font-size="9" fill="#3fb950">INPUT</text>
+  <text x="410" y="96" text-anchor="middle" font-size="11" fill="#e6edf3" font-weight="bold">EML 2.1.1 document</text>
+  <line x1="410" y1="106" x2="410" y2="138" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- match root -->
+  <rect x="240" y="138" width="340" height="40" rx="7" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+  <text x="410" y="154" text-anchor="middle" font-size="8" fill="#8b949e">xsl:template match="/*"</text>
+  <text x="410" y="170" text-anchor="middle" font-size="10" fill="#e6edf3">Match root element — reconstruct eml:eml</text>
+  <line x1="410" y1="178" x2="410" y2="208" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- iterate attrs -->
+  <rect x="210" y="208" width="400" height="40" rx="7" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+  <text x="410" y="224" text-anchor="middle" font-size="8" fill="#8b949e">xsl:for-each select="@*"</text>
+  <text x="410" y="240" text-anchor="middle" font-size="10" fill="#e6edf3">Iterate all root attributes</text>
+  <line x1="410" y1="248" x2="410" y2="276" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- decision: xsi? -->
+  <polygon points="410,276 570,304 410,332 250,304" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="410" y="300" text-anchor="middle" font-size="10" fill="#58a6ff">xsi: namespace?</text>
+
+  <!-- YES right -->
+  <line x1="570" y1="304" x2="625" y2="304" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrg)"/>
+  <text x="594" y="298" text-anchor="middle" font-size="8" fill="#3fb950">YES</text>
+  <rect x="625" y="280" width="175" height="48" rx="6" fill="#0d2211" stroke="#1a4a1f" stroke-width="1.5"/>
+  <text x="712" y="299" text-anchor="middle" font-size="9" fill="#3fb950">① Rewrite namespace</text>
+  <text x="712" y="313" text-anchor="middle" font-size="8" fill="#8b949e">eml-2.1.1 → eml-2.2.0</text>
+  <text x="712" y="325" text-anchor="middle" font-size="8" fill="#8b949e">stmml-1.1 → stmml-1.2</text>
+
+  <!-- NO left -->
+  <line x1="250" y1="304" x2="195" y2="304" stroke="#e3b341" stroke-width="1.5" marker-end="url(#arro)"/>
+  <text x="222" y="298" text-anchor="middle" font-size="8" fill="#e3b341">NO</text>
+  <polygon points="140,304 195,280 250,304 195,328" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+  <text x="195" y="300" text-anchor="middle" font-size="8" fill="#e3b341">packageId</text>
+  <text x="195" y="312" text-anchor="middle" font-size="8" fill="#e3b341">attr?</text>
+  <line x1="195" y1="328" x2="195" y2="356" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrg)"/>
+  <rect x="100" y="356" width="190" height="42" rx="6" fill="#0d2211" stroke="#1a4a1f" stroke-width="1.5"/>
+  <text x="195" y="374" text-anchor="middle" font-size="9" fill="#3fb950">② packageId override</text>
+  <text x="195" y="388" text-anchor="middle" font-size="8" fill="#8b949e">param or preserve original</text>
+
+  <!-- attrs done → child loop -->
+  <line x1="410" y1="332" x2="410" y2="368" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="420" y="354" font-size="8" fill="#8b949e">attrs done</text>
+
+  <!-- iterate children -->
+  <rect x="210" y="368" width="400" height="40" rx="7" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+  <text x="410" y="384" text-anchor="middle" font-size="8" fill="#8b949e">xsl:for-each select="/*/*"</text>
+  <text x="410" y="400" text-anchor="middle" font-size="10" fill="#e6edf3">Iterate top-level child elements</text>
+  <line x1="410" y1="408" x2="410" y2="436" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- decision: element name -->
+  <polygon points="410,436 590,465 410,494 230,465" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="410" y="461" text-anchor="middle" font-size="10" fill="#58a6ff">element name?</text>
+
+  <!-- dataset branch down -->
+  <line x1="410" y1="494" x2="410" y2="522" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrg)"/>
+  <text x="420" y="512" font-size="8" fill="#3fb950">&lt;dataset&gt;</text>
+
+  <!-- dataset box -->
+  <rect x="215" y="522" width="390" height="192" rx="8" fill="#0d1a0d" stroke="#1a4a1f" stroke-width="1.5"/>
+  <text x="410" y="540" text-anchor="middle" font-size="8" fill="#3fb950">handle-elements-under-main-module-dataset</text>
+
+  <rect x="228" y="547" width="168" height="34" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="312" y="561" text-anchor="middle" font-size="9" fill="#3fb950">③ &lt;alternateIdentifier/&gt;</text>
+  <text x="312" y="575" text-anchor="middle" font-size="8" fill="#8b949e">inject as first child</text>
+
+  <rect x="408" y="547" width="184" height="34" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="500" y="561" text-anchor="middle" font-size="9" fill="#3fb950">④ &lt;distribution&gt; harvest</text>
+  <text x="500" y="575" text-anchor="middle" font-size="8" fill="#8b949e">gbif/physical + otherEntity</text>
+
+  <rect x="228" y="590" width="168" height="34" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="312" y="604" text-anchor="middle" font-size="9" fill="#3fb950">⑤ pubDate normalise</text>
+  <text x="312" y="618" text-anchor="middle" font-size="8" fill="#8b949e">YYYY → YYYY-01-01</text>
+
+  <rect x="408" y="590" width="184" height="34" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="500" y="604" text-anchor="middle" font-size="9" fill="#3fb950">⑥ dataTable reshape</text>
+  <text x="500" y="618" text-anchor="middle" font-size="8" fill="#8b949e">guard attributeList</text>
+
+  <rect x="228" y="633" width="168" height="34" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="312" y="647" text-anchor="middle" font-size="9" fill="#3fb950">⑦ project normalise</text>
+  <text x="312" y="661" text-anchor="middle" font-size="8" fill="#8b949e">title · personnel · role</text>
+
+  <rect x="408" y="633" width="184" height="34" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="500" y="647" text-anchor="middle" font-size="9" fill="#3fb950">⑧ methods reshape</text>
+  <text x="500" y="661" text-anchor="middle" font-size="8" fill="#8b949e">steps · sampling</text>
+
+  <rect x="228" y="676" width="364" height="28" rx="5" fill="#112211" stroke="#1a4a1f"/>
+  <text x="410" y="694" text-anchor="middle" font-size="8" fill="#8b949e">⑨ identity copy — all other children pass through</text>
+
+  <!-- other elements right -->
+  <line x1="590" y1="465" x2="648" y2="465" stroke="#d2a8ff" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="616" y="459" text-anchor="middle" font-size="8" fill="#d2a8ff">other</text>
+  <rect x="648" y="444" width="155" height="42" rx="6" fill="#1a1225" stroke="#3a2060" stroke-width="1.5"/>
+  <text x="725" y="460" text-anchor="middle" font-size="9" fill="#d2a8ff">access / citation</text>
+  <text x="725" y="474" text-anchor="middle" font-size="9" fill="#d2a8ff">software / protocol</text>
+  <text x="725" y="483" text-anchor="middle" font-size="7" fill="#8b949e">copy attrs + recurse</text>
+
+  <!-- utilities -->
+  <line x1="410" y1="714" x2="410" y2="754" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="155" y="754" width="510" height="82" rx="8" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+  <text x="410" y="772" text-anchor="middle" font-size="8" fill="#8b949e">shared utility templates</text>
+  <rect x="168" y="778" width="148" height="48" rx="5" fill="#161b22" stroke="#21262d"/>
+  <text x="242" y="797" text-anchor="middle" font-size="9" fill="#58a6ff">replace-string</text>
+  <text x="242" y="810" text-anchor="middle" font-size="7" fill="#8b949e">recursive string replace</text>
+  <text x="242" y="821" text-anchor="middle" font-size="7" fill="#8b949e">XSLT 1.0 compatible</text>
+  <rect x="331" y="778" width="148" height="48" rx="5" fill="#161b22" stroke="#21262d"/>
+  <text x="405" y="797" text-anchor="middle" font-size="9" fill="#58a6ff">identity copy</text>
+  <text x="405" y="810" text-anchor="middle" font-size="7" fill="#8b949e">match="*"</text>
+  <text x="405" y="821" text-anchor="middle" font-size="7" fill="#8b949e">preserves ns + attrs</text>
+  <rect x="494" y="778" width="162" height="48" rx="5" fill="#161b22" stroke="#21262d"/>
+  <text x="575" y="797" text-anchor="middle" font-size="9" fill="#58a6ff">get-full-path</text>
+  <text x="575" y="810" text-anchor="middle" font-size="7" fill="#8b949e">mode="get-full-path"</text>
+  <text x="575" y="821" text-anchor="middle" font-size="7" fill="#8b949e">debug / error reporting</text>
+
+  <!-- OUTPUT -->
+  <line x1="410" y1="836" x2="410" y2="876" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrg)"/>
+  <rect x="280" y="876" width="260" height="48" rx="8" fill="#0d2211" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="410" y="896" text-anchor="middle" font-size="9" fill="#3fb950">OUTPUT</text>
+  <text x="410" y="914" text-anchor="middle" font-size="11" fill="#e6edf3" font-weight="bold">EML 2.2.0 document</text>
+
+  <!-- legend -->
+  <rect x="10" y="948" width="800" height="62" rx="6" fill="#161b22" stroke="#21262d"/>
+  <text x="28" y="966" font-size="8" fill="#8b949e">Legend:</text>
+  <rect x="82" y="956" width="11" height="11" rx="2" fill="#0d2211" stroke="#3fb950"/>
+  <text x="99" y="966" font-size="8" fill="#8b949e">Structural change</text>
+  <rect x="210" y="956" width="11" height="11" rx="2" fill="#1a1225" stroke="#3a2060"/>
+  <text x="227" y="966" font-size="8" fill="#8b949e">Passthrough (copy)</text>
+  <polygon points="344,962 356,956 368,962 356,968" fill="#161b22" stroke="#58a6ff" stroke-width="1.2"/>
+  <text x="374" y="966" font-size="8" fill="#8b949e">Decision point</text>
+  <line x1="460" y1="962" x2="483" y2="962" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrg)"/>
+  <text x="490" y="966" font-size="8" fill="#8b949e">EML 2.2.0 output path</text>
+  <line x1="608" y1="962" x2="631" y2="962" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="638" y="966" font-size="8" fill="#8b949e">Control flow</text>
+
+  <text x="28" y="1000" font-size="7" fill="#4a5568">Operations ①–⑨ correspond to the numbered sections in docs/mapping-notes.md</text>
+  <text x="28" y="1012" font-size="7" fill="#4a5568">Stylesheet: transformations/EML211_to_EML220/xslt/main.xsl · LifeWatch ERIC · MIT License · 2026</text>
+</svg>

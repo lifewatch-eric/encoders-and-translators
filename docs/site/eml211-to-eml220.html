@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EML 2.1.1 → EML 2.2.0 — LifeWatch XSLT Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:#0d1117;--surface:#161b22;--border:#21262d;
+    --accent:#3fb950;--accent2:#58a6ff;--accent3:#d2a8ff;
+    --warn:#e3b341;--text:#e6edf3;--muted:#8b949e;--tag-bg:#1f2937;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7}
+  nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:58px}
+  .nav-brand{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.6rem;text-decoration:none}
+  .nav-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .nav-links{display:flex;gap:1.8rem;list-style:none}
+  .nav-links a{color:var(--muted);font-size:.82rem;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:.03em;transition:color .2s}
+  .nav-links a:hover{color:var(--accent2)}
+
+  /* layout */
+  .page{display:grid;grid-template-columns:220px 1fr;min-height:100vh;max-width:1200px;margin:0 auto}
+  .sidebar{position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;border-right:1px solid var(--border);padding:2rem 1.5rem}
+  .sidebar-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:.8rem;margin-top:1.5rem}
+  .sidebar-label:first-child{margin-top:0}
+  .sidebar ul{list-style:none}
+  .sidebar li a{display:block;padding:.35rem 0;font-size:.78rem;color:var(--muted);text-decoration:none;font-family:'DM Mono',monospace;transition:color .15s;border-left:2px solid transparent;padding-left:.7rem}
+  .sidebar li a:hover{color:var(--accent2);border-left-color:var(--accent2)}
+  .main{padding:3rem 3rem 5rem}
+
+  /* hero strip */
+  .doc-hero{margin-bottom:3rem}
+  .breadcrumb{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:1rem}
+  .breadcrumb a{color:var(--muted);text-decoration:none}
+  .breadcrumb a:hover{color:var(--accent2)}
+  .breadcrumb span{color:var(--accent2)}
+  .doc-title{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:1rem}
+  .doc-title em{font-style:italic;color:var(--accent2)}
+  .meta-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
+  .meta-tag{display:inline-flex;align-items:center;gap:.35rem;background:var(--tag-bg);border:1px solid var(--border);padding:.25rem .7rem;border-radius:4px;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)}
+  .meta-tag.green{color:var(--accent);border-color:#1a4a1f;background:#0d2211}
+  .doc-intro{color:var(--muted);font-size:.95rem;max-width:680px;line-height:1.8}
+  hr.div{border:none;border-top:1px solid var(--border);margin:3rem 0}
+
+  /* sections */
+  .section-anchor{scroll-margin-top:80px}
+  .section-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+  h2{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:600;margin-bottom:1rem}
+  h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;margin-bottom:.7rem;margin-top:1.8rem;color:var(--accent2)}
+  p{color:var(--muted);margin-bottom:.9rem;font-size:.92rem}
+  strong{color:var(--text);font-weight:500}
+
+  /* diagram container */
+  .diagram-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1.5rem 0}
+  .diagram-header{background:var(--tag-bg);padding:.6rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .diagram-header span{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted)}
+  .diagram-body{padding:2rem;overflow-x:auto}
+
+  /* mapping table */
+  .mtable{width:100%;border-collapse:collapse;margin:1rem 0}
+  .mtable th,.mtable td{padding:.65rem 1rem;text-align:left;font-size:.8rem;border-bottom:1px solid var(--border)}
+  .mtable th{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;background:var(--surface)}
+  .mtable td{color:var(--muted)}
+  .mtable td code{font-family:'DM Mono',monospace;font-size:.72rem;background:var(--tag-bg);padding:.1rem .4rem;border-radius:3px;color:var(--accent2)}
+  .mtable .op{color:var(--warn);font-family:'DM Mono',monospace;font-size:.7rem}
+  .mtable .note{color:var(--muted);font-size:.72rem;font-style:italic}
+
+  /* code block */
+  .code-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:1rem 0}
+  .code-header{background:var(--tag-bg);padding:.5rem 1.2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+  .code-header span{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted)}
+  .code-dots{display:flex;gap:5px}
+  .code-dots span{width:9px;height:9px;border-radius:50%}
+  .dot-r{background:#ff5f56}.dot-y{background:#ffbd2e}.dot-g{background:#27c93f}
+  pre.code{padding:1.2rem 1.5rem;font-family:'DM Mono',monospace;font-size:.76rem;line-height:1.85;color:var(--muted);overflow-x:auto}
+  pre.code .kw{color:var(--accent2)}
+  pre.code .str{color:var(--accent)}
+  pre.code .cm{color:#4a5568;font-style:italic}
+  pre.code .fl{color:var(--accent3)}
+  pre.code .tag{color:#ff7b72}
+  pre.code .attr{color:var(--accent3)}
+  pre.code .val{color:var(--accent)}
+
+  /* step list */
+  .steps{list-style:none;margin:1rem 0}
+  .steps li{display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border)}
+  .steps li:last-child{border:none}
+  .step-num{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--accent);background:#0d2211;border:1px solid #1a4a1f;border-radius:4px;padding:.15rem .5rem;height:fit-content;flex-shrink:0;margin-top:.15rem}
+  .step-body h4{font-size:.88rem;color:var(--text);font-weight:500;margin-bottom:.3rem}
+  .step-body p{margin:0;font-size:.83rem}
+
+  /* alert box */
+  .alert{background:#1a1200;border:1px solid #4a3a0a;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;font-size:.82rem;color:var(--warn)}
+  .alert strong{color:var(--warn)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><span class="nav-dot"></span>LifeWatch XSLT</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#diagram">Diagram</a></li>
+    <li><a href="#operations">Operations</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#testing">Testing</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-label">On this page</div>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#diagram">Transformation Diagram</a></li>
+      <li><a href="#operations">All Operations</a></li>
+      <li><a href="#ns">① Namespace Update</a></li>
+      <li><a href="#pkgid">② packageId</a></li>
+      <li><a href="#altid">③ alternateIdentifier</a></li>
+      <li><a href="#dist">④ Distribution Harvest</a></li>
+      <li><a href="#pubdate">⑤ pubDate Normalise</a></li>
+      <li><a href="#datatable">⑥ dataTable</a></li>
+      <li><a href="#project">⑦ Project</a></li>
+      <li><a href="#methods">⑧ Methods</a></li>
+      <li><a href="#identity">⑨ Identity Copy</a></li>
+    </ul>
+    <div class="sidebar-label">Reference</div>
+    <ul>
+      <li><a href="#usage">Running</a></li>
+      <li><a href="#testing">Testing</a></li>
+      <li><a href="#limits">Known Limits</a></li>
+      <li><a href="#mapping">Field Mapping Table</a></li>
+    </ul>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- hero -->
+    <div class="doc-hero">
+      <div class="breadcrumb">
+        <a href="index.html">LifeWatch XSLT</a> / <a href="index.html#transformations">transformations</a> / <span>EML211_to_EML220</span>
+      </div>
+      <div class="doc-title">EML 2.1.1 <em>→</em> EML 2.2.0</div>
+      <div class="meta-row">
+        <span class="meta-tag green">✅ Stable</span>
+        <span class="meta-tag">XSLT 1.0</span>
+        <span class="meta-tag">Saxon-HE · lxml</span>
+        <span class="meta-tag">MIT License</span>
+      </div>
+      <p class="doc-intro">
+        Upgrades an Ecological Metadata Language document from version 2.1.1 to 2.2.0.
+        Handles nine distinct transformation operations: namespace rewrites, schema location
+        updates, pubDate normalisation, distribution URL harvesting, structural reshaping of
+        project and methods blocks, and a recursive identity copy for all unchanged content.
+      </p>
+    </div>
+
+    <hr class="div"/>
+
+    <!-- ── OVERVIEW ── -->
+    <section id="overview" class="section-anchor">
+      <div class="section-label">01 — Overview</div>
+      <h2>What this stylesheet does</h2>
+      <p>EML 2.2.0 introduced several breaking changes from 2.1.1: a new HTTPS namespace URI, a stricter content model for <code>&lt;dataset&gt;</code> requiring <code>&lt;alternateIdentifier&gt;</code> as its first child, an updated StMML schema reference, and more rigid ordering in <code>&lt;project&gt;</code> and <code>&lt;methods&gt;</code>. This stylesheet automates all of those changes in a single pass.</p>
+      <p>The stylesheet is written in <strong>XSLT 1.0</strong> so it runs on any conformant processor — Saxon-HE, xsltproc, Xalan, or Python's lxml — without requiring XSLT 2.0 features.</p>
+    </section>
+
+    <hr class="div"/>
+
+    <!-- ── DIAGRAM ── -->
+    <section id="diagram" class="section-anchor">
+      <div class="section-label">02 — Transformation diagram</div>
+      <h2>Transformation Flow</h2>
+      <p>The diagram below shows every decision point and operation performed by <code>xslt/main.xsl</code>, from input root element to final output.</p>
+
+      <div class="diagram-wrap">
+        <div class="diagram-header">
+          <span>EML211_to_EML220 / xslt / main.xsl — full execution flow</span>
+          <span>XSLT 1.0</span>
+        </div>
+        <div class="diagram-body">
+          <svg viewBox="0 0 860 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:860px;display:block;margin:0 auto">
+            <defs>
+              <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/>
+              </marker>
+              <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/>
+              </marker>
+              <marker id="arr-o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="#e3b341"/>
+              </marker>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- ── INPUT ── -->
+            <rect x="305" y="10" width="250" height="52" rx="8" fill="#0d2211" stroke="#3fb950" stroke-width="1.5"/>
+            <text x="430" y="32" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#3fb950">INPUT</text>
+            <text x="430" y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#e6edf3" font-weight="500">EML 2.1.1 document</text>
+
+            <!-- arrow down -->
+            <line x1="430" y1="62" x2="430" y2="98" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── ENTRY TEMPLATE ── -->
+            <rect x="250" y="98" width="360" height="44" rx="8" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+            <text x="430" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">xsl:template match="/*"</text>
+            <text x="430" y="132" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#e6edf3">Match root element</text>
+
+            <line x1="430" y1="142" x2="430" y2="172" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── ATTR LOOP ── -->
+            <rect x="220" y="172" width="420" height="44" rx="8" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+            <text x="430" y="190" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">xsl:for-each select="@*"</text>
+            <text x="430" y="206" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#e6edf3">Iterate root attributes</text>
+
+            <line x1="430" y1="216" x2="430" y2="244" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── DECISION: XSI? ── -->
+            <polygon points="430,244 600,274 430,304 260,274" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+            <text x="430" y="270" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#58a6ff">xsi:</text>
+            <text x="430" y="284" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#58a6ff">namespace?</text>
+
+            <!-- YES branch right -->
+            <line x1="600" y1="274" x2="660" y2="274" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+            <text x="625" y="268" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">YES</text>
+            <rect x="660" y="250" width="180" height="48" rx="6" fill="#0d2211" stroke="#1a4a1f" stroke-width="1.5"/>
+            <text x="750" y="270" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">① Namespace rewrite</text>
+            <text x="750" y="285" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">eml-2.1.1 → eml-2.2.0</text>
+            <text x="750" y="298" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">stmml-1.1 → stmml-1.2</text>
+
+            <!-- NO branch left -->
+            <line x1="260" y1="274" x2="200" y2="274" stroke="#e3b341" stroke-width="1.5" marker-end="url(#arr-o)"/>
+            <text x="230" y="268" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#e3b341">NO</text>
+
+            <!-- decision: packageId? -->
+            <polygon points="130,274 200,248 270,274 200,300" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+            <text x="200" y="270" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#e3b341">package</text>
+            <text x="200" y="282" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#e3b341">Id?</text>
+
+            <!-- YES down from packageId diamond -->
+            <line x1="200" y1="300" x2="200" y2="330" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+            <text x="190" y="318" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">YES</text>
+            <rect x="100" y="330" width="200" height="48" rx="6" fill="#0d2211" stroke="#1a4a1f" stroke-width="1.5"/>
+            <text x="200" y="350" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">② packageId override</text>
+            <text x="200" y="365" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">use param if ≠ 'newID'</text>
+
+            <!-- merge point after attrs -->
+            <line x1="430" y1="304" x2="430" y2="388" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="440" y="350" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">attrs done</text>
+
+            <!-- ── CHILD LOOP ── -->
+            <rect x="220" y="388" width="420" height="44" rx="8" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+            <text x="430" y="406" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">xsl:for-each select="/*/*"</text>
+            <text x="430" y="422" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#e6edf3">Iterate top-level children</text>
+
+            <line x1="430" y1="432" x2="430" y2="462" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── DECISION: element name ── -->
+            <polygon points="430,462 620,497 430,532 240,497" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+            <text x="430" y="492" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#58a6ff">element</text>
+            <text x="430" y="506" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#58a6ff">name?</text>
+
+            <!-- dataset branch -->
+            <line x1="430" y1="532" x2="430" y2="560" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+            <text x="440" y="550" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">&lt;dataset&gt;</text>
+
+            <!-- dataset box -->
+            <rect x="235" y="560" width="390" height="200" rx="8" fill="#0d1a0d" stroke="#1a4a1f" stroke-width="1.5"/>
+            <text x="430" y="578" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">handle-elements-under-main-module-dataset</text>
+
+            <!-- operations inside dataset box -->
+            <rect x="250" y="585" width="160" height="36" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+            <text x="330" y="600" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">③ &lt;alternateIdentifier/&gt;</text>
+            <text x="330" y="614" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">inject as first child</text>
+
+            <rect x="425" y="585" width="185" height="36" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+            <text x="517" y="600" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">④ &lt;distribution&gt; harvest</text>
+            <text x="517" y="614" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">gbif/physical + otherEntity</text>
+
+            <rect x="250" y="630" width="160" height="36" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+            <text x="330" y="646" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">⑤ &lt;pubDate&gt; normalise</text>
+            <text x="330" y="660" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">YYYY → YYYY-01-01</text>
+
+            <rect x="425" y="630" width="185" height="36" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+            <text x="517" y="646" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">⑥ &lt;dataTable&gt; reshape</text>
+            <text x="517" y="660" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">guard attributeList</text>
+
+            <rect x="250" y="675" width="160" height="36" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+            <text x="330" y="691" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">⑦ &lt;project&gt; normalise</text>
+            <text x="330" y="705" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">title · personnel · role</text>
+
+            <rect x="425" y="675" width="185" height="36" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+            <text x="517" y="691" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3fb950">⑧ &lt;methods&gt; reshape</text>
+            <text x="517" y="705" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">steps · sampling</text>
+
+            <rect x="250" y="720" width="360" height="30" rx="5" fill="#112211" stroke="#1a4a1f"/>
+            <text x="430" y="740" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">⑨ Identity copy — all other children</text>
+
+            <!-- access/citation/software/protocol branch right -->
+            <line x1="620" y1="497" x2="700" y2="497" stroke="#d2a8ff" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="655" y="490" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#d2a8ff">other</text>
+            <rect x="700" y="472" width="145" height="50" rx="6" fill="#1a1225" stroke="#3a2060" stroke-width="1.5"/>
+            <text x="772" y="492" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#d2a8ff">access / citation</text>
+            <text x="772" y="506" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#d2a8ff">software / protocol</text>
+            <text x="772" y="518" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">copy attrs + recurse</text>
+
+            <!-- shared utility box -->
+            <line x1="430" y1="760" x2="430" y2="800" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <rect x="160" y="800" width="540" height="90" rx="8" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+            <text x="430" y="818" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">shared utilities (named templates)</text>
+
+            <rect x="175" y="825" width="155" height="52" rx="5" fill="#161b22" stroke="#21262d"/>
+            <text x="252" y="845" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#58a6ff">replace-string</text>
+            <text x="252" y="859" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">recursive string replace</text>
+            <text x="252" y="871" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">(XSLT 1.0 compatible)</text>
+
+            <rect x="345" y="825" width="155" height="52" rx="5" fill="#161b22" stroke="#21262d"/>
+            <text x="422" y="845" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#58a6ff">identity copy</text>
+            <text x="422" y="859" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">match="*"</text>
+            <text x="422" y="871" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">preserves ns + attrs</text>
+
+            <rect x="515" y="825" width="170" height="52" rx="5" fill="#161b22" stroke="#21262d"/>
+            <text x="600" y="845" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#58a6ff">get-full-path</text>
+            <text x="600" y="859" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">mode="get-full-path"</text>
+            <text x="600" y="871" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8b949e">debug / error reporting</text>
+
+            <!-- output -->
+            <line x1="430" y1="890" x2="430" y2="930" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+
+            <rect x="305" y="930" width="250" height="52" rx="8" fill="#0d2211" stroke="#3fb950" stroke-width="1.5" filter="url(#glow)"/>
+            <text x="430" y="952" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#3fb950">OUTPUT</text>
+            <text x="430" y="970" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#e6edf3" font-weight="500">EML 2.2.0 document</text>
+
+            <!-- legend -->
+            <rect x="10" y="1010" width="840" height="62" rx="6" fill="#161b22" stroke="#21262d"/>
+            <text x="30" y="1028" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">Legend:</text>
+            <rect x="90" y="1018" width="12" height="12" rx="2" fill="#0d2211" stroke="#3fb950"/>
+            <text x="108" y="1028" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">Structural change</text>
+            <rect x="240" y="1018" width="12" height="12" rx="2" fill="#1a1225" stroke="#3a2060"/>
+            <text x="258" y="1028" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">Passthrough (copy)</text>
+            <polygon points="395,1024 407,1018 419,1024 407,1030" fill="#161b22" stroke="#58a6ff" stroke-width="1.2"/>
+            <text x="425" y="1028" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">Decision</text>
+            <line x1="500" y1="1024" x2="525" y2="1024" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-g)"/>
+            <text x="532" y="1028" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">EML 2.2.0 output path</text>
+            <line x1="660" y1="1024" x2="685" y2="1024" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="692" y="1028" font-family="DM Mono,monospace" font-size="9" fill="#8b949e">Control flow</text>
+
+            <!-- second legend row -->
+            <text x="30" y="1060" font-family="DM Mono,monospace" font-size="8" fill="#4a5568">Operations ①–⑨ are described in detail in the Operations section below.</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <hr class="div"/>
+
+    <!-- ── OPERATIONS ── -->
+    <section id="operations" class="section-anchor">
+      <div class="section-label">03 — Operations</div>
+      <h2>All Transformation Operations</h2>
+      <p>The stylesheet performs nine distinct operations, executed in a single pass over the input document.</p>
+
+      <ul class="steps">
+        <li id="ns">
+          <span class="step-num">①</span>
+          <div class="step-body">
+            <h4>Namespace &amp; Schema Location Update</h4>
+            <p>The root element is reconstructed as <code>eml:eml</code> bound to the EML 2.2.0 namespace <code>https://eml.ecoinformatics.org/eml-2.2.0</code>. The <code>xsi:schemaLocation</code> attribute value is rewritten using the recursive <code>replace-string</code> named template:</p>
+            <table class="mtable">
+              <thead><tr><th>Find</th><th>Replace with</th></tr></thead>
+              <tbody>
+                <tr><td><code>eml://ecoinformatics.org/eml-2.1.1</code></td><td><code>eml://ecoinformatics.org/eml-2.2.0</code></td></tr>
+                <tr><td><code>http://www.xml-cml.org/schema/stmml-1.1</code></td><td><code>http://www.xml-cml.org/schema/stmml-1.2</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+
+        <li id="pkgid">
+          <span class="step-num">②</span>
+          <div class="step-body">
+            <h4>packageId Handling</h4>
+            <p>The stylesheet accepts an optional <code>package-id</code> parameter (default: <code>'newID'</code>). When the parameter is not supplied (or equals the sentinel value), the existing <code>packageId</code> attribute is preserved unchanged. When a custom value is supplied, the attribute is overwritten.</p>
+            <div class="code-block">
+              <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>Saxon — override packageId</span></div>
+<pre class="code">java -jar saxon-he.jar -s:input.xml -xsl:main.xsl -o:output.xml \
+  <span class="kw">package-id</span>=<span class="str">my.new.package.id</span></pre>
+            </div>
+          </div>
+        </li>
+
+        <li id="altid">
+          <span class="step-num">③</span>
+          <div class="step-body">
+            <h4>alternateIdentifier Injection</h4>
+            <p>EML 2.2.0 requires <code>&lt;alternateIdentifier&gt;</code> to appear as the <strong>first child</strong> of <code>&lt;dataset&gt;</code>. The stylesheet injects an empty <code>&lt;alternateIdentifier/&gt;</code> element unconditionally before any other dataset children. Downstream pipelines should populate this with a persistent identifier (DOI, handle, etc.).</p>
+          </div>
+        </li>
+
+        <li id="dist">
+          <span class="step-num">④</span>
+          <div class="step-body">
+            <h4>Distribution URL Harvest</h4>
+            <p>A new <code>&lt;distribution&gt;</code> element is assembled inside <code>&lt;dataset&gt;</code> by collecting <code>&lt;online&gt;</code> blocks from two source paths:</p>
+            <table class="mtable">
+              <thead><tr><th>Source XPath</th><th>Extracted fields</th></tr></thead>
+              <tbody>
+                <tr><td><code>//additionalMetadata/metadata/gbif/physical</code></td><td><code>objectName</code> → <code>onlineDescription</code>, <code>distribution/online/url</code> → <code>url</code></td></tr>
+                <tr><td><code>//dataset/otherEntity/physical</code></td><td>same mapping as above</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+
+        <li id="pubdate">
+          <span class="step-num">⑤</span>
+          <div class="step-body">
+            <h4>pubDate Normalisation</h4>
+            <p>EML 2.2.0 requires dates in ISO 8601 format. Many EML 2.1.1 records store only a four-digit year. The stylesheet detects year-only values by checking for the absence of a hyphen (<code>-</code>) and appends <code>-01-01</code>:</p>
+            <table class="mtable">
+              <thead><tr><th>Input value</th><th>Output value</th><th>Rule</th></tr></thead>
+              <tbody>
+                <tr><td><code>2019</code></td><td><code>2019-01-01</code></td><td class="note">no hyphen → append -01-01</td></tr>
+                <tr><td><code>2021-03-04</code></td><td><code>2021-03-04</code></td><td class="note">hyphen present → pass through</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+
+        <li id="datatable">
+          <span class="step-num">⑥</span>
+          <div class="step-body">
+            <h4>dataTable Passthrough with Guard</h4>
+            <p><code>&lt;dataTable&gt;</code> elements are copied with a defensive guard on <code>&lt;attributeList&gt;/&lt;attribute&gt;</code>: if attribute children exist, each is reshaped to ensure <code>&lt;attributeDefinition&gt;</code> is present. All other content is passed through the identity copy template unchanged.</p>
+          </div>
+        </li>
+
+        <li id="project">
+          <span class="step-num">⑦</span>
+          <div class="step-body">
+            <h4>Project Normalisation</h4>
+            <p>The EML 2.2.0 <code>&lt;project&gt;</code> content model requires a stricter element order. The stylesheet reshapes each <code>&lt;personnel&gt;</code> block:</p>
+            <table class="mtable">
+              <thead><tr><th>Field</th><th>Behaviour</th></tr></thead>
+              <tbody>
+                <tr><td><code>project/title</code></td><td class="note">Only the first title is emitted (EML 2.2.0 allows one)</td></tr>
+                <tr><td><code>personnel/organizationName</code></td><td class="note">Set to <strong>"Not available"</strong> when absent in source</td></tr>
+                <tr><td><code>personnel/positionName</code></td><td class="note">Populated from <code>&lt;role&gt;</code>; falls back to <strong>"Not available"</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+
+        <li id="methods">
+          <span class="step-num">⑧</span>
+          <div class="step-body">
+            <h4>Methods &amp; Sampling Reshape</h4>
+            <p>Each <code>&lt;methodStep&gt;</code> is reconstructed. Multiple <code>&lt;para&gt;</code> elements inside a <code>&lt;description&gt;</code> are joined with a space separator into a single <code>&lt;para&gt;</code>. <code>&lt;instrumentation&gt;</code> and <code>&lt;software&gt;</code> sub-elements are also carried through. <code>&lt;sampling&gt;</code> blocks have their <code>studyExtent</code> and <code>samplingDescription</code> rewrapped.</p>
+          </div>
+        </li>
+
+        <li id="identity">
+          <span class="step-num">⑨</span>
+          <div class="step-body">
+            <h4>Identity Copy (catch-all)</h4>
+            <p>All nodes not matched by a more specific template fall through to the identity copy template, which preserves namespace-qualified element names and all attributes unchanged. This ensures that any EML 2.1.1 element without a specific migration rule is carried through safely.</p>
+            <div class="code-block">
+              <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>xslt/main.xsl — identity template</span></div>
+<pre class="code"><span class="tag">&lt;xsl:template</span> <span class="attr">match</span>=<span class="val">"*"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;xsl:element</span> <span class="attr">name</span>=<span class="val">"{name(.)}"</span> <span class="attr">namespace</span>=<span class="val">"{namespace-uri(.)}"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;xsl:copy-of</span> <span class="attr">select</span>=<span class="val">"@*"</span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;xsl:apply-templates/&gt;</span>
+  <span class="tag">&lt;/xsl:element&gt;</span>
+<span class="tag">&lt;/xsl:template&gt;</span></pre>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <hr class="div"/>
+
+    <!-- ── USAGE ── -->
+    <section id="usage" class="section-anchor">
+      <div class="section-label">04 — Running the transformation</div>
+      <h2>Usage</h2>
+
+      <h3>Saxon-HE (recommended)</h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>bash</span></div>
+<pre class="code"><span class="cm"># Basic run</span>
+java -jar saxon-he.jar \
+  <span class="fl">-s</span>:examples/input/sample-eml211.xml \
+  <span class="fl">-xsl</span>:xslt/main.xsl \
+  <span class="fl">-o</span>:output.xml
+
+<span class="cm"># Override packageId</span>
+java -jar saxon-he.jar \
+  <span class="fl">-s</span>:examples/input/sample-eml211.xml \
+  <span class="fl">-xsl</span>:xslt/main.xsl \
+  <span class="fl">-o</span>:output.xml \
+  <span class="kw">package-id</span>=<span class="str">my.new.package.id</span></pre>
+      </div>
+
+      <h3>Python lxml (no Java needed)</h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>python3</span></div>
+<pre class="code"><span class="kw">from</span> lxml <span class="kw">import</span> etree
+
+xsl_doc   = etree.parse(<span class="str">"xslt/main.xsl"</span>)
+transform = etree.XSLT(xsl_doc)
+src_doc   = etree.parse(<span class="str">"examples/input/sample-eml211.xml"</span>)
+
+<span class="cm"># default run</span>
+result = transform(src_doc)
+
+<span class="cm"># with packageId override</span>
+result = transform(src_doc, **{<span class="str">"package-id"</span>: etree.XSLT.strparam(<span class="str">"my.id"</span>)})
+
+<span class="cm"># write output</span>
+<span class="kw">with</span> open(<span class="str">"output.xml"</span>, <span class="str">"wb"</span>) <span class="kw">as</span> f:
+    f.write(etree.tostring(result.getroot(), pretty_print=<span class="kw">True</span>,
+            xml_declaration=<span class="kw">True</span>, encoding=<span class="str">"UTF-8"</span>))</pre>
+      </div>
+    </section>
+
+    <hr class="div"/>
+
+    <!-- ── TESTING ── -->
+    <section id="testing" class="section-anchor">
+      <div class="section-label">05 — Automated testing</div>
+      <h2>Testing</h2>
+      <p>The bundled <code>test_transformation.py</code> script runs 10 test groups (41 individual assertions) against the transformation. It accepts any EML 2.1.1 file as input.</p>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>bash</span></div>
+<pre class="code"><span class="cm"># Test against bundled sample</span>
+python3 test_transformation.py
+
+<span class="cm"># Test against your own EML 2.1.1 file</span>
+python3 test_transformation.py \
+  <span class="fl">--input</span> /path/to/your-eml211.xml \
+  <span class="fl">--output</span> /path/to/result.xml
+
+<span class="cm"># CI — from repo root</span>
+bash ci/validate.sh EML211_to_EML220</pre>
+      </div>
+      <div class="alert">
+        <strong>⚠ Important:</strong> The test script performs a pre-flight check to confirm the input file is EML 2.1.1. If you pass an EML 2.2.0 file by mistake, the script will warn you clearly rather than producing incorrect results silently.
+      </div>
+    </section>
+
+    <hr class="div"/>
+
+    <!-- ── LIMITS ── -->
+    <section id="limits" class="section-anchor">
+      <div class="section-label">06 — Known limitations</div>
+      <h2>Known Limitations</h2>
+      <table class="mtable">
+        <thead><tr><th>Limitation</th><th>Reason / workaround</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>&lt;alternateIdentifier&gt;</code> always injected empty</td>
+            <td class="note">Downstream systems must populate with a persistent identifier (DOI, handle)</td>
+          </tr>
+          <tr>
+            <td>Year-only <code>pubDate</code> normalised to <code>YYYY-01-01</code></td>
+            <td class="note">Month/day precision cannot be inferred; manually correct if known</td>
+          </tr>
+          <tr>
+            <td>XSLT 1.0 — no <code>fn:replace()</code></td>
+            <td class="note">String substitution uses a recursive named template; works on all processors</td>
+          </tr>
+          <tr>
+            <td>EML 2.2.0-only elements not back-populated</td>
+            <td class="note"><code>&lt;annotation&gt;</code>, <code>&lt;licensed&gt;</code>, <code>&lt;unitDictionary&gt;</code> are not in EML 2.1.1 source; add manually</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="div"/>
+
+    <!-- ── FIELD MAPPING ── -->
+    <section id="mapping" class="section-anchor">
+      <div class="section-label">07 — Field mapping reference</div>
+      <h2>Field Mapping Table</h2>
+      <table class="mtable">
+        <thead>
+          <tr><th>EML 2.1.1 source</th><th>Operation</th><th>EML 2.2.0 output</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>eml:eml/@*</code></td><td class="op">REWRITE</td><td>Namespace + schemaLocation updated</td></tr>
+          <tr><td><code>eml:eml/@packageId</code></td><td class="op">CONDITIONAL</td><td>Preserved or overwritten via <code>package-id</code> param</td></tr>
+          <tr><td>—</td><td class="op">INJECT</td><td><code>dataset/alternateIdentifier</code> (empty, first child)</td></tr>
+          <tr><td><code>additionalMetadata/metadata/gbif/physical</code></td><td class="op">HARVEST</td><td><code>dataset/distribution/online</code></td></tr>
+          <tr><td><code>dataset/otherEntity/physical</code></td><td class="op">HARVEST</td><td><code>dataset/distribution/online</code></td></tr>
+          <tr><td><code>dataset/pubDate</code> (YYYY)</td><td class="op">NORMALISE</td><td><code>dataset/pubDate</code> (YYYY-01-01)</td></tr>
+          <tr><td><code>dataset/pubDate</code> (YYYY-MM-DD)</td><td class="op">COPY</td><td><code>dataset/pubDate</code> (unchanged)</td></tr>
+          <tr><td><code>dataset/dataTable</code></td><td class="op">RESHAPE</td><td>Guards <code>attributeList/attribute/attributeDefinition</code></td></tr>
+          <tr><td><code>dataset/project/title[1]</code></td><td class="op">COPY</td><td>Only first title emitted</td></tr>
+          <tr><td><code>dataset/project/personnel/role</code></td><td class="op">RESHAPE</td><td><code>positionName</code> (fallback: "Not available")</td></tr>
+          <tr><td><code>dataset/methods/methodStep/description/para[n]</code></td><td class="op">MERGE</td><td>All para joined with space into single para</td></tr>
+          <tr><td><code>dataset/methods/sampling</code></td><td class="op">RESHAPE</td><td>studyExtent + samplingDescription re-wrapped</td></tr>
+          <tr><td>All other elements</td><td class="op">IDENTITY</td><td>Copied recursively preserving namespace + attrs</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:2rem 2.5rem;text-align:center;font-family:'DM Mono',monospace;font-size:.72rem;color:#4a5568">
+  © 2026 LifeWatch ERIC &nbsp;·&nbsp; MIT License &nbsp;·&nbsp;
+  <a href="https://eml.ecoinformatics.org/" style="color:var(--muted);text-decoration:none">EML Specification</a> &nbsp;·&nbsp;
+  <a href="index.html" style="color:var(--muted);text-decoration:none">← Back to repository docs</a>
+</footer>
+
+</body>
+</html>

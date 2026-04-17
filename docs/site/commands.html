@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Command Reference — LifeWatch XSLT Transformations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0d1117;--sur:#161b22;--sur2:#1c2330;
+  --bdr:#21262d;--bdr2:#30363d;
+  --grn:#3fb950;--blu:#58a6ff;--pur:#d2a8ff;
+  --amb:#e3b341;--red:#f85149;
+  --txt:#e6edf3;--mut:#8b949e;--dim:#4a5568;
+  --tag:#1f2937;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;min-height:100vh}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px}
+.nav-brand{font-family:'Fraunces',serif;font-size:.95rem;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--grn)}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--mut);font-size:.75rem;text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:.03em;transition:color .2s}
+.nav-links a:hover{color:var(--blu)}
+
+/* LAYOUT */
+.page{display:grid;grid-template-columns:230px 1fr;max-width:1200px;margin:0 auto;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;border-right:1px solid var(--bdr);padding:1.8rem 1.4rem}
+.sidebar-section{margin-bottom:1.6rem}
+.sidebar-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--grn);text-transform:uppercase;margin-bottom:.6rem}
+.sidebar ul{list-style:none}
+.sidebar li a{display:block;padding:.3rem 0 .3rem .65rem;font-size:.75rem;color:var(--mut);text-decoration:none;font-family:'DM Mono',monospace;transition:color .15s;border-left:2px solid transparent}
+.sidebar li a:hover{color:var(--blu);border-left-color:var(--blu)}
+.sidebar li a.active{color:var(--grn);border-left-color:var(--grn)}
+
+/* MAIN */
+.main{padding:2.5rem 3rem 5rem}
+hr.div{border:none;border-top:1px solid var(--bdr);margin:2.5rem 0}
+
+/* HERO */
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.18em;color:var(--grn);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.hero-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--grn)}
+.hero-title{font-family:'Fraunces',serif;font-size:2.1rem;font-weight:700;line-height:1.2;margin-bottom:.9rem}
+.hero-title em{font-style:italic;color:var(--blu)}
+.hero-sub{color:var(--mut);font-size:.92rem;max-width:600px;line-height:1.8;margin-bottom:1.5rem}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem}
+.badge{display:inline-flex;align-items:center;gap:.35rem;background:var(--tag);border:1px solid var(--bdr);padding:.22rem .65rem;border-radius:4px;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--mut)}
+.badge-dot{width:5px;height:5px;border-radius:50%}
+
+/* SECTION */
+.section{scroll-margin-top:76px}
+.section-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:var(--grn);text-transform:uppercase;margin-bottom:.55rem}
+h2{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:600;margin-bottom:.8rem}
+h3{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;margin-bottom:.5rem;margin-top:1.8rem;color:var(--blu)}
+p{color:var(--mut);margin-bottom:.8rem;font-size:.88rem}
+strong{color:var(--txt);font-weight:500}
+code{font-family:'DM Mono',monospace;font-size:.78rem;background:var(--tag);padding:.1rem .35rem;border-radius:3px;color:var(--pur)}
+
+/* COMMAND BLOCK */
+.cmd-block{background:var(--sur);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin:1rem 0}
+.cmd-header{background:var(--sur2);padding:.5rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr)}
+.cmd-header .cmd-title{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--mut)}
+.cmd-dots{display:flex;gap:5px}
+.cmd-dots span{width:9px;height:9px;border-radius:50%}
+.dr{background:#ff5f56}.dy{background:#ffbd2e}.dg{background:#27c93f}
+.cmd-body{padding:1.1rem 1.3rem}
+pre.cmd{font-family:'DM Mono',monospace;font-size:.78rem;line-height:2;color:var(--mut);overflow-x:auto;white-space:pre}
+/* syntax colours inside cmd */
+pre.cmd .cm{color:var(--dim);font-style:italic}
+pre.cmd .pr{color:var(--blu)}     /* prompt / $ */
+pre.cmd .kw{color:var(--blu)}     /* keyword */
+pre.cmd .cmd-name{color:var(--grn)}  /* python3, bash */
+pre.cmd .fl{color:var(--pur)}     /* flags */
+pre.cmd .val{color:var(--amb)}    /* values / paths */
+pre.cmd .out{color:var(--grn);opacity:.7}  /* expected output */
+
+/* COPY BUTTON */
+.copy-btn{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--mut);background:transparent;border:1px solid var(--bdr);border-radius:4px;padding:.18rem .5rem;cursor:pointer;transition:color .15s,border-color .15s}
+.copy-btn:hover{color:var(--txt);border-color:var(--bdr2)}
+.copy-btn.copied{color:var(--grn);border-color:var(--grn)}
+
+/* STEP LIST */
+.steps{list-style:none;margin:1rem 0}
+.steps li{display:flex;gap:.9rem;padding:.8rem 0;border-bottom:1px solid var(--bdr)}
+.steps li:last-child{border:none}
+.step-n{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--grn);background:#0d2211;border:1px solid #1a4a1f;border-radius:4px;padding:.15rem .45rem;height:fit-content;flex-shrink:0;margin-top:.15rem}
+.step-body h4{font-size:.85rem;color:var(--txt);font-weight:500;margin-bottom:.25rem}
+.step-body p{margin:0;font-size:.8rem}
+
+/* OPTION TABLE */
+.opt-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.8rem}
+.opt-table th,.opt-table td{padding:.6rem .9rem;text-align:left;border-bottom:1px solid var(--bdr)}
+.opt-table th{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--grn);letter-spacing:.1em;text-transform:uppercase;background:var(--sur)}
+.opt-table td{color:var(--mut)}
+.opt-table td:first-child{color:var(--pur);font-family:'DM Mono',monospace;font-size:.72rem;white-space:nowrap}
+.opt-table td:last-child{color:var(--dim);font-style:italic}
+
+/* ALERT */
+.alert{background:#1a1200;border:1px solid #4a3a0a;border-radius:8px;padding:.9rem 1.1rem;margin:1rem 0;font-size:.8rem;color:var(--amb)}
+.alert-info{background:#0d1a2e;border-color:#1a3a6a;color:var(--blu)}
+.alert strong{color:inherit}
+
+/* FLOW DIAGRAM */
+.flow{display:flex;align-items:center;gap:0;margin:1.5rem 0;overflow-x:auto;flex-wrap:nowrap}
+.flow-node{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:.6rem 1rem;text-align:center;flex-shrink:0;min-width:110px}
+.flow-node .fn-step{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--grn);margin-bottom:.2rem}
+.flow-node .fn-label{font-size:.75rem;color:var(--txt);font-weight:500}
+.flow-arrow{flex-shrink:0;color:var(--dim);font-size:1rem;padding:0 .3rem}
+
+/* FILE TREE */
+.tree{background:var(--sur);border:1px solid var(--bdr);border-radius:10px;padding:1.4rem 1.6rem;margin:1rem 0;overflow-x:auto}
+.tree pre{font-family:'DM Mono',monospace;font-size:.74rem;line-height:2;color:var(--mut)}
+.tree .td{color:var(--blu)}.tree .tf{color:var(--txt)}
+.tree .ts{color:var(--grn)}.tree .tp{color:var(--amb)}.tree .tc{color:var(--dim);font-style:italic}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bdr);padding:1.8rem 2rem;text-align:center;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim)}
+footer a{color:var(--mut);text-decoration:none}
+footer a:hover{color:var(--blu)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><span class="nav-dot"></span>LifeWatch XSLT</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="eml211-to-eml220.html">EML211→220 Docs</a></li>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#run">Run</a></li>
+    <li><a href="#test">Test</a></li>
+    <li><a href="#ci">CI</a></li>
+    <li><a href="#advanced">Advanced</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Getting started</div>
+    <ul>
+      <li><a href="#setup">1 · Setup</a></li>
+      <li><a href="#structure">2 · File structure</a></li>
+      <li><a href="#workflow">3 · How it works</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Run commands</div>
+    <ul>
+      <li><a href="#run">run.py — auto runner</a></li>
+      <li><a href="#run-new">→ new input only</a></li>
+      <li><a href="#run-force">→ force re-run</a></li>
+      <li><a href="#run-single">→ single file</a></li>
+      <li><a href="#run-flags">→ all flags</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Test commands</div>
+    <ul>
+      <li><a href="#test">test_transformation.py</a></li>
+      <li><a href="#test-default">→ default sample</a></li>
+      <li><a href="#test-custom">→ your own file</a></li>
+      <li><a href="#test-save">→ save output</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">CI / validate</div>
+    <ul>
+      <li><a href="#ci">validate.sh</a></li>
+      <li><a href="#ci-all">→ all transformations</a></li>
+      <li><a href="#ci-one">→ one transformation</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Advanced</div>
+    <ul>
+      <li><a href="#advanced">Saxon (Java)</a></li>
+      <li><a href="#xsltproc">xsltproc</a></li>
+      <li><a href="#python-api">Python API</a></li>
+      <li><a href="#git">Git / push to GitHub</a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- HERO -->
+  <div style="margin-bottom:2.5rem">
+    <div class="hero-eyebrow">LifeWatch ERIC · EML211_to_EML220</div>
+    <div class="hero-title">Command <em>Reference</em></div>
+    <p class="hero-sub">Every command you need — from first install to pushing to GitHub. Copy and paste directly into your terminal.</p>
+    <div class="badges">
+      <span class="badge"><span class="badge-dot" style="background:var(--grn)"></span>Python 3.9+</span>
+      <span class="badge"><span class="badge-dot" style="background:var(--blu)"></span>lxml only dependency</span>
+      <span class="badge"><span class="badge-dot" style="background:var(--pur)"></span>macOS · Linux · Windows</span>
+    </div>
+  </div>
+
+  <hr class="div"/>
+
+  <!-- ══ SETUP ══ -->
+  <section id="setup" class="section">
+    <div class="section-label">01 — Prerequisites</div>
+    <h2>Setup</h2>
+    <p>The only required dependency is <strong>lxml</strong>. Python 3.9 or later is required. Java is optional (only needed for Saxon).</p>
+
+    <h3>Install lxml</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'pip install lxml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">pip</span> install <span class="val">lxml</span></pre></div>
+    </div>
+
+    <h3>Clone or unzip the repository</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — clone from GitHub</span><button class="copy-btn" onclick="copyCmd(this,'git clone https://github.com/your-org/lifewatch-xslt-transformations.git\ncd lifewatch-xslt-transformations')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">git</span> clone <span class="val">https://github.com/your-org/lifewatch-xslt-transformations.git</span>
+<span class="pr">$</span> <span class="cmd-name">cd</span> lifewatch-xslt-transformations</pre></div>
+    </div>
+
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — navigate to the transformation folder</span><button class="copy-btn" onclick="copyCmd(this,'cd transformations/EML211_to_EML220')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">cd</span> transformations/EML211_to_EML220
+
+<span class="cm"># You should now be here:</span>
+<span class="cm"># lifewatch-xslt-transformations/transformations/EML211_to_EML220/</span></pre></div>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>All commands below assume you are inside</strong> <code>transformations/EML211_to_EML220/</code> unless stated otherwise.
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ STRUCTURE ══ -->
+  <section id="structure" class="section">
+    <div class="section-label">02 — File layout</div>
+    <h2>File Structure</h2>
+    <p>Understanding where files live before running anything.</p>
+    <div class="tree">
+<pre>
+EML211_to_EML220/
+│
+├── <span class="td">xslt/</span>
+│   └── <span class="tf">main.xsl</span>              <span class="tc">← the XSLT stylesheet (do not edit unless fixing bugs)</span>
+│
+├── <span class="td">examples/</span>
+│   ├── <span class="td">input/</span>               <span class="tc">← DROP YOUR EML 2.1.1 FILES HERE</span>
+│   │   ├── <span class="tf">sample-eml211.xml</span>
+│   │   └── <span class="tf">lesina-phytoplankton-eml211.xml</span>
+│   └── <span class="td">output/</span>              <span class="tc">← TRANSFORMED EML 2.2.0 FILES APPEAR HERE</span>
+│       ├── <span class="ts">sample-eml220.xml</span>
+│       └── <span class="ts">lesina-phytoplankton-eml220.xml</span>
+│
+├── <span class="td">docs/</span>
+│   ├── <span class="tf">mapping-notes.md</span>      <span class="tc">← field-level mapping documentation</span>
+│   └── <span class="tf">transformation-diagram.svg</span>
+│
+├── <span class="ts">run.py</span>                   <span class="tc">← ONE-COMMAND runner: transform + test + download</span>
+├── <span class="ts">test_transformation.py</span>   <span class="tc">← detailed test suite (10 groups, 30+ assertions)</span>
+└── <span class="tf">README.md</span>
+</pre>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ WORKFLOW ══ -->
+  <section id="workflow" class="section">
+    <div class="section-label">03 — The workflow</div>
+    <h2>How It Works</h2>
+    <p>Drop your EML 2.1.1 file into <code>examples/input/</code>, run one command, collect your EML 2.2.0 file from <code>examples/output/</code>.</p>
+    <div class="flow">
+      <div class="flow-node"><div class="fn-step">step 1</div><div class="fn-label">Drop .xml in input/</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="fn-step">step 2</div><div class="fn-label">python3 run.py</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="fn-step">step 3</div><div class="fn-label">XSLT applied</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="fn-step">step 4</div><div class="fn-label">Tests run</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="fn-step">step 5</div><div class="fn-label">Result in output/</div></div>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ RUN.PY ══ -->
+  <section id="run" class="section">
+    <div class="section-label">04 — Auto runner</div>
+    <h2>run.py — Transform &amp; Test in One Command</h2>
+    <p>This is the main entry point. It scans for new input files, runs the XSLT, runs the test suite, and shows you exactly where to find the output.</p>
+
+    <h3 id="run-new">Standard run — transform all new inputs</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py
+
+<span class="cm"># What it does:</span>
+<span class="cm">#  1. Scans examples/input/ for every .xml file</span>
+<span class="cm">#  2. Skips files that already have a matching output</span>
+<span class="cm">#  3. Transforms only NEW files → writes to examples/output/</span>
+<span class="cm">#  4. Runs the full test suite on each new file</span>
+<span class="cm">#  5. Prints the output path with a NEW marker</span></pre></div>
+    </div>
+
+    <h3 id="run-force">Force re-transform (overwrite existing outputs)</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py --force')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py <span class="fl">--force</span>
+
+<span class="cm"># Re-runs the transformation even when outputs already exist.</span>
+<span class="cm"># Use this after editing the stylesheet (xslt/main.xsl).</span></pre></div>
+    </div>
+
+    <h3 id="run-single">Transform a single specific file</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py --input examples/input/your-dataset-eml211.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py <span class="fl">--input</span> <span class="val">examples/input/your-dataset-eml211.xml</span>
+
+<span class="cm"># Works with any path, not just files inside examples/input/:</span>
+<span class="pr">$</span> <span class="cmd-name">python3</span> run.py <span class="fl">--input</span> <span class="val">/Users/houdabensalah/Downloads/my-data.xml</span></pre></div>
+    </div>
+
+    <h3>Transform and save to a specific output path</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py --input examples/input/your-dataset-eml211.xml --output /path/to/result.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py \
+    <span class="fl">--input</span>  <span class="val">examples/input/your-dataset-eml211.xml</span> \
+    <span class="fl">--output</span> <span class="val">/Users/houdabensalah/Desktop/result-eml220.xml</span></pre></div>
+    </div>
+
+    <h3>Override the packageId in the output</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py --package-id my.new.package.id.2026')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py <span class="fl">--package-id</span> <span class="val">my.new.package.id.2026</span></pre></div>
+    </div>
+
+    <h3>Open the output folder automatically (macOS / Linux)</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py --open-folder')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py <span class="fl">--open-folder</span>
+
+<span class="cm"># Opens examples/output/ in Finder (macOS) or Files (Linux) after the run.</span></pre></div>
+    </div>
+
+    <h3>Transform only — skip the test suite</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 run.py --no-tests')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> run.py <span class="fl">--no-tests</span>
+
+<span class="cm"># Faster. Use when you only need the output file, not the validation.</span></pre></div>
+    </div>
+
+    <h3 id="run-flags">All run.py flags at a glance</h3>
+    <table class="opt-table">
+      <thead><tr><th>Flag</th><th>Short</th><th>Description</th><th>Default</th></tr></thead>
+      <tbody>
+        <tr><td>--input FILE</td><td>-i</td><td>Transform a single file instead of scanning input/</td><td>scan all in examples/input/</td></tr>
+        <tr><td>--output FILE</td><td>—</td><td>Save result to a specific path</td><td>examples/output/ (auto-named)</td></tr>
+        <tr><td>--force</td><td>-f</td><td>Re-transform even if output already exists</td><td>skip existing</td></tr>
+        <tr><td>--package-id ID</td><td>—</td><td>Override packageId attribute in output</td><td>preserve from source</td></tr>
+        <tr><td>--no-tests</td><td>—</td><td>Skip the test suite after transformation</td><td>tests run</td></tr>
+        <tr><td>--open-folder</td><td>—</td><td>Open output folder in file manager</td><td>off</td></tr>
+        <tr><td>--quiet</td><td>-q</td><td>Only show errors and final summary</td><td>verbose</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ TEST SUITE ══ -->
+  <section id="test" class="section">
+    <div class="section-label">05 — Test suite</div>
+    <h2>test_transformation.py — Validate the Output</h2>
+    <p>Runs 10 test groups with 30+ individual assertions. Checks every transformation operation: namespace rewrite, pubDate normalisation, personnel field fidelity, no empty elements, no 2.1.1 artefacts, and more.</p>
+
+    <h3 id="test-default">Run against the bundled sample (quickest)</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 test_transformation.py')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> test_transformation.py
+
+<span class="out"># Expected output:</span>
+<span class="out"># ━━ EML 2.1.1 → EML 2.2.0 — Transformation Test Suite ━━━━━━━━━━━━━━</span>
+<span class="out">#    Stylesheet : .../xslt/main.xsl</span>
+<span class="out">#    Input file : .../examples/input/sample-eml211.xml</span>
+<span class="out"># [0] Pre-flight checks</span>
+<span class="out">#   ✅  Input namespace confirmed as EML 2.1.1</span>
+<span class="out"># ...</span>
+<span class="out"># ━━ Results ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="out">#    Total: 30  │  Passed: 30  │  Failed: 0</span>
+<span class="out">#    🎉  All tests passed.</span></pre></div>
+    </div>
+
+    <h3 id="test-custom">Run against your own EML 2.1.1 file</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 test_transformation.py --input examples/input/your-dataset-eml211.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> test_transformation.py \
+    <span class="fl">--input</span> <span class="val">examples/input/your-dataset-eml211.xml</span></pre></div>
+    </div>
+
+    <h3 id="test-save">Test and save the output file</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 test_transformation.py --input examples/input/your-dataset-eml211.xml --output examples/output/your-dataset-eml220.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> test_transformation.py \
+    <span class="fl">--input</span>  <span class="val">examples/input/your-dataset-eml211.xml</span> \
+    <span class="fl">--output</span> <span class="val">examples/output/your-dataset-eml220.xml</span></pre></div>
+    </div>
+
+    <h3>Run against the Lesina real-world dataset</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash</span><button class="copy-btn" onclick="copyCmd(this,'python3 test_transformation.py --input examples/input/lesina-phytoplankton-eml211.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> test_transformation.py \
+    <span class="fl">--input</span> <span class="val">examples/input/lesina-phytoplankton-eml211.xml</span>
+
+<span class="cm"># This runs 37 assertions against the full Lesina phytoplankton dataset.</span></pre></div>
+    </div>
+
+    <h3>Test all flags at a glance</h3>
+    <table class="opt-table">
+      <thead><tr><th>Flag</th><th>Short</th><th>Description</th><th>Default</th></tr></thead>
+      <tbody>
+        <tr><td>--input FILE</td><td>-i</td><td>EML 2.1.1 input file to test against</td><td>examples/input/sample-eml211.xml</td></tr>
+        <tr><td>--output FILE</td><td>-o</td><td>Write the transformed result to this path</td><td>not written</td></tr>
+        <tr><td>--xsl FILE</td><td>—</td><td>Use a custom stylesheet instead of xslt/main.xsl</td><td>xslt/main.xsl</td></tr>
+        <tr><td>--package-id ID</td><td>—</td><td>Override packageId in transformation</td><td>preserve from source</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert">
+      <strong>⚠ Important:</strong> Always pass an <strong>EML 2.1.1</strong> file as input. If you accidentally pass an EML 2.2.0 file, the script detects it and warns you with a clear message instead of failing silently.
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ CI / VALIDATE ══ -->
+  <section id="ci" class="section">
+    <div class="section-label">06 — CI validation</div>
+    <h2>validate.sh — Batch CI Runner</h2>
+    <p>Used in continuous integration pipelines (GitHub Actions, GitLab CI). Applies each stylesheet to its example inputs and diffs the result against the expected outputs.</p>
+
+    <div class="alert alert-info"><strong>Requirements:</strong> Java 8+ and Saxon-HE JAR. Set <code>SAXON_JAR</code> env variable to the JAR path.</div>
+
+    <h3 id="ci-all">Run all transformations</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — from repo root</span><button class="copy-btn" onclick="copyCmd(this,'export SAXON_JAR=/path/to/saxon-he.jar\nbash ci/validate.sh')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="cm"># From the repository root:</span>
+<span class="pr">$</span> <span class="kw">export</span> <span class="val">SAXON_JAR</span>=/path/to/saxon-he.jar
+<span class="pr">$</span> <span class="cmd-name">bash</span> ci/validate.sh</pre></div>
+    </div>
+
+    <h3 id="ci-one">Run one specific transformation</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — from repo root</span><button class="copy-btn" onclick="copyCmd(this,'bash ci/validate.sh EML211_to_EML220')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">bash</span> ci/validate.sh <span class="val">EML211_to_EML220</span></pre></div>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ ADVANCED ══ -->
+  <section id="advanced" class="section">
+    <div class="section-label">07 — Advanced usage</div>
+    <h2>Advanced Commands</h2>
+
+    <h3 id="advanced">Run with Saxon (Java — recommended for production)</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — Saxon-HE</span><button class="copy-btn" onclick="copyCmd(this,'java -jar saxon-he.jar \\\n  -s:examples/input/your-dataset-eml211.xml \\\n  -xsl:xslt/main.xsl \\\n  -o:examples/output/your-dataset-eml220.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="cm"># Basic transformation:</span>
+<span class="pr">$</span> <span class="cmd-name">java</span> -jar <span class="val">saxon-he.jar</span> \
+    <span class="fl">-s</span>:<span class="val">examples/input/your-dataset-eml211.xml</span> \
+    <span class="fl">-xsl</span>:<span class="val">xslt/main.xsl</span> \
+    <span class="fl">-o</span>:<span class="val">examples/output/your-dataset-eml220.xml</span>
+
+<span class="cm"># With packageId override:</span>
+<span class="pr">$</span> <span class="cmd-name">java</span> -jar <span class="val">saxon-he.jar</span> \
+    <span class="fl">-s</span>:<span class="val">examples/input/your-dataset-eml211.xml</span> \
+    <span class="fl">-xsl</span>:<span class="val">xslt/main.xsl</span> \
+    <span class="fl">-o</span>:<span class="val">examples/output/your-dataset-eml220.xml</span> \
+    <span class="kw">package-id</span>=<span class="val">my.new.package.id</span></pre></div>
+    </div>
+
+    <h3 id="xsltproc">Run with xsltproc (Linux/macOS built-in)</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — xsltproc (XSLT 1.0 only)</span><button class="copy-btn" onclick="copyCmd(this,'xsltproc xslt/main.xsl examples/input/your-dataset-eml211.xml > examples/output/result.xml')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">xsltproc</span> <span class="val">xslt/main.xsl</span> \
+    <span class="val">examples/input/your-dataset-eml211.xml</span> \
+    > <span class="val">examples/output/result.xml</span></pre></div>
+    </div>
+
+    <h3 id="python-api">Use the Python API directly</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">python3 — inline script</span><button class="copy-btn" onclick="copyCmd(this,'python3 -c \"\nfrom lxml import etree\nxsl = etree.parse(\'xslt/main.xsl\')\nt   = etree.XSLT(xsl)\nsrc = etree.parse(\'examples/input/your-dataset-eml211.xml\')\nresult = t(src)\nwith open(\'output.xml\', \'wb\') as f:\n    f.write(etree.tostring(result.getroot(), pretty_print=True,\n            xml_declaration=True, encoding=\'UTF-8\'))\nprint(\'Done\')\n\"')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="pr">$</span> <span class="cmd-name">python3</span> -c "
+from lxml import etree
+
+xsl    = etree.parse(<span class="val">'xslt/main.xsl'</span>)
+t      = etree.XSLT(xsl)
+src    = etree.parse(<span class="val">'examples/input/your-dataset-eml211.xml'</span>)
+result = t(src)
+
+with open(<span class="val">'output.xml'</span>, <span class="val">'wb'</span>) as f:
+    f.write(etree.tostring(result.getroot(),
+            pretty_print=<span class="kw">True</span>,
+            xml_declaration=<span class="kw">True</span>,
+            encoding=<span class="val">'UTF-8'</span>))
+print(<span class="val">'Done'</span>)
+"</pre></div>
+    </div>
+
+    <h3 id="git">Push the repository to GitHub</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — from repo root</span><button class="copy-btn" onclick="copyCmd(this,'# First time setup:\ngit remote add origin https://github.com/your-org/lifewatch-xslt-transformations.git\ngit push -u origin main\n\n# Subsequent pushes:\ngit add -A\ngit commit -m \"your message\"\ngit push')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="cm"># First time — connect to GitHub and push:</span>
+<span class="pr">$</span> <span class="cmd-name">git</span> remote add origin \
+    <span class="val">https://github.com/your-org/lifewatch-xslt-transformations.git</span>
+<span class="pr">$</span> <span class="cmd-name">git</span> push <span class="fl">-u</span> origin main
+
+<span class="cm"># After making changes — stage, commit, push:</span>
+<span class="pr">$</span> <span class="cmd-name">git</span> add -A
+<span class="pr">$</span> <span class="cmd-name">git</span> commit <span class="fl">-m</span> <span class="val">"feat: add new transformation for XYZ dataset"</span>
+<span class="pr">$</span> <span class="cmd-name">git</span> push</pre></div>
+    </div>
+
+    <h3>Extract one transformation as a standalone public repo</h3>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">bash — from repo root</span><button class="copy-btn" onclick="copyCmd(this,'git subtree split --prefix=transformations/EML211_to_EML220 -b split-eml211\ngit push https://github.com/your-org/EML211_to_EML220.git split-eml211:main')">copy</button></div>
+      <div class="cmd-body"><pre class="cmd"><span class="cm"># Split EML211_to_EML220 into its own public repo:</span>
+<span class="pr">$</span> <span class="cmd-name">git</span> subtree split \
+    <span class="fl">--prefix</span>=transformations/EML211_to_EML220 \
+    <span class="fl">-b</span> split-eml211
+<span class="pr">$</span> <span class="cmd-name">git</span> push \
+    <span class="val">https://github.com/your-org/EML211_to_EML220.git</span> \
+    split-eml211:main</pre></div>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- ══ QUICK REFERENCE ══ -->
+  <section id="cheatsheet" class="section">
+    <div class="section-label">08 — Cheatsheet</div>
+    <h2>All Commands at a Glance</h2>
+    <div class="cmd-block">
+      <div class="cmd-header"><div class="cmd-dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="cmd-title">all commands — copy individually above</span></div>
+      <div class="cmd-body"><pre class="cmd"><span class="cm"># ── SETUP ──────────────────────────────────────────────────────</span>
+pip install lxml
+cd transformations/EML211_to_EML220
+
+<span class="cm"># ── TRANSFORM (run.py) ─────────────────────────────────────────</span>
+python3 run.py                                    <span class="cm"># all new inputs</span>
+python3 run.py --force                            <span class="cm"># re-run all</span>
+python3 run.py --input /path/to/file.xml          <span class="cm"># single file</span>
+python3 run.py --input /path/to/file.xml \
+               --output /path/to/result.xml       <span class="cm"># single + save</span>
+python3 run.py --package-id my.pkg.id             <span class="cm"># override ID</span>
+python3 run.py --no-tests                         <span class="cm"># transform only</span>
+python3 run.py --open-folder                      <span class="cm"># open output dir</span>
+
+<span class="cm"># ── TEST (test_transformation.py) ─────────────────────────────</span>
+python3 test_transformation.py                    <span class="cm"># bundled sample</span>
+python3 test_transformation.py \
+    --input examples/input/my-data.xml            <span class="cm"># your file</span>
+python3 test_transformation.py \
+    --input  examples/input/my-data.xml \
+    --output examples/output/my-result.xml        <span class="cm"># test + save</span>
+
+<span class="cm"># ── CI (from repo root) ────────────────────────────────────────</span>
+export SAXON_JAR=/path/to/saxon-he.jar
+bash ci/validate.sh                               <span class="cm"># all</span>
+bash ci/validate.sh EML211_to_EML220              <span class="cm"># one</span>
+
+<span class="cm"># ── SAXON (Java) ───────────────────────────────────────────────</span>
+java -jar saxon-he.jar \
+    -s:input.xml -xsl:xslt/main.xsl -o:output.xml
+
+<span class="cm"># ── xsltproc ───────────────────────────────────────────────────</span>
+xsltproc xslt/main.xsl input.xml > output.xml
+
+<span class="cm"># ── GIT ────────────────────────────────────────────────────────</span>
+git add -A &amp;&amp; git commit -m "msg" &amp;&amp; git push</pre></div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<footer>
+  © 2026 LifeWatch ERIC &nbsp;·&nbsp; MIT License &nbsp;·&nbsp;
+  <a href="index.html">← Repository docs</a> &nbsp;·&nbsp;
+  <a href="eml211-to-eml220.html">EML211→220 technical docs</a>
+</footer>
+
+<script>
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+
+// Highlight active sidebar link on scroll
+const sections = document.querySelectorAll('.section');
+const links     = document.querySelectorAll('.sidebar a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.sidebar a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

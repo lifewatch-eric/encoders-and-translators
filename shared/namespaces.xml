@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  shared/namespaces.xml
+  ======================
+  Canonical namespace declarations used across LifeWatch transformations.
+  This file is documentation only — import it as reference when writing
+  new stylesheets or validating source documents.
+-->
+<namespaces>
+
+  <!-- EML versions -->
+  <namespace prefix="eml211"  uri="eml://ecoinformatics.org/eml-2.1.1"/>
+  <namespace prefix="eml220"  uri="https://eml.ecoinformatics.org/eml-2.2.0"/>
+
+  <!-- Schema instance -->
+  <namespace prefix="xsi"     uri="http://www.w3.org/2001/XMLSchema-instance"/>
+
+  <!-- StMML (Scientific Technical and Medical Markup Language) -->
+  <namespace prefix="stmml11" uri="http://www.xml-cml.org/schema/stmml-1.1"/>
+  <namespace prefix="stmml12" uri="http://www.xml-cml.org/schema/stmml-1.2"/>
+
+  <!-- Dublin Core -->
+  <namespace prefix="dc"      uri="http://purl.org/dc/terms/"/>
+
+  <!-- DataCite 4.x -->
+  <namespace prefix="datacite" uri="http://datacite.org/schema/kernel-4"/>
+
+  <!-- ISO 19139 / GML -->
+  <namespace prefix="gmd"     uri="http://www.isotc211.org/2005/gmd"/>
+  <namespace prefix="gco"     uri="http://www.isotc211.org/2005/gco"/>
+  <namespace prefix="gml"     uri="http://www.opengis.net/gml"/>
+
+</namespaces>

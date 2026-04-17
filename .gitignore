@@ -1,0 +1,20 @@
+# Saxon and Java artefacts
+*.jar
+*.class
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Editor artefacts
+.vscode/
+.idea/
+*.swp
+*~
+
+# Temporary transformation outputs (never commit generated files)
+/tmp/
+output*.xml
+
+# CI log artefacts
+*.log

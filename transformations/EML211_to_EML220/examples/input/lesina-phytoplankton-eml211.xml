@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml
+  xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1
+                      http://rs.gbif.org/schema/eml-gbif-profile/1.2/eml.xsd
+                      http://www.xml-cml.org/schema/stmml-1.1
+                      http://rs.gbif.org/schema/eml-gbif-profile/1.2/stmml.xsd"
+  packageId="aaa83d6d-0e7c-45bf-be77-3f157fa33f0f"
+  system="https://data.lifewatchitaly.eu"
+  scope="system">
+<dataset>
+<alternateIdentifier>https://data.lifewatchitaly.eu/handle/123456789/129727</alternateIdentifier>
+<alternateIdentifier>https://doi.org/10.48372/7200821e-36fb-4a14-b400-bf5786da2e9c</alternateIdentifier>
+<title>Phytoplankton data collected in the coastal lagoon of Lesina, Apulia, Italy, in 2009</title>
+<creator>
+<individualName><givenName>Elena</givenName><surName>Stanca</surName></individualName>
+<organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+<positionName>Technician</positionName>
+<electronicMailAddress>e.stanca@arpa.puglia.it</electronicMailAddress>
+</creator>
+<creator>
+<individualName><givenName>Leonilde</givenName><surName>Roselli</surName></individualName>
+<organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+<positionName>Technician</positionName>
+<electronicMailAddress>leonilde.roselli@gmail.com</electronicMailAddress>
+<userId directory="https://orcid.org/">0000-0002-0002-9415</userId>
+</creator>
+<creator>
+<individualName><givenName>Alberto</givenName><surName>Basset</surName></individualName>
+<organizationName>University of Salento</organizationName>
+<positionName>Full professor</positionName>
+<electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+<userId directory="https://orcid.org/">0000-0002-3603-9316</userId>
+</creator>
+<metadataProvider>
+<individualName><givenName>Elena</givenName><surName>Stanca</surName></individualName>
+<organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+<positionName>Technician</positionName>
+<electronicMailAddress>e.stanca@arpa.puglia.it</electronicMailAddress>
+</metadataProvider>
+<pubDate>2021-03-04</pubDate>
+<language>English</language>
+<abstract><para>This dataset provides a broad perspective and information on taxonomic and morphological (shape and size) structure of phytoplankton communities along a spatial gradient in Lesina lagoon.</para></abstract>
+<keywordSet>
+<keyword>Phytoplankton</keyword><keyword>Biodiversity</keyword>
+<keywordThesaurus>Biodiversity Thesaurus</keywordThesaurus>
+</keywordSet>
+<keywordSet>
+<keyword>Apulia</keyword><keyword>Italy</keyword>
+<keywordThesaurus>EuroVoc Core Concepts</keywordThesaurus>
+</keywordSet>
+<keywordSet>
+<keyword>Lesina</keyword>
+<keywordThesaurus>none</keywordThesaurus>
+</keywordSet>
+<keywordSet>
+<keyword>Size</keyword><keyword>Shape</keyword><keyword>Biovolume</keyword>
+<keywordThesaurus>Traits Thesaurus</keywordThesaurus>
+</keywordSet>
+<intellectualRights><para>Free for use, including sharing and adaptation, by all individuals provided that the owners are acknowledged in any use or publication.</para></intellectualRights>
+<coverage>
+<geographicCoverage>
+<geographicDescription>Lesina lagoon is located in Apulia, South Italy.</geographicDescription>
+<boundingCoordinates>
+<westBoundingCoordinate>15.34314</westBoundingCoordinate>
+<eastBoundingCoordinate>15.53721</eastBoundingCoordinate>
+<northBoundingCoordinate>41.90008</northBoundingCoordinate>
+<southBoundingCoordinate>41.86572</southBoundingCoordinate>
+</boundingCoordinates>
+</geographicCoverage>
+<temporalCoverage>
+<singleDateTime><calendarDate>2009</calendarDate></singleDateTime>
+</temporalCoverage>
+</coverage>
+<contact>
+<individualName><givenName>Alberto</givenName><surName>Basset</surName></individualName>
+<organizationName>University of Salento</organizationName>
+<positionName>Full professor</positionName>
+<electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+<userId directory="https://orcid.org/">0000-0002-3603-9316</userId>
+</contact>
+<methods>
+<methodStep>
+<description>
+<para>Samples for taxonomy and cell size / abundance analysis were preserved with Lugol (15 ml/l of sample). Samples were observed with a Nikon T300E inverted microscope following Utermohl's method and identified to species level where possible. Data were obtained and linear dimensions were measured at 400x magnification with a microscope connected to a video-interactive image analysis system (L.U.C.I.A, Version 4.8, Laboratory Imaging s.r.o.). Then, the calculation of biovolume was based on geometric approximations assigning a geometric shape for determination of surface area and volume following (http://phytobioimaging.unisalento.it/en-us/products/AtlasOfShapes.aspx?ID_Tipo=0). As a general rule, traits were calculated for counting units, most often this means single cells and sometimes 100 um threads, coenobiums and colonies (e.g. in some filamentous cyanobacteria) where cells are not observable.</para>
+</description>
+</methodStep>
+<sampling>
+<studyExtent>
+<description><para>Samples were collected in september 2009. For each single sub-sample 2000 cells were counted, identified and measured, which resulted in 12000 counted cells per sampling station.</para></description>
+</studyExtent>
+<samplingDescription><para>The sampling design was as follows: 1 time, 5 sampling sites, 2 replicates for sampling site and 3 subsamples for each replicate.</para></samplingDescription>
+</sampling>
+</methods>
+<project>
+<title>Phytoplankton data collected in the coastal lagoon of Lesina, Apulia, Italy, in 2009</title>
+<personnel>
+<individualName><givenName>Elena</givenName><surName>Stanca</surName></individualName>
+<organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+<positionName>Technician</positionName>
+<electronicMailAddress>e.stanca@arpa.puglia.it</electronicMailAddress>
+<role>Principal Investigator</role>
+</personnel>
+<personnel>
+<individualName><givenName>Leonilde</givenName><surName>Roselli</surName></individualName>
+<organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+<positionName>Technician</positionName>
+<electronicMailAddress>leonilde.roselli@gmail.com</electronicMailAddress>
+<userId directory="https://orcid.org/">0000-0002-0002-9415</userId>
+<role>Principal Investigator</role>
+</personnel>
+<personnel>
+<individualName><givenName>Alberto</givenName><surName>Basset</surName></individualName>
+<organizationName>University of Salento</organizationName>
+<positionName>Full professor</positionName>
+<electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+<userId directory="https://orcid.org/">0000-0002-3603-9316</userId>
+<role>Principal Investigator</role>
+</personnel>
+<funding>European Union - 7th Framework Programme, Theme 6 Environment (Grant Agreement 226273)</funding>
+</project>
+<dataTable>
+<entityName>Phytoplankton_WiserProject_2009.csv</entityName>
+<physical>
+<objectName>Phytoplankton_WiserProject_2009.csv</objectName>
+<size unit="byte">13752874</size>
+<authentication method="MD5">233007e84897b70d468dbcce26b2933a</authentication>
+<dataFormat>
+<textFormat>
+<numHeaderLines>1</numHeaderLines>
+<attributeOrientation>column</attributeOrientation>
+<simpleDelimited><fieldDelimiter>;</fieldDelimiter></simpleDelimited>
+</textFormat>
+</dataFormat>
+</physical>
+<attributeList>
+<attribute><attributeName>catalogNumber</attributeName><attributeLabel>Catalog Number</attributeLabel><attributeDefinition>An identifier (preferably unique) for the record within the data set or collection.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>organismQuantity</attributeName><attributeLabel>Organism Quantity</attributeLabel><attributeDefinition>A number or enumeration value for the quantity of organisms.</attributeDefinition><measurementScale><ratio><unit><standardUnit>number</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>organismQuantityType</attributeName><attributeLabel>Organism Quantity Type</attributeLabel><attributeDefinition>The type of quantification system used for the quantity of organisms.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>eventID</attributeName><attributeLabel>Event ID</attributeLabel><attributeDefinition>An identifier for the set of information associated with an Event.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>parentEventID</attributeName><attributeLabel>Parent Event ID</attributeLabel><attributeDefinition>An identifier for the broader Event that groups this and potentially other Events.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>year</attributeName><attributeLabel>Year</attributeLabel><attributeDefinition>The four-digit year in which the Event occurred.</attributeDefinition><measurementScale><dateTime><formatString>YYYY</formatString></dateTime></measurementScale></attribute>
+<attribute><attributeName>month</attributeName><attributeLabel>Month</attributeLabel><attributeDefinition>The integer month in which the Event occurred.</attributeDefinition><measurementScale><dateTime><formatString>MM</formatString></dateTime></measurementScale></attribute>
+<attribute><attributeName>country</attributeName><attributeLabel>Country</attributeLabel><attributeDefinition>The name of the country in which the Location occurs.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>countryCode</attributeName><attributeLabel>Country Code</attributeLabel><attributeDefinition>The standard code for the country.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>locality</attributeName><attributeLabel>Locality</attributeLabel><attributeDefinition>The specific description of the place.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>decimalLatitude</attributeName><attributeLabel>Decimal Latitude</attributeLabel><attributeDefinition>The geographic latitude in decimal degrees.</attributeDefinition><measurementScale><ratio><unit><standardUnit>degree</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>decimalLongitude</attributeName><attributeLabel>Decimal Longitude</attributeLabel><attributeDefinition>The geographic longitude in decimal degrees.</attributeDefinition><measurementScale><ratio><unit><standardUnit>degree</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>phylum</attributeName><attributeLabel>Phylum</attributeLabel><attributeDefinition>The full scientific name of the phylum.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>class</attributeName><attributeLabel>Class</attributeLabel><attributeDefinition>The full scientific name of the class.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>family</attributeName><attributeLabel>Family</attributeLabel><attributeDefinition>The full scientific name of the family.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>order</attributeName><attributeLabel>Order</attributeLabel><attributeDefinition>The full scientific name of the order.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>genus</attributeName><attributeLabel>Genus</attributeLabel><attributeDefinition>The full scientific name of the genus.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>providedScientificName</attributeName><attributeLabel>Provided Scientific Name</attributeLabel><attributeDefinition>The scientificname as it originally appeared before the taxonomic check.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>scientificName</attributeName><attributeLabel>Scientific Name</attributeLabel><attributeDefinition>The full scientific name with authorship.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>measurementRemarks</attributeName><attributeLabel>Measurement Remarks</attributeLabel><attributeDefinition>Comments or notes accompanying the MeasurementOrFact.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>internalAndExternalStructures</attributeName><attributeLabel>Internal And External Structures</attributeLabel><attributeDefinition>Any measurable phenotypic characteristic of a cell or colony.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>shape</attributeName><attributeLabel>Shape</attributeLabel><attributeDefinition>The approximate 3 dimensional shape of a cell.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+<attribute><attributeName>biovolume</attributeName><attributeLabel>Biovolume</attributeLabel><attributeDefinition>Total volume of a single cell or colony in cubic micrometers.</attributeDefinition><measurementScale><ratio><unit><customUnit>Cubic micrometers</customUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>cellCarbonContent</attributeName><attributeLabel>Cell Carbon Content</attributeLabel><attributeDefinition>Cellular carbon content in pgC/cell.</attributeDefinition><measurementScale><ratio><unit><customUnit>pgC per cell</customUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>length</attributeName><attributeLabel>Length</attributeLabel><attributeDefinition>A 1-D extent quality in micrometer.</attributeDefinition><measurementScale><ratio><unit><standardUnit>micrometer</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>width</attributeName><attributeLabel>Width</attributeLabel><attributeDefinition>A 1-D extent quality in micrometer.</attributeDefinition><measurementScale><ratio><unit><standardUnit>micrometer</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>biovolume</attributeName><attributeLabel>Biovolume</attributeLabel><attributeDefinition>Total volume cubic micrometers.</attributeDefinition><measurementScale><ratio><unit><customUnit>Cubic micrometers</customUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>volumeEqSphere</attributeName><attributeLabel>Volume Equivalent Sphere</attributeLabel><attributeDefinition>Volume of the equivalent sphere in cubic micrometers.</attributeDefinition><measurementScale><ratio><unit><customUnit>Cubic micrometers</customUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>volumeEqCylinder</attributeName><attributeLabel>Volume Equivalent Cylinder</attributeLabel><attributeDefinition>Volume of the equivalent cylinder in cubic micrometers.</attributeDefinition><measurementScale><ratio><unit><customUnit>Cubic micrometers</customUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>classCode</attributeName><attributeLabel>Class Code</attributeLabel><attributeDefinition>In house numerical code linking taxonomic information to morphological computation.</attributeDefinition><measurementScale><ratio><unit><standardUnit>dimensionless</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>volumeOfSedimentationChamber</attributeName><attributeLabel>Volume Of Sedimentation Chamber</attributeLabel><attributeDefinition>The volume of water sample in milliliter.</attributeDefinition><measurementScale><ratio><unit><standardUnit>milliliter</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>transectCounting</attributeName><attributeLabel>Transect Counting</attributeLabel><attributeDefinition>The number of counted fields or diametral transects.</attributeDefinition><measurementScale><ratio><unit><standardUnit>number</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale></attribute>
+<attribute><attributeName>eunisHabitatsTypeName</attributeName><attributeLabel>EUNIS Habitats Type Name</attributeLabel><attributeDefinition>Assignment of the habitat type name based on the EUNIS habitat classification.</attributeDefinition><measurementScale><nominal><nonNumericDomain><textDomain><definition>Any Text</definition></textDomain></nonNumericDomain></nominal></measurementScale></attribute>
+</attributeList>
+<numberOfRecords>37627</numberOfRecords>
+</dataTable>
+</dataset>
+</eml:eml>

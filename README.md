@@ -49,8 +49,8 @@ lifewatch-xslt-transformations/
 │
 ├── docs/                             # Repository-level governance and guides
 │   ├── architecture.md              # Design decisions and diagram
-│   ├── contributing.md              # Branching, PR, and review guidelines
-│   └── adding-a-transformation.md   # Step-by-step guide for new transformations
+│   ├── contributing.md              # Branching and review guidelines
+│   └── adding-a-transformation.md   # Step by step guide for new transformations
 │
 ├── ci/
 │   └── validate.sh                  # CI helper: runs Saxon on every example pair

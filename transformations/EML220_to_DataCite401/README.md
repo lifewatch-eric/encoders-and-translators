@@ -15,7 +15,7 @@ Transforms an **EML 2.2.0** metadata record into an **OpenAIRE / DataCite 4.0.1*
 | Stylesheet | `xslt/main.xsl` |
 | Version | 1.1.0 |
 | Status | ✅ Stable — 40/40 tests passing |
-| Original author | Houda Ben Salah (houda.bensalah@lifewatch.eu), LifeWatch ERIC |
+| Original author | LifeWatch ERIC Service Centre (service.centre@lifewatch.eu) |
 | License | CC-BY-4.0 |
 
 ---

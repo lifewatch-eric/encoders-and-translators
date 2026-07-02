@@ -161,6 +161,13 @@ def test_subjects(root, src):
             if matches:
                 check(f"keyword '{kw0}' has subjectScheme='{thes}'",
                       got=matches[0].get("subjectScheme"), expected=thes)
+        else:
+            # FIX-M: no thesaurus -> subjectScheme="NA" (not omitted)
+            kw0 = (ks.find("keyword").text or "").strip() if ks.find("keyword") is not None else ""
+            matches = [s for s in subjects if (s.text or "").strip() == kw0]
+            if matches:
+                check(f"FIX-M: keyword '{kw0}' has subjectScheme='NA' (no thesaurus)",
+                      got=matches[0].get("subjectScheme"), expected="NA")
 
 
 def test_creators(root, src):
@@ -230,19 +237,21 @@ def test_geo(root, src):
 
 
 def test_resource_type(root):
-    print(f"\n{BOLD}[11] resource types (FIX-9 + FIX-12){RESET}")
+    print(f"\n{BOLD}[11] resource types (FIX-9 + FIX-12 + FIX-N){RESET}")
     dc_rt   = root.xpath("//datacite:resourceType", namespaces=NS)
     oa_rt   = root.xpath("//oaire:resourceType", namespaces=NS)
     check("FIX-12: datacite:resourceType element present", truthy=len(dc_rt) > 0)
     check("datacite:resourceType resourceTypeGeneral='Dataset'",
           got=dc_rt[0].get("resourceTypeGeneral") if dc_rt else None, expected="Dataset")
-    check("oaire:resourceType present", truthy=len(oa_rt) > 0)
-    check("FIX-9: oaire resourceTypeGeneral capitalised 'Dataset'",
-          got=oa_rt[0].get("resourceTypeGeneral") if oa_rt else None, expected="Dataset")
+    check("FIX-N: exactly two oaire:resourceType elements (legacy + new)",
+          got=len(oa_rt), expected=2)
+    oa_generals = sorted(r.get("resourceTypeGeneral") for r in oa_rt)
+    check("FIX-N: one legacy lowercase 'dataset' and one 'Dataset' oaire:resourceType",
+          got=oa_generals, expected=["Dataset", "dataset"])
 
 
 def test_access_rights(root, src):
-    print(f"\n{BOLD}[12] datacite:rights (FIX-5){RESET}")
+    print(f"\n{BOLD}[12] datacite:rights (FIX-5 + FIX-O){RESET}")
     rights = root.xpath("//datacite:rights", namespaces=NS)
     check("datacite:rights element present", truthy=len(rights) > 0)
     if rights:
@@ -251,9 +260,13 @@ def test_access_rights(root, src):
         is_open = ("creative commons" in rights_text or "cc-by" in rights_text
                    or "4.0" in rights_text or "open" in rights_text)
         if is_open:
-            check("FIX-5: CC-BY rights URI assigned for open-access record",
-                  got=rights[0].get("rightsURI"),
-                  expected="https://creativecommons.org/licenses/by/4.0/")
+            check("FIX-O: exactly two rights entries for open-access record",
+                  got=len(rights), expected=2)
+            uris = sorted(r.get("rightsURI") for r in rights)
+            check("FIX-O: COAR open-access entry retained",
+                  truthy="http://purl.org/coar/access_right/c_abf2" in uris)
+            check("FIX-5/O: CC-BY-4.0 entry present alongside it",
+                  truthy="https://creativecommons.org/licenses/by/4.0/" in uris)
         else:
             check("FIX-5: metadata-only rights URI for restricted record",
                   got=rights[0].get("rightsURI"),

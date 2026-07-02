@@ -10,6 +10,19 @@
   OAI-PMH → OpenAIRE → EOSC portal onboarding pipeline.
 
   Changelog:
+    v1.3.0  2026-07-02
+      - FIX-M  datacite:subject now carries subjectScheme="NA" when no
+               keywordThesaurus is present, instead of omitting the
+               attribute (per OpenAIRE guidelines review, field_subject).
+      - FIX-N  oaire:resourceType is now emitted TWICE: the legacy
+               lowercase resourceTypeGeneral="dataset" form is kept for
+               backward compatibility, alongside a new capitalised
+               resourceTypeGeneral="Dataset" form.
+      - FIX-O  datacite:rightsList now includes BOTH the original COAR
+               access-right entry (c_abf2, "open access") AND the new
+               CC-BY-4.0 / SPDX entry for open-access records, instead
+               of replacing one with the other.
+
     v1.2.0  2026-04-15
       - FIX-A  Explicit DOI selection: first alternateIdentifier
                containing 'doi' (case-insensitive). No last-wins risk.
@@ -47,7 +60,7 @@
 
   Original author : Lucia Vaira (lucia.vaira@lifewatch.eu), LifeWatch ERIC
   Revised by      : LifeWatch ERIC Service Centre
-  Version         : 1.2.0  — 2026-04-15
+  Version         : 1.3.0  — 2026-07-02
   License         : CC-BY-4.0
   ============================================================
 -->
@@ -330,7 +343,7 @@
                   </datacite:subject>
                 </xsl:when>
                 <xsl:otherwise>
-                  <datacite:subject>
+                  <datacite:subject subjectScheme="NA">
                     <xsl:value-of select="normalize-space(.)"/>
                   </datacite:subject>
                 </xsl:otherwise>
@@ -554,6 +567,11 @@
 
         <!-- Resource types -->
         <datacite:resourceType resourceTypeGeneral="Dataset">Dataset</datacite:resourceType>
+        <!-- FIX-N: legacy lowercase form kept for backward compatibility,
+             plus new capitalised form per OpenAIRE guidelines review -->
+        <oaire:resourceType
+            resourceTypeGeneral="dataset"
+            uri="http://purl.org/coar/resource_type/c_ddb1">dataset</oaire:resourceType>
         <oaire:resourceType
             resourceTypeGeneral="Dataset"
             uri="http://purl.org/coar/resource_type/c_ddb1">dataset</oaire:resourceType>
@@ -578,6 +596,11 @@
                          or contains($rights-lower, 'cc-by')
                          or contains($rights-text,  '4.0')
                          or contains($rights-lower, 'open access')">
+              <!-- FIX-O: keep the original COAR access-right entry AND
+                   add the CC-BY-4.0 / SPDX entry — both are retained,
+                   not one replacing the other. -->
+              <datacite:rights
+                  rightsURI="http://purl.org/coar/access_right/c_abf2">open access</datacite:rights>
               <datacite:rights
                   rightsURI="https://creativecommons.org/licenses/by/4.0/"
                   rightsIdentifier="CC-BY-4.0"

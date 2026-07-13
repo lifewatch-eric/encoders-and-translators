@@ -17,7 +17,7 @@ GeoNetwork instances) feed the same EML-based pipelines used for native EML data
 | XSLT version | 1.0 |
 | Stylesheet | `xslt/main.xsl` |
 | Version | 1.0.0 |
-| Status | ✅ Stable — all tests passing on both bundled samples |
+| Status | ✅ Stable  all tests passing on both bundled samples |
 | Author | LifeWatch ERIC Service Centre |
 | License | MIT |
 
@@ -28,7 +28,7 @@ GeoNetwork instances) feed the same EML-based pipelines used for native EML data
 LifeWatch ERIC partners and data providers occasionally publish metadata as ISO 19139 records
 (commonly exported from a GeoNetwork catalogue) rather than native EML. This stylesheet lets those
 records be lifted into EML 2.2.0 so they can flow through the rest of the `transformations/` pipeline
-— including onward conversion to DataCite 4.0.1 via `EML220_to_DataCite401`.
+ including onward conversion to DataCite 4.0.1 via `EML220_to_DataCite401`.
 
 ```
 ISO 19139 (gmd:MD_Metadata)

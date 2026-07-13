@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ISO19139_to_EML220 — Transformation Flow Diagram
+  ==================================================
+  Open in any browser or SVG viewer.
+  Describes the complete execution path of xslt/main.xsl.
+-->
+<svg viewBox="0 0 820 980" xmlns="http://www.w3.org/2000/svg"
+     style="background:#0d1117;font-family:monospace">
+  <defs>
+    <style>
+      text { font-family: 'DM Mono', 'Courier New', monospace; }
+    </style>
+    <marker id="arr"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/></marker>
+    <marker id="arrg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/></marker>
+  </defs>
+
+  <!-- title -->
+  <text x="410" y="28" text-anchor="middle" font-size="13" fill="#e6edf3" font-weight="bold">ISO 19139 → EML 2.2.0 — Transformation Flow</text>
+  <text x="410" y="44" text-anchor="middle" font-size="9" fill="#8b949e">xslt/main.xsl · XSLT 1.0 · LifeWatch ERIC</text>
+
+  <!-- INPUT -->
+  <rect x="280" y="58" width="260" height="48" rx="8" fill="#0d2211" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="410" y="78" text-anchor="middle" font-size="9" fill="#3fb950">INPUT</text>
+  <text x="410" y="96" text-anchor="middle" font-size="11" fill="#e6edf3" font-weight="bold">gmd:MD_Metadata (ISO 19139)</text>
+  <line x1="410" y1="106" x2="410" y2="136" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- match root -->
+  <rect x="230" y="136" width="360" height="40" rx="7" fill="#1f2937" stroke="#21262d" stroke-width="1.5"/>
+  <text x="410" y="152" text-anchor="middle" font-size="8" fill="#8b949e">xsl:template match="/*"</text>
+  <text x="410" y="168" text-anchor="middle" font-size="10" fill="#e6edf3">Build eml:eml — packageId ← fileIdentifier</text>
+  <line x1="410" y1="176" x2="410" y2="204" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- dataset box -->
+  <rect x="130" y="204" width="560" height="608" rx="8" fill="#0d1a0d" stroke="#1a4a1f" stroke-width="1.5"/>
+  <text x="410" y="222" text-anchor="middle" font-size="8" fill="#3fb950">dataset — built field by field, in EML schema order</text>
+
+  <rect x="150" y="234" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="277" y="250" text-anchor="middle" font-size="9" fill="#3fb950">① alternateIdentifier*</text>
+  <text x="277" y="264" text-anchor="middle" font-size="7" fill="#8b949e">citation/identifier/MD_Identifier/code</text>
+
+  <rect x="415" y="234" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="542" y="250" text-anchor="middle" font-size="9" fill="#3fb950">② title</text>
+  <text x="542" y="264" text-anchor="middle" font-size="7" fill="#8b949e">citation/title</text>
+
+  <rect x="150" y="284" width="255" height="52" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="277" y="300" text-anchor="middle" font-size="9" fill="#3fb950">③ creator*</text>
+  <text x="277" y="313" text-anchor="middle" font-size="7" fill="#8b949e">citedResponsibleParty</text>
+  <text x="277" y="325" text-anchor="middle" font-size="7" fill="#8b949e">role = originator | author</text>
+
+  <rect x="415" y="284" width="255" height="52" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="542" y="300" text-anchor="middle" font-size="9" fill="#3fb950">④ metadataProvider*</text>
+  <text x="542" y="313" text-anchor="middle" font-size="7" fill="#8b949e">top-level gmd:contact</text>
+  <text x="542" y="325" text-anchor="middle" font-size="7" fill="#8b949e">(metadata record's own contact)</text>
+
+  <rect x="150" y="346" width="520" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="410" y="362" text-anchor="middle" font-size="9" fill="#3fb950">⑤ associatedParty* — role text from CI_RoleCode</text>
+  <text x="410" y="376" text-anchor="middle" font-size="7" fill="#8b949e">every citedResponsibleParty NOT tagged originator/author (e.g. publisher, custodian)</text>
+
+  <rect x="150" y="396" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="277" y="412" text-anchor="middle" font-size="9" fill="#3fb950">⑥ pubDate</text>
+  <text x="277" y="426" text-anchor="middle" font-size="7" fill="#8b949e">CI_Date[dateType=publication] → dateStamp</text>
+
+  <rect x="415" y="396" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="542" y="412" text-anchor="middle" font-size="9" fill="#3fb950">⑦ language</text>
+  <text x="542" y="426" text-anchor="middle" font-size="7" fill="#8b949e">ISO 639 code → full English word</text>
+
+  <rect x="150" y="446" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="277" y="462" text-anchor="middle" font-size="9" fill="#3fb950">⑧ abstract/para</text>
+  <text x="277" y="476" text-anchor="middle" font-size="7" fill="#8b949e">MD_DataIdentification/abstract</text>
+
+  <rect x="415" y="446" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="542" y="462" text-anchor="middle" font-size="9" fill="#3fb950">⑨ keywordSet*</text>
+  <text x="542" y="476" text-anchor="middle" font-size="7" fill="#8b949e">MD_Keywords → keyword+thesaurusName</text>
+
+  <rect x="150" y="496" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="277" y="512" text-anchor="middle" font-size="9" fill="#3fb950">⑩ intellectualRights/para*</text>
+  <text x="277" y="526" text-anchor="middle" font-size="7" fill="#8b949e">resourceConstraints/*/useLimitation</text>
+
+  <rect x="415" y="496" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="542" y="512" text-anchor="middle" font-size="9" fill="#3fb950">⑪ distribution/online*</text>
+  <text x="542" y="526" text-anchor="middle" font-size="7" fill="#8b949e">MD_DigitalTransferOptions/onLine</text>
+
+  <rect x="150" y="546" width="520" height="52" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="410" y="562" text-anchor="middle" font-size="9" fill="#3fb950">⑫ coverage — geographicCoverage + temporalCoverage</text>
+  <text x="410" y="576" text-anchor="middle" font-size="7" fill="#8b949e">EX_GeographicBoundingBox → boundingCoordinates</text>
+  <text x="410" y="588" text-anchor="middle" font-size="7" fill="#8b949e">gml:TimePeriod → rangeOfDates · gml:TimeInstant → singleDateTime</text>
+
+  <rect x="150" y="608" width="520" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
+  <text x="410" y="624" text-anchor="middle" font-size="9" fill="#3fb950">⑬ contact*</text>
+  <text x="410" y="638" text-anchor="middle" font-size="7" fill="#8b949e">MD_DataIdentification/pointOfContact (resource-level, any role)</text>
+
+  <rect x="150" y="658" width="520" height="120" rx="6" fill="#161b22" stroke="#21262d" stroke-width="1.5"/>
+  <text x="410" y="676" text-anchor="middle" font-size="8" fill="#8b949e">shared party-rendering template · emit-party</text>
+  <rect x="165" y="686" width="235" height="80" rx="5" fill="#0d1117" stroke="#21262d"/>
+  <text x="282" y="704" text-anchor="middle" font-size="9" fill="#58a6ff">given-name / family-name</text>
+  <text x="282" y="718" text-anchor="middle" font-size="7" fill="#8b949e">"Surname, Given" → split on comma</text>
+  <text x="282" y="730" text-anchor="middle" font-size="7" fill="#8b949e">"Given Surname" → last token = surname</text>
+  <text x="282" y="742" text-anchor="middle" font-size="7" fill="#8b949e">(heuristic — see Known Limitations)</text>
+  <rect x="420" y="686" width="235" height="80" rx="5" fill="#0d1117" stroke="#21262d"/>
+  <text x="537" y="704" text-anchor="middle" font-size="9" fill="#58a6ff">iso639-to-word / role-label</text>
+  <text x="537" y="718" text-anchor="middle" font-size="7" fill="#8b949e">eng → English, ita → Italian, ...</text>
+  <text x="537" y="730" text-anchor="middle" font-size="7" fill="#8b949e">publisher → "Publisher", custodian → ...</text>
+  <text x="537" y="742" text-anchor="middle" font-size="7" fill="#8b949e">unrecognised codes pass through</text>
+
+  <!-- OUTPUT -->
+  <line x1="410" y1="812" x2="410" y2="852" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrg)"/>
+  <rect x="280" y="852" width="260" height="48" rx="8" fill="#0d2211" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="410" y="872" text-anchor="middle" font-size="9" fill="#3fb950">OUTPUT</text>
+  <text x="410" y="890" text-anchor="middle" font-size="11" fill="#e6edf3" font-weight="bold">eml:eml (EML 2.2.0) document</text>
+
+  <!-- legend -->
+  <text x="28" y="932" font-size="7" fill="#4a5568">Operations ①–⑬ correspond to the numbered sections in docs/mapping-notes.md</text>
+  <text x="28" y="944" font-size="7" fill="#4a5568">Elements are emitted in strict EML 2.2.0 resourceGroup sequence order.</text>
+  <text x="28" y="960" font-size="7" fill="#4a5568">Stylesheet: transformations/ISO19139_to_EML220/xslt/main.xsl · LifeWatch ERIC · MIT License · 2026</text>
+</svg>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd http://www.xml-cml.org/schema/stmml-1.2 http://www.xml-cml.org/schema/stmml-1.2/stmml.xsd" packageId="b2c11e10-90aa-4e2a-9c60-example-minimal" system="https://data.lifewatchitaly.eu" scope="system">
+  <dataset>
+    <title>Benthic macroinvertebrate occurrence records, Gulf of Naples, 2024</title>
+    <creator>
+      <organizationName>Stazione Zoologica Anton Dohrn</organizationName>
+    </creator>
+    <metadataProvider>
+      <organizationName>Stazione Zoologica Anton Dohrn</organizationName>
+      <electronicMailAddress>data@szn.it</electronicMailAddress>
+    </metadataProvider>
+    <pubDate>2024-11-20</pubDate>
+    <language>Italian</language>
+    <abstract>
+      <para>Occurrence records of benthic macroinvertebrates sampled along the rocky shore of the Gulf of Naples during a single survey day in 2024.</para>
+    </abstract>
+    <coverage>
+      <temporalCoverage>
+        <singleDateTime>
+          <calendarDate>2024-06-14</calendarDate>
+        </singleDateTime>
+      </temporalCoverage>
+    </coverage>
+    <contact>
+      <organizationName>Stazione Zoologica Anton Dohrn</organizationName>
+      <electronicMailAddress>data@szn.it</electronicMailAddress>
+    </contact>
+  </dataset>
+</eml:eml>

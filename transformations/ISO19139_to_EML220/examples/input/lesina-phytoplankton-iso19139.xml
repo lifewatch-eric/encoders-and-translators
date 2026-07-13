@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmd:MD_Metadata
+    xmlns:gmd="http://www.isotc211.org/2005/gmd"
+    xmlns:gco="http://www.isotc211.org/2005/gco"
+    xmlns:gml="http://www.opengis.net/gml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://schemas.opengis.net/iso/19139/20070417/gmd/gmd.xsd">
+
+  <gmd:fileIdentifier>
+    <gco:CharacterString>aaa83d6d-0e7c-45bf-be77-3f157fa33f0f</gco:CharacterString>
+  </gmd:fileIdentifier>
+
+  <gmd:language>
+    <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng">eng</gmd:LanguageCode>
+  </gmd:language>
+
+  <gmd:hierarchyLevel>
+    <gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+  </gmd:hierarchyLevel>
+
+  <!-- Metadata point of contact -> EML metadataProvider -->
+  <gmd:contact>
+    <gmd:CI_ResponsibleParty>
+      <gmd:individualName><gco:CharacterString>Stanca, Elena</gco:CharacterString></gmd:individualName>
+      <gmd:organisationName><gco:CharacterString>Regional Agency for the Environmental Prevention and Protection</gco:CharacterString></gmd:organisationName>
+      <gmd:positionName><gco:CharacterString>Technician</gco:CharacterString></gmd:positionName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:electronicMailAddress><gco:CharacterString>e.stanca@arpa.puglia.it</gco:CharacterString></gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+
+  <gmd:dateStamp>
+    <gco:Date>2021-03-10</gco:Date>
+  </gmd:dateStamp>
+
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>Phytoplankton data collected in the coastal lagoon of Lesina, Apulia, Italy, in 2009</gco:CharacterString>
+          </gmd:title>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date><gco:Date>2021-03-04</gco:Date></gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:identifier>
+            <gmd:MD_Identifier>
+              <gmd:code><gco:CharacterString>https://doi.org/10.48372/7200821e-36fb-4a14-b400-bf5786da2e9c</gco:CharacterString></gmd:code>
+            </gmd:MD_Identifier>
+          </gmd:identifier>
+          <gmd:identifier>
+            <gmd:MD_Identifier>
+              <gmd:code><gco:CharacterString>https://data.lifewatchitaly.eu/handle/123456789/129727</gco:CharacterString></gmd:code>
+            </gmd:MD_Identifier>
+          </gmd:identifier>
+
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName><gco:CharacterString>Stanca, Elena</gco:CharacterString></gmd:individualName>
+              <gmd:organisationName><gco:CharacterString>Regional Agency for the Environmental Prevention and Protection</gco:CharacterString></gmd:organisationName>
+              <gmd:positionName><gco:CharacterString>Technician</gco:CharacterString></gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:electronicMailAddress><gco:CharacterString>e.stanca@arpa.puglia.it</gco:CharacterString></gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeListValue="originator">originator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName><gco:CharacterString>Basset, Alberto</gco:CharacterString></gmd:individualName>
+              <gmd:organisationName><gco:CharacterString>University of Salento</gco:CharacterString></gmd:organisationName>
+              <gmd:positionName><gco:CharacterString>Full professor</gco:CharacterString></gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:electronicMailAddress><gco:CharacterString>alberto.basset@unisalento.it</gco:CharacterString></gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeListValue="originator">originator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:organisationName><gco:CharacterString>LifeWatch ERIC</gco:CharacterString></gmd:organisationName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:electronicMailAddress><gco:CharacterString>info@lifewatch.eu</gco:CharacterString></gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeListValue="publisher">publisher</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+        </gmd:CI_Citation>
+      </gmd:citation>
+
+      <gmd:abstract>
+        <gco:CharacterString>This dataset provides a broad perspective and information on taxonomic and morphological (shape and size) structure of phytoplankton communities along a spatial gradient in Lesina lagoon.</gco:CharacterString>
+      </gmd:abstract>
+
+      <!-- Resource point of contact -> EML contact -->
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName><gco:CharacterString>Basset, Alberto</gco:CharacterString></gmd:individualName>
+          <gmd:organisationName><gco:CharacterString>University of Salento</gco:CharacterString></gmd:organisationName>
+          <gmd:positionName><gco:CharacterString>Full professor</gco:CharacterString></gmd:positionName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:electronicMailAddress><gco:CharacterString>alberto.basset@unisalento.it</gco:CharacterString></gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeListValue="custodian">custodian</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword><gco:CharacterString>Phytoplankton</gco:CharacterString></gmd:keyword>
+          <gmd:keyword><gco:CharacterString>Biodiversity</gco:CharacterString></gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title><gco:CharacterString>Biodiversity Thesaurus</gco:CharacterString></gmd:title>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword><gco:CharacterString>Apulia</gco:CharacterString></gmd:keyword>
+          <gmd:keyword><gco:CharacterString>Italy</gco:CharacterString></gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title><gco:CharacterString>EuroVoc Core Concepts</gco:CharacterString></gmd:title>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword><gco:CharacterString>Lesina</gco:CharacterString></gmd:keyword>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+
+      <gmd:resourceConstraints>
+        <gmd:MD_LegalConstraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>Free for use, including sharing and adaptation, by all individuals provided that the owners are acknowledged in any use or publication.</gco:CharacterString>
+          </gmd:useLimitation>
+        </gmd:MD_LegalConstraints>
+      </gmd:resourceConstraints>
+
+      <gmd:language>
+        <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng">eng</gmd:LanguageCode>
+      </gmd:language>
+
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:description>
+            <gco:CharacterString>Lesina lagoon is located in Apulia, South Italy.</gco:CharacterString>
+          </gmd:description>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:westBoundLongitude><gco:Decimal>15.34314</gco:Decimal></gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude><gco:Decimal>15.53721</gco:Decimal></gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude><gco:Decimal>41.86572</gco:Decimal></gmd:southBoundLatitude>
+              <gmd:northBoundLatitude><gco:Decimal>41.90008</gco:Decimal></gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+          <gmd:temporalElement>
+            <gmd:EX_TemporalExtent>
+              <gmd:extent>
+                <gml:TimePeriod gml:id="lesina-2009-campaign">
+                  <gml:beginPosition>2009-06-01</gml:beginPosition>
+                  <gml:endPosition>2009-09-30</gml:endPosition>
+                </gml:TimePeriod>
+              </gmd:extent>
+            </gmd:EX_TemporalExtent>
+          </gmd:temporalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+
+  <gmd:distributionInfo>
+    <gmd:MD_Distribution>
+      <gmd:transferOptions>
+        <gmd:MD_DigitalTransferOptions>
+          <gmd:onLine>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage><gmd:URL>https://data.lifewatchitaly.eu/handle/123456789/129727</gmd:URL></gmd:linkage>
+              <gmd:name><gco:CharacterString>Phytoplankton_WiserProject_2009.csv</gco:CharacterString></gmd:name>
+              <gmd:protocol><gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString></gmd:protocol>
+            </gmd:CI_OnlineResource>
+          </gmd:onLine>
+        </gmd:MD_DigitalTransferOptions>
+      </gmd:transferOptions>
+    </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+
+</gmd:MD_Metadata>

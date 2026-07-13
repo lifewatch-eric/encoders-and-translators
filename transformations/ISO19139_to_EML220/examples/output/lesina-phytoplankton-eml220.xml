@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd http://www.xml-cml.org/schema/stmml-1.2 http://www.xml-cml.org/schema/stmml-1.2/stmml.xsd" packageId="aaa83d6d-0e7c-45bf-be77-3f157fa33f0f" system="https://data.lifewatchitaly.eu" scope="system">
+  <dataset>
+    <alternateIdentifier>https://doi.org/10.48372/7200821e-36fb-4a14-b400-bf5786da2e9c</alternateIdentifier>
+    <alternateIdentifier>https://data.lifewatchitaly.eu/handle/123456789/129727</alternateIdentifier>
+    <title>Phytoplankton data collected in the coastal lagoon of Lesina, Apulia, Italy, in 2009</title>
+    <creator>
+      <individualName>
+        <givenName>Elena</givenName>
+        <surName>Stanca</surName>
+      </individualName>
+      <organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+      <positionName>Technician</positionName>
+      <electronicMailAddress>e.stanca@arpa.puglia.it</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Alberto</givenName>
+        <surName>Basset</surName>
+      </individualName>
+      <organizationName>University of Salento</organizationName>
+      <positionName>Full professor</positionName>
+      <electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+    </creator>
+    <metadataProvider>
+      <individualName>
+        <givenName>Elena</givenName>
+        <surName>Stanca</surName>
+      </individualName>
+      <organizationName>Regional Agency for the Environmental Prevention and Protection</organizationName>
+      <positionName>Technician</positionName>
+      <electronicMailAddress>e.stanca@arpa.puglia.it</electronicMailAddress>
+    </metadataProvider>
+    <associatedParty>
+      <organizationName>LifeWatch ERIC</organizationName>
+      <electronicMailAddress>info@lifewatch.eu</electronicMailAddress>
+      <role>Publisher</role>
+    </associatedParty>
+    <pubDate>2021-03-04</pubDate>
+    <language>English</language>
+    <abstract>
+      <para>This dataset provides a broad perspective and information on taxonomic and morphological (shape and size) structure of phytoplankton communities along a spatial gradient in Lesina lagoon.</para>
+    </abstract>
+    <keywordSet>
+      <keyword>Phytoplankton</keyword>
+      <keyword>Biodiversity</keyword>
+      <keywordThesaurus>Biodiversity Thesaurus</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Apulia</keyword>
+      <keyword>Italy</keyword>
+      <keywordThesaurus>EuroVoc Core Concepts</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Lesina</keyword>
+      <keywordThesaurus>none</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>Free for use, including sharing and adaptation, by all individuals provided that the owners are acknowledged in any use or publication.</para>
+    </intellectualRights>
+    <distribution>
+      <online>
+        <onlineDescription>Phytoplankton_WiserProject_2009.csv</onlineDescription>
+        <url>https://data.lifewatchitaly.eu/handle/123456789/129727</url>
+      </online>
+    </distribution>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Lesina lagoon is located in Apulia, South Italy.</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>15.34314</westBoundingCoordinate>
+          <eastBoundingCoordinate>15.53721</eastBoundingCoordinate>
+          <northBoundingCoordinate>41.90008</northBoundingCoordinate>
+          <southBoundingCoordinate>41.86572</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2009-06-01</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2009-09-30</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <contact>
+      <individualName>
+        <givenName>Alberto</givenName>
+        <surName>Basset</surName>
+      </individualName>
+      <organizationName>University of Salento</organizationName>
+      <positionName>Full professor</positionName>
+      <electronicMailAddress>alberto.basset@unisalento.it</electronicMailAddress>
+    </contact>
+  </dataset>
+</eml:eml>

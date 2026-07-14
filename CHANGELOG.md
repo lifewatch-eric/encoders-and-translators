@@ -11,6 +11,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `EML211_to_EML220` — initial stable release of the EML 2.1.1 → 2.2.0 stylesheet
 - `EML220_to_DataCite401` — skeleton stylesheet and mapping notes
 - `ISO19139_to_EML220` — skeleton stylesheet and mapping notes
+- `ISO19139_to_EOSC` — ISO 19139 → EOSC Resource "Service" (JSON) for EOSC Beyond onboarding; mapping sourced from `ISO19139_to_EOSC_profile.xlsx`, core fields implemented, several optional EOSC fields intentionally left unmapped — see the transformation's `docs/mapping-notes.md`
+- `ISO19139_to_DataCite401` — ISO 19139 → DataCite 4.0.1 / OpenAIRE (`oaire:resource`) for Workflow and VRE resources, for the "Harvesting with OpenAIRE" program; mapping sourced from `ISO19139 - to - DataCite4.1.xlsx` ("Workflow" and "VRE" sheets), core fields implemented, creation date / revision date / status intentionally left unmapped — see the transformation's `docs/mapping-notes.md`
 - `shared/macros.xsl` — common named templates (`replace-string`, `normalize-date`, `is-empty-string`)
 - `shared/namespaces.xml` — canonical namespace reference
 - `ci/validate.sh` — automated validation script

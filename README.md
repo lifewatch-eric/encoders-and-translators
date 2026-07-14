@@ -33,7 +33,27 @@ lifewatch-xslt-transformations/
 │   │   │   └── mapping-notes.md
 │   │   └── README.md
 │   │
-│   └── ISO19139_to_EML220/           # ISO 19139 → EML 2.2.0
+│   ├── ISO19139_to_EML220/           # ISO 19139 → EML 2.2.0
+│   │   ├── xslt/
+│   │   │   └── main.xsl
+│   │   ├── examples/
+│   │   │   ├── input/
+│   │   │   └── output/
+│   │   ├── docs/
+│   │   │   └── mapping-notes.md
+│   │   └── README.md
+│   │
+│   ├── ISO19139_to_EOSC/             # ISO 19139 → EOSC Resource "Service" (JSON)
+│   │   ├── xslt/
+│   │   │   └── main.xsl
+│   │   ├── examples/
+│   │   │   ├── input/
+│   │   │   └── output/
+│   │   ├── docs/
+│   │   │   └── mapping-notes.md
+│   │   └── README.md
+│   │
+│   └── ISO19139_to_DataCite401/      # ISO 19139 → DataCite 4.0.1 (OpenAIRE), Workflow / VRE
 │       ├── xslt/
 │       │   └── main.xsl
 │       ├── examples/
@@ -68,6 +88,8 @@ lifewatch-xslt-transformations/
 | `EML211_to_EML220` | EML 2.1.1 | EML 2.2.0 | 1.0 | ✅ Stable |
 | `EML220_to_DataCite401` | EML 2.2.0 | DataCite 4.0.1 | 1.0 | ✅ Stable|
 | `ISO19139_to_EML220` | ISO 19139 | EML 2.2.0 | 1.0 | 🚧 Planned |
+| [`ISO19139_to_EOSC`](transformations/ISO19139_to_EOSC) | ISO 19139 | EOSC Resource "Service" (JSON) | 1.0 | 🚧 In progress — mapping done, core fields implemented ([details](transformations/ISO19139_to_EOSC/README.md)) |
+| [`ISO19139_to_DataCite401`](transformations/ISO19139_to_DataCite401) | ISO 19139 | DataCite 4.0.1 / OpenAIRE (`Workflow`, `VRE`) | 1.0 | 🚧 In progress — mapping done, core fields implemented ([details](transformations/ISO19139_to_DataCite401/README.md)) |
 
 ---
 

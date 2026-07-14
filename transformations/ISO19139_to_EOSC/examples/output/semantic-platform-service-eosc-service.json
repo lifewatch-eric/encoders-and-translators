@@ -1,0 +1,42 @@
+{
+  "alternativePIDs": [
+    { "pid": "https://doi.org/10.5281/zenodo.1234567", "pidSchema": "DOI" }
+  ],
+  "urls": [
+    "https://metadatacatalogue.lifewatch.eu/srv/api/records/87ff15ba-38cb-4a74-ae73-351f280fe29b",
+    "https://semantics.lifewatchitaly.eu/",
+    "https://doi.org/10.5281/zenodo.1234567"
+  ],
+  "name": "LifeWatch Italy Semantic Platform",
+  "description": "Search and access LifeWatch Italy resources with the help of semantically enriched queries, integrating heterogeneous biodiversity and ecosystem data through an ontology-driven knowledge graph.",
+  "publishingDate": "2026-01-01",
+  "type": "Service",
+  "nodePID": "21.T15999/LifeWatch-ERIC",
+  "resourceOwner": "21.11174/PTokiF00",
+  "publicContacts": [
+    "info@lifewatch.eu",
+    "support@lifewatch.eu"
+  ],
+  "webpage": "https://metadatacatalogue.lifewatch.eu/srv/api/records/87ff15ba-38cb-4a74-ae73-351f280fe29b",
+  "logo": "https://www.lifewatch.eu/wp-content/uploads/2021/07/logoLW_eric_outline2-01.svg",
+  "scientificDomains": [
+    {
+      "scientificDomain": "scientific_domain-natural_sciences",
+      "scientificSubdomain": "scientific_subdomain-natural_sciences-biological_sciences"
+    }
+  ],
+  "categories": [
+    {
+      "category": "category-sharing_and_discovery-applications",
+      "subcategory": "subcategory-aggregators_and_integrators-aggregators_and_integrators-applications"
+    }
+  ],
+  "tags": [
+    "semantic web",
+    "knowledge graph",
+    "biodiversity"
+  ],
+  "accessTypes": "access_type-virtual",
+  "jurisdiction": "ds_jurisdiction-global",
+  "trl": "trl-9"
+}

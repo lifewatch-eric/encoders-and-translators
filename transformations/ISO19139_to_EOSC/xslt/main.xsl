@@ -27,7 +27,7 @@
   Parameters:
     $catalogue-base-url  (default 'https://metadatacatalogue.lifewatch.eu/srv/api/records/')
       Prefixed to gmd:fileIdentifier to build "webpage" and the
-      first "urls" entry (the record's landing page).
+      first "url" entry (the record's landing page).
 
     $node-pid            (default '21.T15999/LifeWatch-ERIC')
     $resource-owner-pid  (default '21.11174/PTokiF00')
@@ -50,10 +50,27 @@
       rare record that needs to override them.
 
   Requirements: XSLT 1.0, text output. Tested with lxml 4.9.x
-  (libxslt) and Saxon-HE 12.x.
+  (libxslt) and Saxon-HE 12.x. Output validated against the real
+  eosc-resource.schema.json / service.schema.json from
+  github.com/EOSC-PLATFORM/eosc-resources-model (see
+  docs/mapping-notes.md, "Validated against the real EOSC schema").
+
+  Changelog:
+    v1.1.0  2026-07-14
+      - FIX  "urls" -> "url": the schema's field name is singular.
+      - FIX  "publicContacts" -> "publicContact": singular in the schema.
+      - FIX  "accessTypes" -> "accessType": singular in the schema.
+      - FIX  scientificDomains is a single Object per the schema, not
+             an array of one object as the source sheet's own worked
+             example showed.
+      All four bugs came from following the source spreadsheet's Result
+      column literally without cross-checking it against the published
+      JSON Schema — the spreadsheet itself doesn't match the schema on
+      these four fields.
+    v1.0.0  2026-07-13  Original.
 
   Author:  LifeWatch ERIC Service Centre
-  Version: 1.0.0  —  2026-07-13
+  Version: 1.1.0  —  2026-07-14
   License: MIT
   ============================================================
 -->
@@ -239,8 +256,11 @@
     </xsl:if>
     <xsl:text>],&#10;</xsl:text>
 
-    <!-- urls : landing page first, then every distinct online-resource URL -->
-    <xsl:text>  "urls": [&#10;    "</xsl:text>
+    <!-- url : landing page first, then every distinct online-resource URL.
+         Field name is "url" (singular, repeatable) per eosc-resource.schema.json —
+         the source sheet's own Result example called it "urls", which does not
+         match the published schema. -->
+    <xsl:text>  "url": [&#10;    "</xsl:text>
     <xsl:call-template name="json-string">
       <xsl:with-param name="text" select="$landing-page"/>
     </xsl:call-template>
@@ -282,8 +302,11 @@
     <xsl:value-of select="$resource-owner-pid"/>
     <xsl:text>",&#10;</xsl:text>
 
-    <!-- publicContacts : every distinct electronicMailAddress in the record -->
-    <xsl:text>  "publicContacts": [</xsl:text>
+    <!-- publicContact : every distinct electronicMailAddress in the record.
+         Field name is "publicContact" (singular, repeatable, minItems 1) per
+         eosc-resource.schema.json — the source sheet's Result example called
+         it "publicContacts", which does not match the published schema. -->
+    <xsl:text>  "publicContact": [</xsl:text>
     <xsl:for-each select=".//gmd:electronicMailAddress/gco:CharacterString[generate-id() = generate-id(key('email-by-value', normalize-space(.))[1])]">
       <xsl:if test="position() != 1">,</xsl:if>
       <xsl:text>&#10;    "</xsl:text>
@@ -307,13 +330,14 @@
     <xsl:value-of select="$logo-url"/>
     <xsl:text>",&#10;</xsl:text>
 
-    <!-- scientificDomains : fixed per source sheet ("we can use always") -->
-    <xsl:text>  "scientificDomains": [&#10;</xsl:text>
-    <xsl:text>    {&#10;</xsl:text>
-    <xsl:text>      "scientificDomain": "scientific_domain-natural_sciences",&#10;</xsl:text>
-    <xsl:text>      "scientificSubdomain": "scientific_subdomain-natural_sciences-biological_sciences"&#10;</xsl:text>
-    <xsl:text>    }&#10;</xsl:text>
-    <xsl:text>  ],&#10;</xsl:text>
+    <!-- scientificDomains : fixed per source sheet ("we can use always").
+         service.schema.json defines this as a single Object (not an array) —
+         the source sheet's own Result example wrapped it in a JSON array,
+         which does not match the published schema. -->
+    <xsl:text>  "scientificDomains": {&#10;</xsl:text>
+    <xsl:text>    "scientificDomain": "scientific_domain-natural_sciences",&#10;</xsl:text>
+    <xsl:text>    "scientificSubdomain": "scientific_subdomain-natural_sciences-biological_sciences"&#10;</xsl:text>
+    <xsl:text>  },&#10;</xsl:text>
 
     <!-- categories : looked up from $service-category, see eosc-category-id -->
     <xsl:text>  "categories": [&#10;</xsl:text>
@@ -342,8 +366,9 @@
     </xsl:if>
     <xsl:text>],&#10;</xsl:text>
 
-    <!-- accessTypes -->
-    <xsl:text>  "accessTypes": "</xsl:text>
+    <!-- accessType : field name is singular per service.schema.json — the
+         source sheet's Result example called it "accessTypes". -->
+    <xsl:text>  "accessType": "</xsl:text>
     <xsl:value-of select="$access-type"/>
     <xsl:text>",&#10;</xsl:text>
 

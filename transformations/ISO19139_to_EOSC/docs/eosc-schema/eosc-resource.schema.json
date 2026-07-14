@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EOSC Resource",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A persistent identifier, a unique reference to the Resource"
+    },
+    "alternativePIDs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "string",
+            "description": "PID value"
+          },
+          "pidSchema": {
+            "type": "string",
+            "description": "PID schema"
+          }
+        },
+        "required": ["pid"],
+        "additionalProperties": false
+      }
+    },
+    "url": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "description": "URLs resolving to the resource"
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Name or title of the resource"
+    },
+    "description": {
+      "type": "string",
+      "description": "A high-level description in fairly non-technical terms of a) what the Resource does, functionality it provides and Resources it enables to access, b) the benefit to a user/customer delivered by a Resource; benefits are usually related to alleviating pains (e.g., eliminate undesired outcomes, obstacles or risks) or producing gains (e.g. increased performance, social gains, positive emotions or cost saving), c) list of customers, communities, users, etc. using the Resource."
+    },
+    "publishingDate": {
+      "type": "string",
+      "format": "date",
+      "description": "date in which the resource was made available for discovery and access to others"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the resource. One among: Service, DataSource, Adapter, InteroperabilityGuidelines, TrainingMaterial, DeployableApplication"
+    },
+    "nodePID": {
+      "type": "string",
+      "description": "Node the resource belongs to"
+    },
+    "resourceOwner": {
+      "type": "string",
+      "description": "PID of the organization that manages or delivers the Resource"
+    },
+    "publicContact": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "email",
+        "description": "Email to contact for the resource"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "publishingDate",
+    "type",
+    "nodePID",
+    "publicContact"
+  ],
+  "$id": "urn:jsonschema:eosc:eosc-resource"
+}

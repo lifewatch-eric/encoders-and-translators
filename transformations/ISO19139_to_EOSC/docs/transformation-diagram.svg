@@ -42,7 +42,7 @@
   <text x="277" y="275" text-anchor="middle" font-size="7" fill="#8b949e">protocol/CharacterString = "DOI"</text>
 
   <rect x="415" y="234" width="255" height="52" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
-  <text x="542" y="250" text-anchor="middle" font-size="9" fill="#3fb950">② urls</text>
+  <text x="542" y="250" text-anchor="middle" font-size="9" fill="#3fb950">② url</text>
   <text x="542" y="263" text-anchor="middle" font-size="7" fill="#8b949e">[0] landing page (base-url + fileId)</text>
   <text x="542" y="275" text-anchor="middle" font-size="7" fill="#8b949e">[1..] distinct onLine/linkage/URL</text>
 
@@ -75,13 +75,13 @@
 
   <!-- Row 5 -->
   <rect x="150" y="446" width="520" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
-  <text x="410" y="462" text-anchor="middle" font-size="9" fill="#3fb950">⑨ publicContacts</text>
+  <text x="410" y="462" text-anchor="middle" font-size="9" fill="#3fb950">⑨ publicContact</text>
   <text x="410" y="476" text-anchor="middle" font-size="7" fill="#8b949e">every distinct electronicMailAddress anywhere in the record, deduplicated</text>
 
   <!-- Row 6 -->
   <rect x="150" y="496" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
   <text x="277" y="512" text-anchor="middle" font-size="9" fill="#3fb950">⑩ webpage</text>
-  <text x="277" y="526" text-anchor="middle" font-size="7" fill="#8b949e">same landing page as urls[0]</text>
+  <text x="277" y="526" text-anchor="middle" font-size="7" fill="#8b949e">same landing page as url[0]</text>
 
   <rect x="415" y="496" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
   <text x="542" y="512" text-anchor="middle" font-size="9" fill="#3fb950">⑪ logo</text>
@@ -89,8 +89,8 @@
 
   <!-- Row 7 -->
   <rect x="150" y="546" width="520" height="52" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
-  <text x="410" y="562" text-anchor="middle" font-size="9" fill="#3fb950">⑫ scientificDomains</text>
-  <text x="410" y="575" text-anchor="middle" font-size="7" fill="#8b949e">fixed · always [Natural Sciences → Biological Sciences]</text>
+  <text x="410" y="562" text-anchor="middle" font-size="9" fill="#3fb950">⑫ scientificDomains (object)</text>
+  <text x="410" y="575" text-anchor="middle" font-size="7" fill="#8b949e">fixed · always {Natural Sciences → Biological Sciences}</text>
   <text x="410" y="587" text-anchor="middle" font-size="7" fill="#8b949e">per the source sheet ("we can use always")</text>
 
   <!-- Row 8 -->
@@ -106,7 +106,7 @@
 
   <!-- Row 10 -->
   <rect x="150" y="720" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
-  <text x="277" y="736" text-anchor="middle" font-size="9" fill="#3fb950">⑮ accessTypes</text>
+  <text x="277" y="736" text-anchor="middle" font-size="9" fill="#3fb950">⑮ accessType</text>
   <text x="277" y="750" text-anchor="middle" font-size="7" fill="#8b949e">fixed · $access-type param</text>
 
   <rect x="415" y="720" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>

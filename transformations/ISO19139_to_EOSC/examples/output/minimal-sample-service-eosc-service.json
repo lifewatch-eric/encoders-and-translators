@@ -1,6 +1,6 @@
 {
   "alternativePIDs": [],
-  "urls": [
+  "url": [
     "https://metadatacatalogue.lifewatch.eu/srv/api/records/d9fc8450-10d0-4774-92af-257a1fc4e488"
   ],
   "name": "Minimal Sample Service",
@@ -9,15 +9,13 @@
   "type": "Service",
   "nodePID": "21.T15999/LifeWatch-ERIC",
   "resourceOwner": "21.11174/PTokiF00",
-  "publicContacts": [],
+  "publicContact": [],
   "webpage": "https://metadatacatalogue.lifewatch.eu/srv/api/records/d9fc8450-10d0-4774-92af-257a1fc4e488",
   "logo": "https://www.lifewatch.eu/wp-content/uploads/2021/07/logoLW_eric_outline2-01.svg",
-  "scientificDomains": [
-    {
-      "scientificDomain": "scientific_domain-natural_sciences",
-      "scientificSubdomain": "scientific_subdomain-natural_sciences-biological_sciences"
-    }
-  ],
+  "scientificDomains": {
+    "scientificDomain": "scientific_domain-natural_sciences",
+    "scientificSubdomain": "scientific_subdomain-natural_sciences-biological_sciences"
+  },
   "categories": [
     {
       "category": "category-sharing_and_discovery-applications",
@@ -25,7 +23,7 @@
     }
   ],
   "tags": [],
-  "accessTypes": "access_type-virtual",
+  "accessType": "access_type-virtual",
   "jurisdiction": "ds_jurisdiction-global",
   "trl": ""
 }

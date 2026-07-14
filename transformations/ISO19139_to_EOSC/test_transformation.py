@@ -108,23 +108,23 @@ def test_type_is_service(obj):
 
 
 def test_public_contacts(obj, src):
-    print(f"\n{BOLD}[7] publicContacts ← every distinct electronicMailAddress{RESET}")
+    print(f"\n{BOLD}[7] publicContact ← every distinct electronicMailAddress{RESET}")
     src_emails = sorted(set(
         (e.text or "").strip()
         for e in src.findall(".//gmd:electronicMailAddress/gco:CharacterString", namespaces=NS)
         if (e.text or "").strip()
     ))
-    check("publicContacts count matches distinct source emails",
-          got=sorted(obj.get("publicContacts", [])), expected=src_emails)
+    check("publicContact count matches distinct source emails",
+          got=sorted(obj.get("publicContact", [])), expected=src_emails)
 
 
 def test_urls_include_landing_page(obj, src):
-    print(f"\n{BOLD}[8] urls[0] is the catalogue landing page{RESET}")
+    print(f"\n{BOLD}[8] url[0] is the catalogue landing page{RESET}")
     file_id = char_string(src, "gmd:fileIdentifier/gco:CharacterString")
-    urls = obj.get("urls", [])
-    check("urls is non-empty", truthy=len(urls) > 0)
+    urls = obj.get("url", [])
+    check("url is non-empty", truthy=len(urls) > 0)
     if urls and file_id:
-        check("urls[0] embeds the fileIdentifier", truthy=file_id in urls[0])
+        check("url[0] embeds the fileIdentifier", truthy=file_id in urls[0])
 
 
 def test_alternative_pids_are_doi_only(obj, src):
@@ -167,25 +167,37 @@ def test_trl(obj, src):
 
 
 def test_categories_and_scientific_domains_present(obj):
-    print(f"\n{BOLD}[12] categories / scientificDomains — always exactly one entry{RESET}")
+    print(f"\n{BOLD}[12] categories (array) / scientificDomains (object) — per service.schema.json{RESET}")
     check("categories has exactly one entry", got=len(obj.get("categories", [])), expected=1)
-    check("scientificDomains has exactly one entry", got=len(obj.get("scientificDomains", [])), expected=1)
     if obj.get("categories"):
         cat = obj["categories"][0]
         check("category id present", truthy=bool(cat.get("category")))
         check("subcategory id present", truthy=bool(cat.get("subcategory")))
+    sd = obj.get("scientificDomains")
+    check("scientificDomains is a plain object, not an array", truthy=isinstance(sd, dict))
+    if isinstance(sd, dict):
+        check("scientificDomain present", truthy=bool(sd.get("scientificDomain")))
+        check("scientificSubdomain present", truthy=bool(sd.get("scientificSubdomain")))
 
 
 def test_fixed_defaults(obj):
     print(f"\n{BOLD}[13] Fixed-default fields{RESET}")
-    check("accessTypes has a value", truthy=bool(obj.get("accessTypes")))
+    check("accessType has a value", truthy=bool(obj.get("accessType")))
     check("jurisdiction has a value", truthy=bool(obj.get("jurisdiction")))
     check("nodePID has a value", truthy=bool(obj.get("nodePID")))
     check("logo is a URL", truthy=(obj.get("logo") or "").startswith("http"))
 
 
+def test_field_names_match_real_eosc_schema(obj):
+    print(f"\n{BOLD}[14] Field names match the real EOSC schema (not the source sheet's own typos){RESET}")
+    check("uses 'url', not 'urls'", truthy="url" in obj and "urls" not in obj)
+    check("uses 'publicContact', not 'publicContacts'", truthy="publicContact" in obj and "publicContacts" not in obj)
+    check("uses 'accessType', not 'accessTypes'", truthy="accessType" in obj and "accessTypes" not in obj)
+    check("no top-level 'id' key", truthy="id" not in obj)
+
+
 def test_no_xslt_errors(transform_errors):
-    print(f"\n{BOLD}[14] XSLT processor health{RESET}")
+    print(f"\n{BOLD}[15] XSLT processor health{RESET}")
     check("No XSLT processor errors or warnings", truthy=len(transform_errors) == 0)
     for e in transform_errors:
         print(f"       {RED}{e}{RESET}")
@@ -257,6 +269,7 @@ def main():
         test_trl(obj, src_root)
         test_categories_and_scientific_domains_present(obj)
         test_fixed_defaults(obj)
+        test_field_names_match_real_eosc_schema(obj)
     test_no_xslt_errors(t.error_log)
 
     total  = len(results)

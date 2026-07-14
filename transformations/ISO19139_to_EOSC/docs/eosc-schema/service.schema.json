@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:jsonschema:eosc:service",
+  "title": "Service",
+  "allOf": [
+    {"$ref": "urn:jsonschema:eosc:eosc-resource"},
+    {
+      "type": "object",
+      "properties": {
+        "serviceProviders": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "The name(s) (or abbreviation(s)) of Provider(s) that manage or deliver the Service in federated scenarios.",
+          "$comment": "Recommended"
+        },
+        "webpage": {
+          "type": "string",
+          "format": "uri",
+          "description": "Webpage with information about the Service usually hosted and maintained by the Provider."
+        },
+        "logo": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to the logo/visual identity of the Service. The logo will be visible at the Portal. If there is no specific logo for the Service the logo of the Provider may be used.",
+          "$comment": "Recommended"
+        },
+        "scientificDomains": {
+          "type": "object",
+          "description": "The branch of science, scientific discipline that is related to the Service.",
+          "properties": {
+            "scientificDomain": {
+              "type": "string",
+              "description": "nan"
+            },
+            "scientificSubdomain": {
+              "type": "string",
+              "description": "nan"
+            }
+          },
+          "required": [
+            "scientificDomain",
+            "scientificSubdomain"
+          ],
+          "additionalProperties": false,
+          "$comment": "Recommended"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "nan"
+              },
+              "subcategory": {
+                "type": "string",
+                "description": "nan"
+              }
+            },
+            "required": [
+              "category",
+              "subcategory"
+            ],
+            "additionalProperties": false
+          },
+          "$comment": "Recommended"
+        },
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "free text Keywords associated to the Service to simplify search by relevant keywords.",
+          "$comment": "Recommended"
+        },
+        "accessType": {
+          "type": "string",
+          "description": "Type of access to the service (e.g. physical, virtual)",
+          "$comment": "Recommended"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "description": "The property defines the jurisdiction of the users of the service, based on the vocabulary for this property"
+        },
+        "trl": {
+          "type": "string",
+          "description": "The Technology Readiness Level of the Service"
+        },
+        "termsOfUse": {
+          "type": "string",
+          "format": "uri",
+          "description": "Webpage describing the rules, Service conditions and usage policy which one must agree to abide by in order to use the Service."
+        },
+        "privacyPolicy": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to the privacy policy applicable to the Service."
+        },
+        "accessPolicy": {
+          "type": "string",
+          "format": "uri",
+          "description": "Information about the access policies that apply."
+        },
+        "orderType": {
+          "type": "string",
+          "description": "Information on the order type: if the service is open access of if an order is required."
+        },
+        "order": {
+          "type": "string",
+          "format": "uri",
+          "description": "Webpage through which an order for the Service can be placed."
+        },
+        "relatedInteroperabilityGuidelines": {
+          "type": "array",
+          "description": "Optional. Interoperability Guidelines this service complies with.",
+          "items": {
+            "type": "object",
+            "required": [
+              "interoperabilityGuideline"
+            ],
+            "properties": {
+              "interoperabilityGuideline": {
+                "type": "string",
+                "description": "Mandatory. Identifier of the interoperability guideline."
+              },
+              "configurationInstance": {
+                "type": "object",
+                "description": "Optional. Configuration instance specifying how the service complies with or can be called according to the guideline template.",
+                "additionalProperties": true
+              }
+            }
+        }
+      }
+      },
+      "required": [
+        "webpage",
+        "jurisdiction",
+        "trl"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

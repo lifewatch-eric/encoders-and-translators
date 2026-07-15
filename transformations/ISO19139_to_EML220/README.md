@@ -18,7 +18,7 @@ GeoNetwork instances) feed the same EML-based pipelines used for native EML data
 | Stylesheet | `xslt/main.xsl` |
 | Version | 1.0.0 |
 | Status | ✅ Stable  all tests passing on both bundled samples |
-| Author | LifeWatch ERIC Service Centre |
+| Author | LifeWatch ERIC Service Centre (service.centre@lifewatch.eu) |
 | License | MIT |
 
 ---

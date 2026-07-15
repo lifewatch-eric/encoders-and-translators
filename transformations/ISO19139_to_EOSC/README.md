@@ -20,7 +20,7 @@ EOSC Beyond marketplace.
 | Version | 1.2.0 |
 | Status | 🚧 In progress — mapping complete, core fields implemented, output validated against the real [EOSC JSON Schema](docs/eosc-schema/); several optional EOSC fields are intentionally unmapped (see [Known Limitations](docs/mapping-notes.md#known-limitations)) |
 | Program | EOSC Beyond |
-| Author | LifeWatch ERIC Service Centre |
+| Author | LifeWatch ERIC Service Centre  (service.centre@lifewatch.eu)|
 | License | MIT |
 
 ---

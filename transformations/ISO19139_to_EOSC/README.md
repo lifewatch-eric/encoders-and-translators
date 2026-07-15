@@ -17,7 +17,7 @@ EOSC Beyond marketplace.
 | Output | JSON text (not XML) |
 | XSLT version | 1.0 |
 | Stylesheet | `xslt/main.xsl` |
-| Version | 1.1.0 |
+| Version | 1.2.0 |
 | Status | 🚧 In progress — mapping complete, core fields implemented, output validated against the real [EOSC JSON Schema](docs/eosc-schema/); several optional EOSC fields are intentionally unmapped (see [Known Limitations](docs/mapping-notes.md#known-limitations)) |
 | Program | EOSC Beyond |
 | Author | LifeWatch ERIC Service Centre |
@@ -52,7 +52,7 @@ EOSC Marketplace
 ```
 ISO19139_to_EOSC/
 ├── xslt/
-│   └── main.xsl                                    ← transformation stylesheet (v1.1.0)
+│   └── main.xsl                                    ← transformation stylesheet (v1.2.0)
 ├── examples/
 │   ├── input/
 │   │   ├── semantic-platform-service-iso19139.xml  ← full-featured sample (DOI, keywords, TRL)
@@ -90,8 +90,9 @@ transformation steps, or read the field-by-field breakdown in `docs/mapping-note
 | `description` | `MD_DataIdentification/abstract` |
 | `publishingDate` | citation date typed `publication`, else `dateStamp` |
 | `publicContact` | every `electronicMailAddress` in the record |
-| `webpage`, `url[0]` | `$catalogue-base-url` + `fileIdentifier` |
+| `url[0]` | `$catalogue-base-url` + `fileIdentifier` (API/JSON-LD record endpoint) |
 | `url[1..]` | `distributionInfo//CI_OnlineResource/linkage/URL` |
+| `webpage` | `$catalogue-webpage-base-url` + `fileIdentifier` (human-facing catalogue page — **not** the same URL as `url[0]`, per the sheet's two separate worked examples) |
 | `alternativePIDs` | online resources with `protocol = DOI` |
 | `tags` | `descriptiveKeywords/MD_Keywords/keyword` |
 | `trl` | `serviceTRL_service/LW_ServiceTRL_service/@codeListValue` |
@@ -113,7 +114,8 @@ including every field left unmapped and why.
 
 | Parameter | Default | Description |
 |---|---|---|
-| `$catalogue-base-url` | `https://metadatacatalogue.lifewatch.eu/srv/api/records/` | Prefixed to `fileIdentifier` to build `webpage` / `url[0]` |
+| `$catalogue-base-url` | `https://metadatacatalogue.lifewatch.eu/srv/api/records/` | Prefixed to `fileIdentifier` to build `url[0]` (the API/JSON-LD record endpoint) |
+| `$catalogue-webpage-base-url` | `https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/` | Prefixed to `fileIdentifier` to build `webpage` (the human-facing catalogue page — a different URL pattern than `url[0]`) |
 | `$node-pid` | `21.T15999/LifeWatch-ERIC` | Value written to `nodePID` |
 | `$resource-owner-pid` | `21.11174/PTokiF00` | Value written to `resourceOwner` |
 | `$logo-url` | LifeWatch ERIC logo | Value written to `logo` |

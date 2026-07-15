@@ -57,6 +57,29 @@ things surfaced during validation that are **not** bugs in this stylesheet:
 
 ---
 
+## Re-checked field by field against the source sheet (v1.2.0)
+
+A second pass compared every row of the sheet's `Mapping` column against this
+stylesheet, field by field, rather than just the JSON shape. This found one more
+bug, fixed in v1.2.0:
+
+**`webpage` was reusing the same landing-page URL as `url[0]`.** The sheet gives a
+different worked example for each field, not two names for the same thing:
+
+| Field | Sheet's worked example | What it actually is |
+|---|---|---|
+| `url` (row "url") | `https://metadatacatalogue.lifewatch.eu/srv/api/records/87ff15ba-...` | the API record endpoint "that embeds the JSON-LD" |
+| `webpage` (row "webpage") | `https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/d9fc8450-...` | the human-facing catalogue search page |
+
+v1.1.0 built both from the same `$catalogue-base-url` parameter, so `webpage`
+incorrectly duplicated `url[0]`. v1.2.0 adds `$catalogue-webpage-base-url`
+(default `https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/`)
+so `webpage` uses its own worked-example pattern. Every other `Mapping` cell in the
+"Resource" sheet was re-checked against this stylesheet at the same time and found
+correct — see the field table below.
+
+---
+
 ## Fields mapped from the source record
 
 | EOSC field | Source | Notes |
@@ -65,7 +88,8 @@ things surfaced during validation that are **not** bugs in this stylesheet:
 | `description` | `$ident/gmd:abstract/gco:CharacterString` | `normalize-space()` applied |
 | `publishingDate` | `$citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='publication']/gmd:date/gco:Date` | Falls back to `/gmd:MD_Metadata/gmd:dateStamp` when no citation date is typed `publication` — not specified in the source sheet, added so the (Mandatory) field is never empty |
 | `publicContact` | every distinct `gmd:electronicMailAddress/gco:CharacterString` anywhere in the record | Source sheet says "the electronicMailAddress of all points of contacts" — implemented as every email in the document (`contact` + every `pointOfContact`), deduplicated. Schema requires `minItems: 1` — a record with no contact email produces an empty array, which fails validation (see Known Limitations) |
-| `webpage` / `url[0]` | `concat($catalogue-base-url, gmd:fileIdentifier/gco:CharacterString)` | `$catalogue-base-url` defaults to `https://metadatacatalogue.lifewatch.eu/srv/api/records/`, matching the source sheet's worked example |
+| `url[0]` | `concat($catalogue-base-url, gmd:fileIdentifier/gco:CharacterString)` | `$catalogue-base-url` defaults to `https://metadatacatalogue.lifewatch.eu/srv/api/records/` — the API/JSON-LD record endpoint, matching the sheet's `url` worked example |
+| `webpage` | `concat($catalogue-webpage-base-url, gmd:fileIdentifier/gco:CharacterString)` | `$catalogue-webpage-base-url` defaults to `https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/` — the human-facing catalogue page, matching the sheet's `webpage` worked example. **Not** the same URL as `url[0]` — see "Re-checked field by field" above |
 | `url[1..]` | every distinct `gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL` | |
 | `alternativePIDs` | online resources under the same `distributionInfo` block where `gmd:protocol/gco:CharacterString = 'DOI'` | `pid` = the resource's `linkage/URL` (falls back to `name` if URL absent); `pidSchema` is always the literal `"DOI"` |
 | `tags` | every distinct `gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString` anywhere in `$ident` | Same pattern as `EML211_to_EML220`'s `keywordSet` — all keyword blocks are flattened into one free-text tag list, since EOSC `tags` has no thesaurus concept |

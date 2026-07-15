@@ -188,6 +188,18 @@ def test_fixed_defaults(obj):
     check("logo is a URL", truthy=(obj.get("logo") or "").startswith("http"))
 
 
+def test_webpage_differs_from_url(obj, src):
+    print(f"\n{BOLD}[13b] webpage uses a different landing-page pattern than url[0]{RESET}")
+    file_id = char_string(src, "gmd:fileIdentifier/gco:CharacterString")
+    webpage = obj.get("webpage", "")
+    urls = obj.get("url", [])
+    check("webpage is not identical to url[0]",
+          truthy=bool(urls) and webpage != urls[0])
+    check("webpage embeds the fileIdentifier", truthy=file_id in webpage)
+    check("webpage uses the catalogue-search UI pattern, not the API pattern",
+          truthy="catalog.search" in webpage and "srv/api/records" not in webpage)
+
+
 def test_field_names_match_real_eosc_schema(obj):
     print(f"\n{BOLD}[14] Field names match the real EOSC schema (not the source sheet's own typos){RESET}")
     check("uses 'url', not 'urls'", truthy="url" in obj and "urls" not in obj)
@@ -269,6 +281,7 @@ def main():
         test_trl(obj, src_root)
         test_categories_and_scientific_domains_present(obj)
         test_fixed_defaults(obj)
+        test_webpage_differs_from_url(obj, src_root)
         test_field_names_match_real_eosc_schema(obj)
     test_no_xslt_errors(t.error_log)
 

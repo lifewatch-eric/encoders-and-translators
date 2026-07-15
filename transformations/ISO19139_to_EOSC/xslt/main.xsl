@@ -26,8 +26,17 @@
 
   Parameters:
     $catalogue-base-url  (default 'https://metadatacatalogue.lifewatch.eu/srv/api/records/')
-      Prefixed to gmd:fileIdentifier to build "webpage" and the
-      first "url" entry (the record's landing page).
+      Prefixed to gmd:fileIdentifier to build the first "url" entry —
+      the source sheet's row for "url" specifically calls this "the
+      landing page that embeds the JSON-LD", i.e. the catalogue's API
+      record endpoint. NOT the same URL as "webpage" — see below.
+
+    $catalogue-webpage-base-url  (default 'https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/')
+      Prefixed to gmd:fileIdentifier to build "webpage". The source
+      sheet's row for "webpage" gives a different URL pattern than the
+      one it gives for "url" (the human-facing catalogue search page,
+      not the JSON-LD API endpoint) — conflating the two was a bug in
+      v1.1.0, fixed in v1.2.0.
 
     $node-pid            (default '21.T15999/LifeWatch-ERIC')
     $resource-owner-pid  (default '21.11174/PTokiF00')
@@ -56,6 +65,16 @@
   docs/mapping-notes.md, "Validated against the real EOSC schema").
 
   Changelog:
+    v1.2.0  2026-07-15
+      - FIX  "webpage" was built from the same landing-page URL as
+             "url[0]". The source sheet gives a DIFFERENT worked
+             example for each: "url" -> the API record endpoint that
+             embeds JSON-LD (.../srv/api/records/{id}), "webpage" ->
+             the human-facing catalogue search page
+             (.../srv/eng/catalog.search#/metadata/{id}). Added
+             $catalogue-webpage-base-url so the two are no longer the
+             same value. Found by re-checking the transformation
+             against the source sheet's own two worked examples.
     v1.1.0  2026-07-14
       - FIX  "urls" -> "url": the schema's field name is singular.
       - FIX  "publicContacts" -> "publicContact": singular in the schema.
@@ -70,7 +89,7 @@
     v1.0.0  2026-07-13  Original.
 
   Author:  LifeWatch ERIC Service Centre
-  Version: 1.1.0  —  2026-07-14
+  Version: 1.2.0  —  2026-07-15
   License: MIT
   ============================================================
 -->
@@ -84,6 +103,7 @@
 
   <!-- ── Parameters ─────────────────────────────────────────────────────── -->
   <xsl:param name="catalogue-base-url" select="'https://metadatacatalogue.lifewatch.eu/srv/api/records/'"/>
+  <xsl:param name="catalogue-webpage-base-url" select="'https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/'"/>
   <xsl:param name="node-pid"           select="'21.T15999/LifeWatch-ERIC'"/>
   <xsl:param name="resource-owner-pid" select="'21.11174/PTokiF00'"/>
   <xsl:param name="logo-url"           select="'https://www.lifewatch.eu/wp-content/uploads/2021/07/logoLW_eric_outline2-01.svg'"/>
@@ -218,7 +238,11 @@
     <xsl:variable name="ident"    select="gmd:identificationInfo/*[1]"/>
     <xsl:variable name="citation" select="$ident/gmd:citation/gmd:CI_Citation"/>
     <xsl:variable name="file-id"  select="normalize-space(gmd:fileIdentifier/gco:CharacterString)"/>
+    <!-- "url" and "webpage" are two DIFFERENT landing pages per the source
+         sheet's own worked examples: url[0] is the API endpoint that embeds
+         the record's JSON-LD; webpage is the human-facing catalogue page. -->
     <xsl:variable name="landing-page" select="concat($catalogue-base-url, $file-id)"/>
+    <xsl:variable name="webpage-url" select="concat($catalogue-webpage-base-url, $file-id)"/>
 
     <xsl:variable name="name" select="normalize-space($citation/gmd:title/gco:CharacterString)"/>
     <xsl:variable name="description" select="normalize-space($ident/gmd:abstract/gco:CharacterString)"/>
@@ -322,7 +346,7 @@
 
     <!-- webpage -->
     <xsl:text>  "webpage": "</xsl:text>
-    <xsl:call-template name="json-string"><xsl:with-param name="text" select="$landing-page"/></xsl:call-template>
+    <xsl:call-template name="json-string"><xsl:with-param name="text" select="$webpage-url"/></xsl:call-template>
     <xsl:text>",&#10;</xsl:text>
 
     <!-- logo -->

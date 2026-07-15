@@ -81,7 +81,7 @@
   <!-- Row 6 -->
   <rect x="150" y="496" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
   <text x="277" y="512" text-anchor="middle" font-size="9" fill="#3fb950">⑩ webpage</text>
-  <text x="277" y="526" text-anchor="middle" font-size="7" fill="#8b949e">same landing page as url[0]</text>
+  <text x="277" y="526" text-anchor="middle" font-size="7" fill="#8b949e">different URL pattern than url[0]</text>
 
   <rect x="415" y="496" width="255" height="40" rx="5" fill="#0d2211" stroke="#1a4a1f"/>
   <text x="542" y="512" text-anchor="middle" font-size="9" fill="#3fb950">⑪ logo</text>

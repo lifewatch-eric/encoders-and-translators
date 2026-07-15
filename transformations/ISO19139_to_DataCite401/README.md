@@ -19,7 +19,7 @@ program.
 | Version | 1.0.0 |
 | Status | 🚧 In progress — mapping complete, core fields implemented; creation date, revision date, status and non-DOI distribution links are intentionally unmapped (see [Known Limitations](docs/mapping-notes.md#known-limitations)) |
 | Program | Harvesting with OpenAIRE |
-| Author | LifeWatch ERIC Service Centre |
+| Author | LifeWatch ERIC Service Centre (service.centre@lifewatch.eu) |
 | License | MIT |
 
 ---

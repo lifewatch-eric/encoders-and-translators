@@ -1,0 +1,151 @@
+# ISO 19139 → JSON-LD
+
+Converts an **ISO 19139** metadata record — Workflow, VRE, or Service — into a
+**schema.org JSON-LD** document, per the LifeWatch ERIC JSON-LD mapping spec. The
+JSON-LD `@type` is **auto-detected** from the record content; no manual selection
+needed.
+
+---
+
+## Overview
+
+| Property | Value |
+|---|---|
+| Source format | ISO 19139 (`http://www.isotc211.org/2005/gmd`) |
+| Target format | JSON-LD (`@vocab: https://schema.org/`), `@type` auto-detected |
+| Scope | Workflows, VREs, Services (`Action` / `HowTo` / `CreativeWork`) |
+| Implementation | Python (Google Colab notebook), not XSLT |
+| Notebook | `ISO19139_to_JsonLD_v2.1.ipynb` |
+| Documentation | `docs/ISO19139_to_JsonLD_Documentation_v2.1.pdf` (7 pages) |
+| Version | 2.1 — 2026-07-14 |
+| Status | Documented, in active use — see version history below |
+| Author | LifeWatch ERIC |
+
+Unlike the XSLT-based transformations elsewhere in this repository, this is a
+self-contained **Google Colab notebook**: it installs its own dependencies
+(`lxml`, `tabulate`) on first run, prompts for a file upload, converts, validates,
+and downloads the result — no local environment setup required.
+
+---
+
+## Purpose
+
+Companion to [`../EML_to_JSONLD`](../EML_to_JSONLD), which handles Dataset assets.
+This notebook covers everything else in the LifeWatch ERIC catalogue that's
+expressed as ISO 19139: Workflows, Virtual Research Environments, and Services —
+mapping each to the schema.org type that best represents it.
+
+---
+
+## File Structure
+
+```
+ISO19139_to_JSONLD/
+├── ISO19139_to_JsonLD_v2.1.ipynb   ← the converter notebook
+├── docs/
+│   └── ISO19139_to_JsonLD_Documentation_v2.1.pdf   ← full technical documentation (7 pages)
+└── README.md                        ← this file
+```
+
+---
+
+## Record-type auto-detection
+
+| ISO 19139 record type | JSON-LD `@type` | Detected by |
+|---|---|---|
+| Workflow | `CreativeWork` | `hierarchyLevel=application` or "workflow" in title/keywords |
+| VRE | `CreativeWork` | `hierarchyLevel=application` or "VRE"/"Virtual Lab" in title/keywords |
+| Service → Action | `Action` | `hierarchyLevel=service` + registered I/O (`srv:SV_OperationMetadata` or `gmd:LW_Service`) |
+| Service → HowTo | `HowTo` | `hierarchyLevel=service` + "Marco-Bolo" keyword + no registered I/O |
+| Service → CreativeWork | `CreativeWork` | `hierarchyLevel=service` + no Marco-Bolo + no registered I/O (default for services) |
+| (any other) | `CreativeWork` | fallback |
+
+Override auto-detection with `record_type='Action'|'HowTo'|'Workflow'|'VRE'|'CreativeWork'`.
+
+## Mapping summary
+
+| ISO 19139 field | Workflow / VRE | Action | HowTo / CreativeWork |
+|---|---|---|---|
+| `fileIdentifier` | `@id` + `url` | `@id` + `url` | `@id` + `url` |
+| `title` | `name` | `name` | `name` |
+| `abstract` | `description` | `description` | `description` |
+| `CI_Date` (creation) | `dateCreated` | — | `dateCreated` |
+| `CI_Date` (publication) | `datePublished` | `startTime` + `endTime` | `datePublished` |
+| `CI_Date` (revision) | `dateModified` | — | `dateModified` |
+| `MD_ProgressCode` | `creativeWorkStatus` | `creativeWorkStatus` | `creativeWorkStatus` |
+| `pointOfContact` | `creator` | `agent` | `creator` |
+| `useLimitation` | `license` | **not mapped** | `license` |
+| `keyword` | `keywords[]` | **not mapped** | `keywords[]` |
+| `distributionInfo` URL(s) | `sameAs` (all URLs) | `sameAs` (last URL only — the runnable link) | `sameAs` (all URLs) |
+| — | `provider` — hardcoded LifeWatch ERIC block on every record type |
+
+`@id` uses `https://metadatacatalogue.lifewatch.eu/srv/api/records/{UUID}`; `url`
+uses `https://metadatacatalogue.lifewatch.eu/srv/eng/catalog.search#/metadata/{UUID}`
+— the same API-endpoint-vs-human-facing-page distinction documented for
+[`ISO19139_to_EOSC`](../../ISO19139_to_EOSC).
+
+### `MD_ProgressCode` → `creativeWorkStatus`
+
+| ISO code | Status name | PSO URI |
+|---|---|---|
+| `completed` | Published | `http://purl.org/spar/pso/published` |
+| `onGoing` | Published | `http://purl.org/spar/pso/published` |
+| `underDevelopment` | Draft | `http://purl.org/spar/pso/draft` |
+| `historicalArchive` | Archived | `http://purl.org/spar/pso/archived` |
+| `obsolete` | Archived | `http://purl.org/spar/pso/archived` |
+
+Full field-by-field detail per record type is in
+`docs/ISO19139_to_JsonLD_Documentation_v2.1.pdf`, section 3.
+
+---
+
+## Usage
+
+### Google Colab (primary workflow)
+
+Runtime → Restart runtime → Runtime → Run all, then upload your ISO 19139 XML.
+Record type is auto-detected from the XML content.
+
+### Programmatic
+
+```python
+# Auto-detect (recommended)
+result = run(xml_path='/path/to/record.xml')
+
+# Override record type
+result = run(xml_path='/path/to/record.xml', record_type='Action')
+
+# Direct class usage
+conv = ISO19139toJsonLD('/path/to/record.xml')
+doc = conv.convert(record_type='HowTo')
+conv.save('record.jsonld')
+conv.print_loss_report()
+```
+
+### Mapping report status codes
+
+| Status | Meaning |
+|---|---|
+| `OK` | Field successfully mapped |
+| `PARTIAL` | Field attempted but only partially handled |
+| `LOST` | Field absent in the source XML |
+
+---
+
+## Version History
+
+| Version | Change |
+|---|---|
+| v2.1 | `provider` hardcoded to the LifeWatch ERIC block on all record types; empty-`affiliation` fix (a contact with an empty `<organisationName>` now still gets `"affiliation": {"@type": "Organization", "name": ""}` instead of it being silently omitted). |
+| v2.0 | Auto-detection of record type added (Workflow/VRE/Action/HowTo/CreativeWork). |
+| v1.0 | Initial implementation covering Workflow, VRE, Action, HowTo, CreativeWork. |
+
+---
+
+## See Also
+
+- [EML 2.2.0 → JSON-LD (Datasets)](../EML_to_JSONLD)
+- [ISO19139_to_EOSC — same source format, EOSC JSON target instead of JSON-LD](../../ISO19139_to_EOSC)
+- [schema.org validator](https://validator.schema.org/)
+- [JSONLD_Mappings overview](../README.md)
+- [Repository README](../../../README.md)

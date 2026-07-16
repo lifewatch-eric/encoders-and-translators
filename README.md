@@ -17,9 +17,12 @@ lifewatch-xslt-transformations/
 │   ├── EML220_to_DataCite401/            # EML 2.2.0 → DataCite 4.0.1 / OpenAIRE
 │   ├── ISO19139_to_EML220/               # ISO 19139 → EML 2.2.0
 │   ├── ISO19139_to_EOSC/                 # ISO 19139 → EOSC Resource "Service" (JSON)
-│   └── ISO19139_to_DataCite401/          # ISO 19139 → DataCite 4.0.1 / OpenAIRE (Workflow, VRE)
+│   ├── ISO19139_to_DataCite401/          # ISO 19139 → DataCite 4.0.1 / OpenAIRE (Workflow, VRE)
+│   └── JSONLD_Mappings/                  # EML / ISO 19139 → schema.org JSON-LD (Colab notebooks, not XSLT)
+│       ├── EML_to_JSONLD/
+│       └── ISO19139_to_JSONLD/
 │
-│   Every transformation folder follows the same shape:
+│   Every XSLT transformation folder follows the same shape:
 │
 │   <Name>/
 │   ├── xslt/
@@ -37,6 +40,17 @@ lifewatch-xslt-transformations/
 │   `ISO19139_to_EOSC` additionally ships `docs/eosc-schema/` (the real EOSC JSON
 │   Schemas, vendored locally) and `validate_output.py`, which checks its output
 │   against them directly rather than just against worked spreadsheet examples.
+│
+│   `JSONLD_Mappings/` is different by design — see
+│   [transformations/JSONLD_Mappings/README.md](transformations/JSONLD_Mappings/README.md).
+│   Its two sub-folders are self-contained Google Colab notebooks (not XSLT), each
+│   with its own PDF technical documentation instead of mapping-notes.md:
+│
+│   JSONLD_Mappings/<Name>/
+│   ├── <Name>.ipynb                      # The converter notebook (Python, Colab-ready)
+│   ├── docs/
+│   │   └── <Name>_Documentation.pdf      # Full technical documentation
+│   └── README.md
 │
 ├── shared/                               # Reusable templates imported by multiple transformations
 │   ├── namespaces.xml                    # Canonical namespace declarations
@@ -69,6 +83,17 @@ lifewatch-xslt-transformations/
 Each transformation's own README documents its parameters, known limitations, and
 exactly which fields are mapped vs. intentionally left out — read it before relying
 on a "🚧 In progress" transformation for anything beyond a first pass.
+
+### JSON-LD Mappings (Colab notebooks, not XSLT)
+
+| Mapping | Source | Target | Version |
+|---|---|---|---|
+| [`JSONLD_Mappings/EML_to_JSONLD`](transformations/JSONLD_Mappings/EML_to_JSONLD) | EML 2.2.0 | schema.org JSON-LD (`Dataset`) | 5.2 |
+| [`JSONLD_Mappings/ISO19139_to_JSONLD`](transformations/JSONLD_Mappings/ISO19139_to_JSONLD) | ISO 19139 | schema.org JSON-LD (`CreativeWork` / `Action` / `HowTo`, auto-detected) | 2.1 |
+
+These target JSON-LD for general web/search discovery, independently of the EOSC-
+and DataCite-targeting transformations above. See
+[transformations/JSONLD_Mappings/README.md](transformations/JSONLD_Mappings/README.md).
 
 ---
 

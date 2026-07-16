@@ -49,8 +49,12 @@ def check(label: str, got=None, expected=None, truthy=None):
 
 
 def char_string(element, path):
+    """Mirrors XPath normalize-space(): collapses every internal whitespace
+    run (tabs, newlines, repeated spaces) to a single space, then trims. A
+    plain .strip() only trims edges and under-reports mismatches on any
+    source text containing embedded tabs/newlines — see stress-test sample."""
     text = element.findtext(path, namespaces=NS)
-    return (text or "").strip()
+    return " ".join((text or "").split())
 
 
 # ──────────────────────────────────────────────────────────────────────────────

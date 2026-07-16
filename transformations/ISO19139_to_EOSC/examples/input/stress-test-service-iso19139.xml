@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmd:MD_Metadata
+    xmlns:gmd="http://www.isotc211.org/2005/gmd"
+    xmlns:gco="http://www.isotc211.org/2005/gco"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://schemas.opengis.net/iso/19139/20070417/gmd/gmd.xsd">
+
+  <gmd:fileIdentifier>
+    <gco:CharacterString>stress-test-îd-üñïçødé-42</gco:CharacterString>
+  </gmd:fileIdentifier>
+
+  <gmd:hierarchyLevel>
+    <gmd:MD_ScopeCode codeListValue="service">service</gmd:MD_ScopeCode>
+  </gmd:hierarchyLevel>
+
+  <gmd:contact>
+    <gmd:CI_ResponsibleParty>
+      <gmd:organisationName><gco:CharacterString>Quote &amp; "Ampersand" Org</gco:CharacterString></gmd:organisationName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:electronicMailAddress><gco:CharacterString>test+special@example.eu</gco:CharacterString></gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+
+  <gmd:dateStamp>
+    <gco:Date>2026-05-01</gco:Date>
+  </gmd:dateStamp>
+
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>Test "Service" — with a backslash \ and a tab	here, plus emoji 🚀 and Ünïcödé</gco:CharacterString>
+          </gmd:title>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date><gco:Date>2026-05-01</gco:Date></gmd:date>
+              <gmd:dateType><gmd:CI_DateTypeCode codeListValue="publication">publication</gmd:CI_DateTypeCode></gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract>
+        <gco:CharacterString>Multi-line
+description with a "quoted phrase", a backslash \path\to\file, and trailing   spaces.   </gco:CharacterString>
+      </gmd:abstract>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword><gco:CharacterString>keyword with "quotes"</gco:CharacterString></gmd:keyword>
+          <gmd:keyword><gco:CharacterString>back\slash</gco:CharacterString></gmd:keyword>
+          <gmd:keyword><gco:CharacterString>emoji 🎉 keyword</gco:CharacterString></gmd:keyword>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:serviceTRL_service>
+        <gmd:LW_ServiceTRL_service codeListValue="TRL 4 – Technology validated in lab" codeList="http://standards.iso.org/iso/19139/resources/gmxCodelists.xml#LW_ServiceTRL_service"/>
+      </gmd:serviceTRL_service>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+
+  <gmd:distributionInfo>
+    <gmd:MD_Distribution>
+      <gmd:transferOptions>
+        <gmd:MD_DigitalTransferOptions>
+          <gmd:onLine>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage><gmd:URL>https://example.eu/path?query="quoted"&amp;x=1</gmd:URL></gmd:linkage>
+              <gmd:protocol><gco:CharacterString>WWW:LINK</gco:CharacterString></gmd:protocol>
+              <gmd:name><gco:CharacterString>Link with special chars</gco:CharacterString></gmd:name>
+            </gmd:CI_OnlineResource>
+          </gmd:onLine>
+          <gmd:onLine>
+            <gmd:CI_OnlineResource>
+              <gmd:linkage><gmd:URL>https://doi.org/10.9999/test\backslash</gmd:URL></gmd:linkage>
+              <gmd:protocol><gco:CharacterString>DOI</gco:CharacterString></gmd:protocol>
+              <gmd:name><gco:CharacterString>DOI with backslash</gco:CharacterString></gmd:name>
+            </gmd:CI_OnlineResource>
+          </gmd:onLine>
+        </gmd:MD_DigitalTransferOptions>
+      </gmd:transferOptions>
+    </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+
+</gmd:MD_Metadata>

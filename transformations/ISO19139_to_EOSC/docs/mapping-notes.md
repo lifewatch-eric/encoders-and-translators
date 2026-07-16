@@ -57,6 +57,41 @@ things surfaced during validation that are **not** bugs in this stylesheet:
 
 ---
 
+## Hardening pass: stress-testing and closing a validator blind spot
+
+A final pass went beyond "does it match the schema" to "does the schema itself catch
+everything that matters":
+
+- **JSON-escaping stress test.** `examples/input/stress-test-service-iso19139.xml`
+  feeds every string field quotes, backslashes, embedded tabs/newlines, Unicode, and
+  emoji at once. Output is valid JSON and validates cleanly against the schema —
+  confirms the `json-string` template's escaping is correct, not just correct on the
+  two "clean" bundled samples. Kept permanently as a regression fixture.
+- **`validate_output.py` had a blind spot.** None of the real schema's *required*
+  string properties (`name`, `description`, `publishingDate`, `type`, `nodePID`,
+  `webpage`, `jurisdiction`, `trl`) declare `minLength` — so `{"name": ""}` satisfies
+  `required` + `type: string` as far as the schema is concerned. Confirmed by feeding
+  the stylesheet a pathological all-empty ISO 19139 record: raw schema validation
+  reported *only* the `publicContact`/`minItems` error and said nothing about
+  `name`/`description`/`publishingDate`/`trl` all being empty strings. Fixed by adding
+  `check_non_empty_mandatory()` to `validate_output.py`, which flags empty values on
+  required string fields explicitly, independent of the schema's own (looser) rules.
+  This also means `examples/output/minimal-sample-service-eosc-service.json` now
+  correctly reports **two** real problems (`publicContact` empty *and* `trl` empty),
+  where it previously only surfaced the first.
+- **Category lookup table verified programmatically**, not by eye — a script parsed
+  both the sheet's 9-row lookup table and the `eosc-category-id` /
+  `eosc-subcategory-id` XSLT templates and diffed every key/value pair. Zero
+  mismatches.
+- **Test harness fix (not a stylesheet bug):** `test_transformation.py`'s
+  `char_string()` helper used Python's `.strip()`, which only trims edges — unlike
+  XPath's `normalize-space()` (used throughout `main.xsl`), it doesn't collapse
+  internal whitespace runs. This under-reported mismatches whenever source text
+  contained embedded tabs or newlines, exactly what the stress-test sample exercises.
+  Fixed to mirror `normalize-space()` semantics (`" ".join(text.split())`).
+
+---
+
 ## Re-checked field by field against the source sheet (v1.2.0)
 
 A second pass compared every row of the sheet's `Mapping` column against this
@@ -147,7 +182,7 @@ to the `support` row.
 | `serviceProviders` | Not mapped. The source sheet lists it as Recommended but gives no mapping recipe from ISO 19139 — populate manually in the EOSC portal. |
 | `termsOfUse`, `privacyPolicy`, `accessPolicy`, `orderType`, `order`, `relatedInteroperabilityGuidelines` | Not mapped — the source sheet leaves these rows without a `Mapping` value at all. All are Optional in the EOSC model; fill them in manually after registration if applicable. |
 | `categories` | As above — ISO 19139 carries no equivalent field, so this is a parameter (`$service-category`), not a derived value. Get it wrong and the record lands in the wrong EOSC catalogue category. |
-| `trl` | Depends on the non-standard `gmd:serviceTRL_service` / `gmd:LW_ServiceTRL_service` extension element existing in the source record. Records without it produce `"trl": ""`, which is **not valid** against the EOSC schema (`trl` is Mandatory) — the caller must patch this in before submission if the source catalogue entry has no TRL assigned. |
+| `trl` | Depends on the non-standard `gmd:serviceTRL_service` / `gmd:LW_ServiceTRL_service` extension element existing in the source record. Records without it produce `"trl": ""` — the schema itself has no `minLength` on `trl` so this doesn't fail raw schema validation, but `validate_output.py`'s `check_non_empty_mandatory()` catches it explicitly (see "Hardening pass" above). The caller must patch this in before submission if the source catalogue entry has no TRL assigned. |
 | `alternativePIDs` / DOI detection | Only online resources whose `gmd:protocol` is the exact literal `DOI` are picked up. A record that expresses a DOI a different way (e.g. only as a bare string in `gmd:linkage/gmd:URL` without a `DOI` protocol tag) will not be detected. |
 | `publishingDate` fallback | The source sheet's mapping recipe only names the `publication`-typed citation date; the `gmd:dateStamp` fallback used here to avoid emitting an empty Mandatory field is an addition, not part of the original recipe — verify it's an acceptable substitute for records that only carry a metadata date stamp. |
 | Identification block | `$ident` is taken as `gmd:identificationInfo/*[1]` so the stylesheet works whether the source uses `gmd:MD_DataIdentification` or ISO 19119's `srv:SV_ServiceIdentification` — but only one identification block is read; a record with more than one is only partially mapped. |

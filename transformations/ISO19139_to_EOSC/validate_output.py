@@ -21,6 +21,16 @@ See docs/eosc-schema/README.md for the vendoring details and the one-line
 syntax patch applied to the upstream service.schema.json (which does not
 parse as JSON in its published form).
 
+Also checks something the schema itself cannot: none of its "required" string
+properties (name, description, publishingDate, type, nodePID, webpage,
+jurisdiction, trl) declare minLength, so an empty string "" satisfies
+"required" + "type": "string" — the schema alone considers {"name": ""} valid.
+Confirmed by feeding it a pathological all-empty ISO 19139 record: raw schema
+validation reported only the publicContact/minItems error and said nothing
+about name/description/publishingDate being empty strings. This script adds
+that check explicitly rather than relying on schema conformance to mean
+"actually usable".
+
 Usage:
     python3 validate_output.py examples/output/semantic-platform-service-eosc-service.json
     python3 validate_output.py examples/output/*.json
@@ -62,6 +72,20 @@ def build_merged_schema():
     return merged
 
 
+def check_non_empty_mandatory(schema, data):
+    """The real schema has no minLength on its required string properties, so
+    an empty string still satisfies "required" + "type": "string". Flag those
+    explicitly — see module docstring."""
+    empty_fields = []
+    for field in schema.get("required", []):
+        prop = schema["properties"].get(field, {})
+        if prop.get("type") == "string":
+            value = data.get(field)
+            if isinstance(value, str) and value.strip() == "":
+                empty_fields.append(field)
+    return empty_fields
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("files", nargs="+", type=Path)
@@ -91,6 +115,8 @@ def main():
         real_errors = [e for e in errors if e.message not in EXPECTED_MESSAGES]
         expected = [e for e in errors if e.message in EXPECTED_MESSAGES]
 
+        empty_mandatory = check_non_empty_mandatory(schema, data)
+
         print(f"\n{BOLD}{path.name}{RESET}")
         for e in expected:
             print(f"  {YELLOW}⚠  expected{RESET}  {list(e.path)}: {e.message}  (see Known Limitations)")
@@ -98,8 +124,12 @@ def main():
             overall_ok = False
             for e in real_errors:
                 print(f"  {RED}✗  {list(e.path)}: {e.message}{RESET}")
-        else:
-            print(f"  {GREEN}✅  matches the merged EOSC Resource + Service schema{RESET}")
+        if empty_mandatory:
+            overall_ok = False
+            for field in empty_mandatory:
+                print(f"  {RED}✗  '{field}' is required but empty (schema allows this — see module docstring){RESET}")
+        if not real_errors and not empty_mandatory:
+            print(f"  {GREEN}✅  matches the merged EOSC Resource + Service schema, no empty mandatory fields{RESET}")
 
     sys.exit(0 if overall_ok else 1)
 

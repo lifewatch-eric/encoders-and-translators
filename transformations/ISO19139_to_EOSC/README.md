@@ -56,10 +56,12 @@ ISO19139_to_EOSC/
 ├── examples/
 │   ├── input/
 │   │   ├── semantic-platform-service-iso19139.xml  ← full-featured sample (DOI, keywords, TRL)
-│   │   └── minimal-sample-service-iso19139.xml     ← minimal / edge-case sample
+│   │   ├── minimal-sample-service-iso19139.xml     ← minimal / edge-case sample (no email, no TRL)
+│   │   └── stress-test-service-iso19139.xml        ← quotes, backslashes, tabs, Unicode, emoji
 │   └── output/
 │       ├── semantic-platform-service-eosc-service.json
-│       └── minimal-sample-service-eosc-service.json
+│       ├── minimal-sample-service-eosc-service.json
+│       └── stress-test-service-eosc-service.json
 ├── docs/
 │   ├── mapping-notes.md                            ← field-level mapping reference
 │   ├── transformation-diagram.svg                  ← visual flow diagram (open in browser)
@@ -171,8 +173,12 @@ python3 validate_output.py examples/output/*.json
 Validates output against the vendored `docs/eosc-schema/` copies of the real
 `eosc-resource.schema.json` / `service.schema.json` from
 [EOSC-PLATFORM/eosc-resources-model](https://github.com/EOSC-PLATFORM/eosc-resources-model),
-not just against the source spreadsheet's own (partly incorrect) worked examples. See
-[mapping-notes.md, "Validated against the real EOSC schema"](docs/mapping-notes.md#validated-against-the-real-eosc-schema).
+not just against the source spreadsheet's own (partly incorrect) worked examples. It
+also catches something raw schema validation can't: none of the schema's required
+string fields declare `minLength`, so `{"name": ""}` is technically schema-valid —
+`validate_output.py` flags empty required strings explicitly. See
+[mapping-notes.md, "Validated against the real EOSC schema"](docs/mapping-notes.md#validated-against-the-real-eosc-schema)
+and ["Hardening pass"](docs/mapping-notes.md#hardening-pass-stress-testing-and-closing-a-validator-blind-spot).
 
 ---
 
@@ -183,9 +189,10 @@ mapping notes — notably: `id` is never emitted (EOSC assigns it on registratio
 the schema requires it, so this is an expected, non-blocking validation error every
 time), `publicContact` fails schema validation (`minItems: 1`) when the source record
 has no contact email at all, `categories` depends on a manual `$service-category`
-parameter since ISO 19139 has no equivalent field, and `trl` requires the
-non-standard `serviceTRL_service` extension element to be present in the source
-record.
+parameter since ISO 19139 has no equivalent field, and `trl` is left as an empty
+string when the source record has no `serviceTRL_service` extension element —
+`validate_output.py` now explicitly flags this, since the schema's own
+`minLength`-less `trl` property wouldn't otherwise catch it.
 
 ---
 

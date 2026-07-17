@@ -28,7 +28,7 @@ these (yet)  see each sub-folder's README for exact usage.
 Together these two cover every resource type in the LifeWatch ERIC catalogue:
 Datasets (EML) on one side; Workflows, VREs, and Services (ISO 19139) on the other.
 Both target the same `{"@vocab": "https://schema.org/"}` JSON-LD context and share
-conventions — hardcoded `provider` block for LifeWatch ERIC, the same
+conventions  hardcoded `provider` block for LifeWatch ERIC, the same
 `@id`/`url`/`sameAs` identifier strategy, the same `OK` / `PARTIAL` / `LOST` (/
 `DROPPED`) mapping-report status codes  documented in full in each sub-folder's
 PDF.
